@@ -44,7 +44,6 @@ fun CrownToolbar(
             modifier = Modifier.shadow(4.dp, shape = RectangleShape)
         )
     }
-
 }
 
 @Preview(showBackground = true)

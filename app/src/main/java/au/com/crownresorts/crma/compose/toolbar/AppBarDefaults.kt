@@ -61,10 +61,16 @@ data class ToolbarModel(
 ) : IToolbarModel
 
 @Composable
-fun toolbarModelDefault() = ToolbarModel(
-    title = "Page title",
-    homeAction = homeActionDefault(),
-    rightAction = rightActionDefault(),
-    colorsDefault = toolbarColorDefault(),
-    callback = {}
+fun toolbarModelDefault(
+    _titleText: String = "Page title",
+    _homeAction: ActionToolbar? = homeActionDefault(),
+    _rightAction: ActionToolbar? = rightActionDefault(),
+    _colorsDefault: ColorToolbar = toolbarColorDefault(),
+    _callback: (ActionButtonType) -> Unit = {}
+) = ToolbarModel(
+    title = _titleText,
+    homeAction = _homeAction,
+    rightAction = _rightAction,
+    colorsDefault = _colorsDefault,
+    callback = _callback
 )
