@@ -9,26 +9,31 @@ import androidx.compose.runtime.staticCompositionLocalOf
 @Immutable
 data class CrownColors(
     val buttonPrimer: ButtonColor,
-    val buttonSecondary: ButtonColor
-
+    val buttonSecondary: ButtonColor,
+    val appBar: AppBarColor
 )
 
 
 val LocalCrownColors = staticCompositionLocalOf {
     CrownColors(
         buttonPrimer = buttonDefault(),
-        buttonSecondary = buttonDefault()
+        buttonSecondary = buttonDefault(),
+        appBar = appBarColorDefault()
     )
 }
 
 
 val LightColors = CrownColors(
     buttonPrimer = buttonPrimaryColor(),
-    buttonSecondary = buttonSecondaryColor()
+    buttonSecondary = buttonSecondaryColor(),
+    appBar = appBarLight()
 )
+
+
 val DarkColors = CrownColors(
     buttonPrimer = buttonPrimaryDark(),
-    buttonSecondary = buttonSecondaryDark()
+    buttonSecondary = buttonSecondaryDark(),
+    appBar = appBarDark(),
 )
 
 @Composable
@@ -38,10 +43,7 @@ fun CrownTheme(
     content: @Composable () -> Unit
 ) {
     val extendedColors = if (isDark) DarkColors else LightColors
-    CompositionLocalProvider(
-        LocalCrownColors provides extendedColors,
-        LocalCrownColors provides extendedColors
-    ) {
+    CompositionLocalProvider(LocalCrownColors provides extendedColors) {
         MaterialTheme(
             /* colorScheme = ..., typography = ..., shapes = ... */
             shapes = CrownShapes,

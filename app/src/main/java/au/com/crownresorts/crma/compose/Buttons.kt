@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
+import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
 
 
 @Composable
@@ -62,6 +63,7 @@ private fun ButtonCrown(text: String, enabled: Boolean = true, isPrimary: Boolea
 private fun PreviewButtonsLight() {
     CrownTheme(isDark = false) {
         Column {
+            CrownToolbar()
             ButtonPrimary(text = "Text 1", enabled = true)
             ButtonPrimary(text = "Text 1", enabled = false)
             Spacer(modifier = Modifier.padding(top = 24.dp))
@@ -77,6 +79,7 @@ private fun PreviewButtonsLight() {
 private fun PreviewButtonsDark() {
     CrownTheme(isDark = true) {
         Column(modifier = Modifier.background(color = Color.Black)) {
+            CrownToolbar()
             ButtonPrimary(text = "Text 1", enabled = true)
             ButtonPrimary(text = "Text 1", enabled = false)
             Spacer(modifier = Modifier.padding(top = 24.dp))
