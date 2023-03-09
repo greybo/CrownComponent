@@ -17,3 +17,4 @@ local.properties
 /app/src/androidTest/java/com/example/crownexample/ExampleInstrumentedTest.kt
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/.name
+/.idea/deploymentTargetDropDown.xml
