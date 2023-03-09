@@ -12,7 +12,7 @@
         android:theme="@style/Theme.CrownExample"
         tools:targetApi="31">
         <activity
-            android:name="au.com.crownresorts.crma.MainActivity"
+            android:name="au.com.crownresorts.crma.compose.ComposeExampleActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CrownExample">

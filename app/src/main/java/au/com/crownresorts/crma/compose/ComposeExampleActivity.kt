@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma
+package au.com.crownresorts.crma.compose
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import au.com.crownresorts.crma.compose.router.RouterCompose
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
-class MainActivity : ComponentActivity() {
+class ComposeExampleActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
