@@ -8,9 +8,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import au.com.crownresorts.crma.compose.screens.ComposeTemplateScreen
+import au.com.crownresorts.crma.compose.screens.ComposeTypographyScreen
 import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
-import au.com.crownresorts.crma.compose.screens.details.ComposeDetailsMain
-import au.com.crownresorts.crma.compose.screens.details.MainComposeItems
+import au.com.crownresorts.crma.compose.screens.component.ComposeComponentScreen
+import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
+import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
 
 @Preview
 @Composable
@@ -23,19 +26,19 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
     ) {
 
         composable(RouterScreenType.DetailMain.name) {
-            ComposeDetailsMain(callback = {item->
+            ComposeDetailsMain(callback = { item ->
                 when (item) {
-                    MainComposeItems.Color ->  navController.navigate(RouterScreenType.Color.name)
-                    MainComposeItems.Components ->  navController.navigate(RouterScreenType.Components.name)
-                    MainComposeItems.Typography ->  navController.navigate(RouterScreenType.Typography.name)
-                    MainComposeItems.Templates ->  navController.navigate(RouterScreenType.Templates.name)
+                    MainComposeItems.Color -> navController.navigate(RouterScreenType.Color.name)
+                    MainComposeItems.Components -> navController.navigate(RouterScreenType.Components.name)
+                    MainComposeItems.Typography -> navController.navigate(RouterScreenType.Typography.name)
+                    MainComposeItems.Templates -> navController.navigate(RouterScreenType.Templates.name)
                 }
             })
         }
-        composable(RouterScreenType.Color.name) { ComposeColorScreen {} }
-        composable(RouterScreenType.Typography.name) { ComposeColorScreen {} }
-        composable(RouterScreenType.Components.name) { ComposeColorScreen {} }
-        composable(RouterScreenType.Templates.name) { ComposeColorScreen {} }
+        composable(RouterScreenType.Color.name) { ComposeColorScreen(navController) }
+        composable(RouterScreenType.Typography.name) { ComposeTypographyScreen(navController) }
+        composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
+        composable(RouterScreenType.Templates.name) { ComposeTemplateScreen(navController) }
     }
 
 }
