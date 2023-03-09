@@ -15,27 +15,42 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
-import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
 
 
 @Composable
-fun ButtonPrimary(text: String, enabled: Boolean = true) {
-    ButtonCrown(text = text, enabled = enabled, isPrimary = true, {})
+fun ButtonPrimary(
+    text: String,
+    enabled: Boolean = true,
+    callback: (String) -> Unit = {}
+) {
+    ButtonCrown(text = text, enabled = enabled, isPrimary = true, callback)
 }
 
 @Composable
-fun ButtonSecondary(text: String, enabled: Boolean = true) {
-    ButtonCrown(text = text, enabled = enabled, isPrimary = false, {})
+fun ButtonSecondary(
+    text: String,
+    enabled: Boolean = true,
+    callback: (String) -> Unit = {}
+) {
+    ButtonCrown(text = text, enabled = enabled, isPrimary = false, callback)
 }
 
 @Composable
-private fun ButtonCrown(text: String, enabled: Boolean = true, isPrimary: Boolean, callback: () -> Unit) {
+private fun ButtonCrown(
+    text: String,
+    enabled: Boolean = true,
+    isPrimary: Boolean,
+    callback: (String) -> Unit
+) {
 
-    val colors = if (isPrimary) CrownTheme.colors.buttonPrimer else CrownTheme.colors.buttonSecondary
+    val colors =
+        if (isPrimary) CrownTheme.colors.buttonPrimer
+        else CrownTheme.colors.buttonSecondary
+
     val shape = MaterialTheme.shapes.small //RoundedCornerShape()
     Row(modifier = Modifier.fillMaxWidth()) {
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = { callback(text) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 36.dp, end = 36.dp),
@@ -63,12 +78,17 @@ private fun ButtonCrown(text: String, enabled: Boolean = true, isPrimary: Boolea
 private fun PreviewButtonsLight() {
     CrownTheme(isDark = false) {
         Column {
-            CrownToolbar()
+            Spacer(modifier = Modifier.padding(top = 24.dp))
+
             ButtonPrimary(text = "Text 1", enabled = true)
             ButtonPrimary(text = "Text 1", enabled = false)
+
             Spacer(modifier = Modifier.padding(top = 24.dp))
+
             ButtonSecondary(text = "Text 1", enabled = true)
             ButtonSecondary(text = "Text 1", enabled = false)
+
+            Spacer(modifier = Modifier.padding(top = 24.dp))
         }
     }
 }
@@ -79,12 +99,17 @@ private fun PreviewButtonsLight() {
 private fun PreviewButtonsDark() {
     CrownTheme(isDark = true) {
         Column(modifier = Modifier.background(color = Color.Black)) {
-            CrownToolbar()
+            Spacer(modifier = Modifier.padding(top = 24.dp))
+
             ButtonPrimary(text = "Text 1", enabled = true)
             ButtonPrimary(text = "Text 1", enabled = false)
+
             Spacer(modifier = Modifier.padding(top = 24.dp))
+
             ButtonSecondary(text = "Text 1", enabled = true)
             ButtonSecondary(text = "Text 1", enabled = false)
+
+            Spacer(modifier = Modifier.padding(top = 24.dp))
         }
     }
 }
@@ -96,11 +121,16 @@ private fun PreviewButtonSecondaryDarkaaa() {
     CrownTheme(isDark = true) {
 
         Column {
+
+            Spacer(modifier = Modifier.padding(top = 24.dp))
+
             ButtonSecondary(
                 text = "Primary CTA with a very long label can sometime be unavoidable",
                 enabled = true
             )
             ButtonSecondary(text = "Text 1", enabled = false)
+
+            Spacer(modifier = Modifier.padding(top = 24.dp))
         }
     }
 }
