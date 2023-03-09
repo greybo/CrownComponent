@@ -94,4 +94,8 @@ dependencies {
     implementation 'androidx.compose.runtime:runtime-livedata'
     // Optional - Integration with RxJava
     implementation 'androidx.compose.runtime:runtime-rxjava2'
+
+    def nav_version = "2.5.3"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }
