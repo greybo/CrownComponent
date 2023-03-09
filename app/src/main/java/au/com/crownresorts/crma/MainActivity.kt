@@ -1,19 +1,35 @@
 package au.com.crownresorts.crma
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.fragment.NavHostFragment
-import com.example.crownexample.R
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import au.com.crownresorts.crma.compose.router.RouterCompose
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val navController = navHostFragment.navController
+        setContent {
+            Greeting()
+        }
+    }
+    @Composable
+    private fun Greeting() {
+        CrownTheme(isDark = false) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                RouterCompose()
+            }
+        }
+    }
+    @Preview
+    @Composable
+    fun PreviewRouterCompose() {
+        Greeting()
     }
 }
