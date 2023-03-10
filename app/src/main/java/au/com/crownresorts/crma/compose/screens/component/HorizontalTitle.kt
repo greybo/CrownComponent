@@ -17,13 +17,13 @@ import com.example.crownexample.R
 
 
 @Composable
-fun HorizontalTitle(title: String = "Rewards Title", callback: () -> Unit = {}) {
+fun HorizontalTitle(title: String = "Rewards Title", callback: (() -> Unit)? = null) {
 
     Row(
         modifier = Modifier
+            .padding(all = 8.dp)
             .fillMaxWidth()
-            .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .clickable { callback() },
+            .clickable { callback?.invoke() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
