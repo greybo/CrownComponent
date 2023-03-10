@@ -7,11 +7,11 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.screens.component.TextCrown
 
 @Composable
 fun ItemColorComponent(list: List<ColorData>) {
@@ -56,7 +56,7 @@ fun ColorCellComponent(item: ColorData.ColorDataCell) {
                     .background(color = item.color)
             )
         }
-        Text(
+        TextCrown(
             text = item.name,
             style = MaterialTheme.typography.bodyLarge,
         )
@@ -67,7 +67,7 @@ fun ColorCellComponent(item: ColorData.ColorDataCell) {
 fun ColorSectionNameComponent(item: ColorData.ColorDataTitle) {
 
     Column(modifier = Modifier.padding(top = 16.dp)) {
-        Text(
+        TextCrown(
             text = item.name,
             style = MaterialTheme.typography.titleMedium,
         )

@@ -10,7 +10,7 @@ data class AppBarColor(
 fun appBarColorDefault() = AppBarColor()
 
 fun appBarLight() = AppBarColor(
-    background = Grey,
+    background = White,
     tint = Black
 )
 

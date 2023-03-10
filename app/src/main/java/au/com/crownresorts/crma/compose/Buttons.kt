@@ -76,7 +76,7 @@ private fun ButtonCrown(
 @Preview
 @Composable
 private fun PreviewButtonsLight() {
-    CrownTheme(isDark = false) {
+    CrownTheme(/*isDark = false*/) {
         Column {
             Spacer(modifier = Modifier.padding(top = 24.dp))
 
@@ -97,7 +97,7 @@ private fun PreviewButtonsLight() {
 @Preview
 @Composable
 private fun PreviewButtonsDark() {
-    CrownTheme(isDark = true) {
+    CrownTheme(/*isDark = true*/) {
         Column(modifier = Modifier.background(color = Color.Black)) {
             Spacer(modifier = Modifier.padding(top = 24.dp))
 
@@ -118,7 +118,7 @@ private fun PreviewButtonsDark() {
 @Preview(widthDp = 400)
 @Composable
 private fun PreviewButtonSecondaryDarkaaa() {
-    CrownTheme(isDark = true) {
+    CrownTheme(/*isDark = true*/) {
 
         Column {
 

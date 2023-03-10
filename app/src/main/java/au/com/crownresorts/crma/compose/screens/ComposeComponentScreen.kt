@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -35,22 +33,19 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(CrownTheme.colors.background)
             .verticalScroll(rememberScrollState())
     ) {
         CrownToolbar(toolbarModel)
 
-        CardRowCrown {
+        CardCrown {
             HorizontalTitle()
         }
 
 //        val dark = crownColors(true).divider
 //        val light = crownColors(false).divider
-        CardRowCrown {
-            Text(
-                text = "Divider",
-                modifier = Modifier.padding(16.dp)
-            )
+        CardCrown {
+            TextBodyCrown("Divider", Modifier.padding(16.dp))
             RowCrown {
                 DividerComponent(Modifier.background(CrownTheme.colors.divider))
             }
@@ -59,9 +54,12 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
 //            }
         }
 
-        CardRowCrown {
+        CardCrown {
             TextHeadlineCrown("Title 1")
-            TextBodyCrown("Nam in lacus vulputate, dignissim dui eget, tempus est. Curabitur ac velit rutrum, viverra arcu ut, mollis odio. Proin a ligula quam. Quisque bibendum finibus metus eu ornare. Nulla consequat ex sed sem varius, in gravida orci cursus. Quisque congue sit amet odio vel pellentesque. Morbi tempor euismod justo id volutpat.")
+            TextBodyCrown(
+                "Nam in lacus vulputate, dignissim dui eget, tempus est. Curabitur ac velit rutrum, viverra arcu ut, mollis odio. Proin a ligula quam. Quisque bibendum finibus metus eu ornare. Nulla consequat ex sed sem varius, in gravida orci cursus. Quisque congue sit amet odio vel pellentesque. Morbi tempor euismod justo id volutpat.",
+                Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+            )
         }
     }
 }

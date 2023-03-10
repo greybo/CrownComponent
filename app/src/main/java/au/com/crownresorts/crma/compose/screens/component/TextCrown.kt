@@ -5,16 +5,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 
 @Composable
-fun TextHeadlineCrown(text: String? = "Title 1",modifier: Modifier = Modifier) {
+fun TextCrown(
+    text: String? = "Title 1",
+    style: TextStyle = MaterialTheme.typography.headlineMedium,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = text ?: "",
         modifier = modifier.padding(8.dp),
-        style = MaterialTheme.typography.headlineMedium,
+        style = style,
         color = CrownTheme.colors.textDefault
     )
 }

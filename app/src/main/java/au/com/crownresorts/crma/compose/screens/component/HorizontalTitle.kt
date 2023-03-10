@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 import com.example.crownexample.R
 
 
@@ -29,12 +28,15 @@ fun HorizontalTitle(title: String = "Rewards Title", callback: (() -> Unit)? = n
         Icon(
             painter = painterResource(id = R.drawable.dining_new),
             contentDescription = "icon",
+            tint = CrownTheme.colors.iconTint,
         )
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(start = 8.dp),
-        )
+        TextHeadlineCrown(title)
+
+//        Text(
+//            text = title,
+//            style = MaterialTheme.typography.headlineMedium,
+//            modifier = Modifier.padding(start = 8.dp),
+//        )
     }
 }
 

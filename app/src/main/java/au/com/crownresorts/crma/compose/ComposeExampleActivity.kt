@@ -21,7 +21,7 @@ class ComposeExampleActivity : ComponentActivity() {
     }
     @Composable
     private fun Greeting() {
-        CrownTheme(isDark = false) {
+        CrownTheme(/*isDark = false*/) {
             Box(modifier = Modifier.fillMaxSize()) {
                 RouterCompose()
             }
