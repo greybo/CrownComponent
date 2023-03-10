@@ -3,9 +3,9 @@ package au.com.crownresorts.crma.compose.screens.color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,50 +14,63 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ItemColorComponent(item: ColorGrout) {
-    Card(
-        modifier = Modifier.padding(all = 8.dp),
-        elevation = CardDefaults.cardElevation()
+fun ItemColorComponent(list: List<ColorData>) {
+
+    val spanCount = 2
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(spanCount),
+        state = rememberLazyGridState(),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(
-            text = item.title,
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(all = 8.dp),
-        )
-        LazyVerticalGrid(
-//            columns = GridCells.Adaptive(minSize = 128.dp),
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(item.list.size) { index ->
-                ColorCellComponent(item.list[index])
+        items(
+            count = list.size,
+            span = { index ->
+                val span = when (list[index]) {
+                    is ColorData.ColorDataTitle -> 2
+                    is ColorData.ColorDataCell -> 1
+                }
+                GridItemSpan(span)
+            },
+        ) { index ->
+            when (val item = list[index]) {
+                is ColorData.ColorDataTitle -> ColorSectionNameComponent(item)
+                is ColorData.ColorDataCell -> ColorCellComponent(item)
             }
         }
     }
-
 }
 
 @Composable
-fun ColorCellComponent(item: ColorDataCell) {
+fun ColorCellComponent(item: ColorData.ColorDataCell) {
     val context = LocalContext.current
 
-    Column(modifier = Modifier) {
-        BoxWithConstraints(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            val maxWidth = constraints.maxWidth
-            val density = context.resources.displayMetrics.density
-            val height = maxWidth / density
+    Column {
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val height = constraints.maxWidth / context.resources.displayMetrics.density
             Spacer(
                 modifier = Modifier
                     .height(height.dp)
                     .width(height.dp)
                     .background(color = item.color)
-                    .padding(all = 16.dp)
             )
         }
-        Text(text = item.name)
+        Text(
+            text = item.name,
+            style = MaterialTheme.typography.bodyLarge,
+        )
+    }
+}
+
+@Composable
+fun ColorSectionNameComponent(item: ColorData.ColorDataTitle) {
+
+    Column(modifier = Modifier.padding(top = 16.dp)) {
+        Text(
+            text = item.name,
+            style = MaterialTheme.typography.titleMedium,
+        )
     }
 
 }
