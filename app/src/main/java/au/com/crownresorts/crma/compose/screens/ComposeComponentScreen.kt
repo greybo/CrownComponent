@@ -59,7 +59,10 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
 //            }
         }
 
-
+        CardRowCrown {
+            TextHeadlineCrown("Title 1")
+            TextBodyCrown("Nam in lacus vulputate, dignissim dui eget, tempus est. Curabitur ac velit rutrum, viverra arcu ut, mollis odio. Proin a ligula quam. Quisque bibendum finibus metus eu ornare. Nulla consequat ex sed sem varius, in gravida orci cursus. Quisque congue sit amet odio vel pellentesque. Morbi tempor euismod justo id volutpat.")
+        }
     }
 }
 

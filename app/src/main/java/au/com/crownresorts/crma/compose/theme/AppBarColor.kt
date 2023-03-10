@@ -3,11 +3,11 @@ package au.com.crownresorts.crma.compose.theme
 import androidx.compose.ui.graphics.Color
 
 data class AppBarColor(
-    val background: Color,
-    val tint: Color
+    val background: Color = Color.Unspecified,
+    val tint: Color = Color.Unspecified
 )
 
-fun appBarColorDefault() = AppBarColor(Color.Unspecified, Color.Unspecified)
+fun appBarColorDefault() = AppBarColor()
 
 fun appBarLight() = AppBarColor(
     background = Grey,
