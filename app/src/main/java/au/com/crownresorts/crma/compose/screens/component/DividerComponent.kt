@@ -12,6 +12,6 @@ fun DividerComponent(modifier: Modifier = Modifier) {
     Spacer(
         modifier = modifier
             .fillMaxWidth()
-            .height(2.dp)
+            .height(0.5.dp)
     )
 }

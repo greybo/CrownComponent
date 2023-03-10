@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import au.com.crownresorts.crma.compose.theme.crownColors
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
 import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
@@ -39,23 +39,24 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
             .verticalScroll(rememberScrollState())
     ) {
         CrownToolbar(toolbarModel)
+
         CardRowCrown {
             HorizontalTitle()
         }
 
-        val dark = crownColors(true).divider
-        val light = crownColors(false).divider
+//        val dark = crownColors(true).divider
+//        val light = crownColors(false).divider
         CardRowCrown {
             Text(
                 text = "Divider",
                 modifier = Modifier.padding(16.dp)
             )
             RowCrown {
-                DividerComponent(Modifier.background(dark))
+                DividerComponent(Modifier.background(CrownTheme.colors.divider))
             }
-            RowCrown(/*Modifier.background(Color.Black)*/) {
-                DividerComponent(Modifier.background(light))
-            }
+//            RowCrown {
+//                DividerComponent(Modifier.background(light))
+//            }
         }
 
 
