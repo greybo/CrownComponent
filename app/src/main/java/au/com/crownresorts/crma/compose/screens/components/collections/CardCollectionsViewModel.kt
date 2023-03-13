@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import au.com.crownresorts.crma.compose.screens.components.ChipsToggleModel
+import au.com.crownresorts.crma.compose.screens.components.collections.model.EntertainmentCell
+import au.com.crownresorts.crma.compose.screens.components.collections.model.cellList
 
 data class EntertainmentModel(
     val chipsList: List<ChipsToggleModel>,
-    val cellList: List<EntertainmentDataCell>
+    val cellList: List<EntertainmentCell>
 )
 
 class CardCollectionsViewModel : ViewModel() {
-    private val _state = MutableLiveData(EntertainmentModel(listTemp, fakeList))
+    private val _state = MutableLiveData(EntertainmentModel(chipsList, cellList))
     val state: LiveData<EntertainmentModel> = _state
 //    private val listSelected = mutableListOf<ChipsToggleModel>()
 
@@ -25,7 +27,7 @@ class CardCollectionsViewModel : ViewModel() {
     }
 }
 
-val listTemp = listOf(
+val chipsList = listOf(
     ChipsToggleModel("one"),
     ChipsToggleModel("two"),
     ChipsToggleModel("three"),

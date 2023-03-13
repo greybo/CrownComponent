@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.collections.listTemp
+import au.com.crownresorts.crma.compose.screens.components.collections.chipsList
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 
 @Composable
-fun ChipsToggleHorizontal(listNames: List<ChipsToggleModel> = listTemp, callback: (ChipsToggleModel) -> Unit) {
+fun ChipsToggleHorizontal(listNames: List<ChipsToggleModel> = chipsList, callback: (ChipsToggleModel) -> Unit) {
     Row {
         LazyHorizontalGrid(
             rows = GridCells.Fixed(1),
@@ -56,7 +56,7 @@ fun ChipsToggleHorizontal(listNames: List<ChipsToggleModel> = listTemp, callback
 @Preview
 @Composable
 fun PreviewCollectionsButtonsHorizontal() {
-    ChipsToggleHorizontal(listNames = listTemp, {})
+    ChipsToggleHorizontal(listNames = chipsList, {})
 }
 
 
