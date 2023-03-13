@@ -16,9 +16,12 @@ data class CrownColors(
     val appBar: AppBarColor,
     val divider: Color,
     val textDefault: Color,
+    val goldDefault: Color,
     val cardBg: Color,
     val background: Color,
     val iconTint: Color,
+    val chipsTextSelect: Color,
+    val chipsBgSelect: Color,
 )
 
 
@@ -32,6 +35,9 @@ val LocalCrownColors = staticCompositionLocalOf {
         cardBg = Color.Unspecified,
         background = Color.Unspecified,
         iconTint = Color.Unspecified,
+        chipsTextSelect = Color.Unspecified,
+        chipsBgSelect = Color.Unspecified,
+        goldDefault = Color.Unspecified,
     )
 }
 
@@ -40,11 +46,14 @@ val LightColors = CrownColors(
     buttonPrimer = buttonPrimaryColor(),
     buttonSecondary = buttonSecondaryColor(),
     appBar = appBarLight(),
-    divider = DarkGrey,
+    goldDefault = DarkGold,
     textDefault = Charcoal,
+    divider = DarkGrey,
     cardBg = White,
     background = White,
     iconTint = Black,
+    chipsTextSelect = White,
+    chipsBgSelect = DarkGold,
 )
 
 
@@ -52,11 +61,14 @@ val DarkColors = CrownColors(
     buttonPrimer = buttonPrimaryDark(),
     buttonSecondary = buttonSecondaryDark(),
     appBar = appBarDark(),
-    divider = LightGrey,
+    goldDefault = LightGold,
     textDefault = White,
+    divider = LightGrey,
     cardBg = Charcoal,
     background = Black94,
     iconTint = LightGold,
+    chipsTextSelect = Black,
+    chipsBgSelect = LightGold,
 )
 
 fun crownColors(isDark: Boolean) = if (isDark) DarkColors else LightColors

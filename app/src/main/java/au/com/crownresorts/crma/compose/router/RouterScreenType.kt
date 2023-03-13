@@ -5,5 +5,5 @@ enum class RouterScreenType() {
     DetailMain,
     Typography,
     Components,
-    Templates,
+    Collections,
 }
