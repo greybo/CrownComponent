@@ -1,6 +1,6 @@
 package au.com.crownresorts.crma.compose.screens.components.collections
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -10,11 +10,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun ItemCellGridComponent(list: List<String>) {
+fun ItemCellGridComponent(list: List<EntertainmentDataCell>) {
 
     val spanCount = 2
     LazyVerticalGrid(
@@ -26,51 +28,45 @@ fun ItemCellGridComponent(list: List<String>) {
     ) {
         items(
             count = list.size,
-            span = { index ->
-                val span = when (list[index]) {
-                    is ColorData.ColorDataTitle -> 2
-                    is ColorData.ColorDataCell -> 1
-                }
-                GridItemSpan(span)
+            span = {
+                GridItemSpan(2)
             },
         ) { index ->
-            when (val item = list[index]) {
-                is ColorData.ColorDataTitle -> ColorSectionNameComponent(item)
-                is ColorData.ColorDataCell -> ColorCellComponent(item)
-            }
+            val item = list[index]
+            EntertainmentCell(item)
+
         }
     }
 }
 
 @Composable
-fun ColorCellComponent(item: ColorData.ColorDataCell) {
+fun EntertainmentCell(item: EntertainmentDataCell) {
     val context = LocalContext.current
 
     Column {
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             val height = constraints.maxWidth / context.resources.displayMetrics.density
-            Spacer(
+            Image(
+                painter = rememberAsyncImagePainter(item.urlImage),
+                contentDescription = "",
                 modifier = Modifier
                     .height(height.dp)
                     .width(height.dp)
-                    .background(color = item.color)
             )
         }
         TextCrown(
-            text = item.name,
+            text = item.title,
+            style = MaterialTheme.typography.bodyLarge,
+        )
+        TextCrown(
+            text = item.body,
             style = MaterialTheme.typography.bodyLarge,
         )
     }
 }
 
+@Preview
 @Composable
-fun ColorSectionNameComponent(item: ColorData.ColorDataTitle) {
-
-    Column(modifier = Modifier.padding(top = 16.dp)) {
-        TextCrown(
-            text = item.name,
-            style = MaterialTheme.typography.titleMedium,
-        )
-    }
-
+fun PreviewItemCellGridComponent(list: List<String>) {
+    ItemCellGridComponent(fakeList)
 }

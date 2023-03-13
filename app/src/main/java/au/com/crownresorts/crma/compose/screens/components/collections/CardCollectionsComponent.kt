@@ -18,7 +18,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
     val spanCount = 2
     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
         Spacer(modifier = Modifier.height(24.dp))
-        ChipsToggleHorizontal(list.value ?: emptyList(), viewModel::handleSelected)
+        ChipsToggleHorizontal(list.value?.chipsList ?: emptyList(), viewModel::handleSelected)
 
         Row(
             modifier = Modifier
@@ -35,6 +35,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
                 color = CrownTheme.colors.goldDefault
             )
         }
+        ItemCellGridComponent(list.value?.cellList ?: emptyList())
     }
 //    LazyVerticalGrid(
 //        columns = GridCells.Fixed(spanCount),
