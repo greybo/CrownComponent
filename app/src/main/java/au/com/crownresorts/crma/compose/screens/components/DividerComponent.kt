@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.component
+package au.com.crownresorts.crma.compose.screens.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
