@@ -29,7 +29,7 @@ fun ItemCellGridComponent(list: List<EntertainmentDataCell>) {
         items(
             count = list.size,
             span = {
-                GridItemSpan(2)
+                GridItemSpan(1)
             },
         ) { index ->
             val item = list[index]

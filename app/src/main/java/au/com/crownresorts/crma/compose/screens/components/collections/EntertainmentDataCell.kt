@@ -10,62 +10,62 @@ data class EntertainmentDataCell(
 val fakeList = listOf<EntertainmentDataCell>(
     EntertainmentDataCell(
         id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 2,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 3,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 4,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 5,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 6,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 7,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 8,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 9,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 10,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 11,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),    EntertainmentDataCell(
-        id = 1,
-        urlImage = "https://picsum.photos/200/300",
+        id = 12,
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "test 2"
     ),
