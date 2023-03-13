@@ -31,7 +31,7 @@ fun ComposeDetailsMain(viewModel: DetailsMainViewModel = viewModel(), callback: 
         rightIcon = null
     ) {
         when (it) {
-            ActionButtonType.ArrowBack -> activity.finish()
+            ActionButtonType.Close -> activity.finish()
             else -> TODO()
         }
     }
