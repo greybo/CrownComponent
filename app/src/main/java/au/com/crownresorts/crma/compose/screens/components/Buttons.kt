@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose
+package au.com.crownresorts.crma.compose.screens.components
 
 //import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.BorderStroke

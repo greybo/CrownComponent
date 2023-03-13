@@ -2,6 +2,7 @@ package au.com.crownresorts.crma.compose.screens.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -34,33 +35,51 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
         modifier = Modifier
             .fillMaxSize()
             .background(CrownTheme.colors.background)
-            .verticalScroll(rememberScrollState())
     ) {
         CrownToolbar(toolbarModel)
-
-        CardCrown {
-            HorizontalTitle()
-        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            CardCrown {
+                HorizontalTitle()
+            }
 
 //        val dark = crownColors(true).divider
 //        val light = crownColors(false).divider
-        CardCrown {
-            TextBodyCrown("Divider", Modifier.padding(16.dp))
-            RowCrown {
-                DividerComponent(Modifier.background(CrownTheme.colors.divider))
-            }
+            CardCrown {
+                TextBodyCrown("Divider", Modifier.padding(16.dp))
+                RowCrown {
+                    DividerComponent(Modifier.background(CrownTheme.colors.divider))
+                }
 //            RowCrown {
 //                DividerComponent(Modifier.background(light))
 //            }
+            }
+
+            CardCrown {
+                TextHeadlineCrown("Title 1")
+                TextBodyCrown(
+                    "Nam in lacus vulputate, dignissim dui eget, tempus est. Curabitur ac velit rutrum, viverra arcu ut, mollis odio. Proin a ligula quam. Quisque bibendum finibus metus eu ornare. Nulla consequat ex sed sem varius, in gravida orci cursus. Quisque congue sit amet odio vel pellentesque. Morbi tempor euismod justo id volutpat.",
+                    Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+                )
+            }
+
+            CardCrown {
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                ButtonPrimary("Primary")
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                ButtonPrimary("Primary Disable", false)
+                Spacer(modifier = Modifier.padding(top = 16.dp))
+                ButtonSecondary("Secondary")
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                ButtonSecondary("Secondary Disable", false)
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+            }
+
         }
 
-        CardCrown {
-            TextHeadlineCrown("Title 1")
-            TextBodyCrown(
-                "Nam in lacus vulputate, dignissim dui eget, tempus est. Curabitur ac velit rutrum, viverra arcu ut, mollis odio. Proin a ligula quam. Quisque bibendum finibus metus eu ornare. Nulla consequat ex sed sem varius, in gravida orci cursus. Quisque congue sit amet odio vel pellentesque. Morbi tempor euismod justo id volutpat.",
-                Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            )
-        }
     }
 }
 
