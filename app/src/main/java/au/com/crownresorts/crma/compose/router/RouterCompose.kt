@@ -31,7 +31,7 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
                     MainComposeItems.Color -> navController.navigate(RouterScreenType.Color.name)
                     MainComposeItems.Components -> navController.navigate(RouterScreenType.Components.name)
                     MainComposeItems.Typography -> navController.navigate(RouterScreenType.Typography.name)
-                    MainComposeItems.Templates -> navController.navigate(RouterScreenType.Collections.name)
+                    MainComposeItems.Collections -> navController.navigate(RouterScreenType.Collections.name)
                 }
             })
         }

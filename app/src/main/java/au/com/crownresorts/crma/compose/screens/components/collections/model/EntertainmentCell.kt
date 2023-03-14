@@ -13,60 +13,77 @@ val cellList = listOf<EntertainmentCell>(
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "one"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 2,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "two"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 3,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "three"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 4,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "four"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 5,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "five"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 6,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "six"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 7,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "seven"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 8,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "eight"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 9,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "nine"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 10,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "ten"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 11,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "eleven"
-    ),    EntertainmentCell(
+    ),
+    EntertainmentCell(
         id = 12,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "twelve"
+    ),
+    EntertainmentCell(
+        id = 13,
+        urlImage = "https://picsum.photos/200",
+        title = "test 1",
+        body = "thirteen"
     ),
 )
