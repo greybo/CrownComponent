@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components.collections.items
+package au.com.crownresorts.crma.compose.screens.collections.items
 
 import android.os.Build
 import androidx.annotation.RequiresApi

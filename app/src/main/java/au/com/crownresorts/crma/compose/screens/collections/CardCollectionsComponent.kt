@@ -1,7 +1,8 @@
-package au.com.crownresorts.crma.compose.screens.components.collections
+package au.com.crownresorts.crma.compose.screens.collections
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -9,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemChipsToggleHorizontal
-import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemEntertainmentGrid
-import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemResultButtons
+import au.com.crownresorts.crma.compose.screens.collections.items.ItemChipsToggleHorizontal
+import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentGrid
+import au.com.crownresorts.crma.compose.screens.collections.items.ItemResultButtons
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) {

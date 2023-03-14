@@ -9,9 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.screens.ComposeTypographyScreen
+import au.com.crownresorts.crma.compose.screens.collections.CardCollectionsComponent
 import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
 import au.com.crownresorts.crma.compose.screens.components.ComposeComponentScreen
-import au.com.crownresorts.crma.compose.screens.components.collections.CardCollectionsComponent
 import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
 import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
 

@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components.collections.model
+package au.com.crownresorts.crma.compose.screens.collections.model
 
 data class EntertainmentCell(
     val id: Int,

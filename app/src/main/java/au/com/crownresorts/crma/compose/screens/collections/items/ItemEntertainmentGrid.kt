@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components.collections.items
+package au.com.crownresorts.crma.compose.screens.collections.items
 
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.TweenSpec
@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.collections.model.EntertainmentCell
-import au.com.crownresorts.crma.compose.screens.components.collections.model.cellList
+import au.com.crownresorts.crma.compose.screens.collections.model.EntertainmentCell
+import au.com.crownresorts.crma.compose.screens.collections.model.cellList
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import coil.compose.rememberAsyncImagePainter
 

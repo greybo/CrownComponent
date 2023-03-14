@@ -1,11 +1,11 @@
-package au.com.crownresorts.crma.compose.screens.components.collections
+package au.com.crownresorts.crma.compose.screens.collections
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import au.com.crownresorts.crma.compose.screens.components.collections.model.*
+import au.com.crownresorts.crma.compose.screens.collections.model.*
 
 
 class CardCollectionsViewModel : ViewModel() {
