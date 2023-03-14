@@ -7,19 +7,21 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.components.collections.model.EntertainmentCell
 import au.com.crownresorts.crma.compose.screens.components.collections.model.cellList
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun ItemEntertainmentCell(
+fun ItemEntertainmentGrid(
     list: List<EntertainmentCell>,
     edgeDp: Dp = 0.dp
 ) {
@@ -41,41 +43,42 @@ fun ItemEntertainmentCell(
                 GridItemSpan(1)
             },
         ) { index ->
-            val item = list[index]
-            EntertainmentCell(item)
-
+            EntertainmentCell(list[index])
         }
     }
 }
 
 @Composable
-fun EntertainmentCell(item: EntertainmentCell) {
+private fun EntertainmentCell(item: EntertainmentCell) {
     val context = LocalContext.current
 
-    Column {
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-            val height = constraints.maxWidth / context.resources.displayMetrics.density
-            Image(
-                painter = rememberAsyncImagePainter(item.urlImage),
-                contentDescription = "",
-                modifier = Modifier
-                    .height(height.dp)
-                    .width(height.dp)
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.BottomStart
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(item.urlImage),
+            contentDescription = "",
+            modifier = Modifier.aspectRatio(1f)
+        )
+        Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.titleMedium,
+                color = CrownTheme.colors.entertainmentCellText,
+            )
+            Text(
+                text = item.body,
+                style = MaterialTheme.typography.bodySmall,
+                color = CrownTheme.colors.entertainmentCellText
             )
         }
-        TextCrown(
-            text = item.title,
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        TextCrown(
-            text = item.body,
-            style = MaterialTheme.typography.bodyLarge,
-        )
     }
 }
 
 @Preview
 @Composable
 fun PreviewItemCellGridComponent(list: List<String>) {
-    ItemEntertainmentCell(cellList)
+    ItemEntertainmentGrid(cellList)
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemChipsToggleHorizontal
-import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemEntertainmentCell
+import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemEntertainmentGrid
 import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemResultButtons
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
@@ -33,8 +33,8 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
             edgeDp = edgeDp,
             onClickReset = viewModel::onClickReset
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        ItemEntertainmentCell(state.value?.cellList ?: emptyList(), edgeDp)
+        Spacer(modifier = Modifier.height(24.dp))
+        ItemEntertainmentGrid(state.value?.cellList ?: emptyList(), edgeDp)
     }
 }
 
