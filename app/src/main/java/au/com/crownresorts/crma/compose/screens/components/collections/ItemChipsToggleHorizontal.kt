@@ -22,7 +22,7 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 
 @Composable
-fun ChipsToggleHorizontal(listNames: List<ChipsToggleModel> = chipsList, callback: (ChipsToggleModel) -> Unit) {
+fun ItemChipsToggleHorizontal(listNames: List<ChipsToggleModel> = chipsList, callback: (ChipsToggleModel) -> Unit) {
     Row {
         LazyHorizontalGrid(
             rows = GridCells.Fixed(1),
@@ -57,7 +57,7 @@ fun ChipsToggleHorizontal(listNames: List<ChipsToggleModel> = chipsList, callbac
 @Preview
 @Composable
 fun PreviewCollectionsButtonsHorizontal() {
-    ChipsToggleHorizontal(listNames = chipsList, {})
+    ItemChipsToggleHorizontal(listNames = chipsList, {})
 }
 
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import au.com.crownresorts.crma.compose.screens.components.ChipsToggleHorizontal
+import au.com.crownresorts.crma.compose.screens.components.ItemChipsToggleHorizontal
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @Composable
@@ -18,7 +18,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
     val spanCount = 2
     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
         Spacer(modifier = Modifier.height(24.dp))
-        ChipsToggleHorizontal(list.value?.chipsList ?: emptyList(), viewModel::handleSelected)
+        ItemChipsToggleHorizontal(list.value?.chipsList ?: emptyList(), viewModel::handleSelected)
 
         Row(
             modifier = Modifier
