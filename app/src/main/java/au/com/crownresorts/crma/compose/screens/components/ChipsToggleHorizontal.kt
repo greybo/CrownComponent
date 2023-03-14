@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.collections.chipsList
+import au.com.crownresorts.crma.compose.screens.components.collections.model.ChipsToggleModel
+import au.com.crownresorts.crma.compose.screens.components.collections.model.chipsList
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 
@@ -60,22 +61,3 @@ fun PreviewCollectionsButtonsHorizontal() {
 }
 
 
-data class ChipsToggleModel(val name: String, val select: Boolean = false) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ChipsToggleModel
-
-        if (name != other.name) return false
-        if (select != other.select) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + select.hashCode()
-        return result
-    }
-}

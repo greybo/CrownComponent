@@ -12,61 +12,61 @@ val cellList = listOf<EntertainmentCell>(
         id = 1,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "one"
     ),    EntertainmentCell(
         id = 2,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "two"
     ),    EntertainmentCell(
         id = 3,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "three"
     ),    EntertainmentCell(
         id = 4,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "four"
     ),    EntertainmentCell(
         id = 5,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "five"
     ),    EntertainmentCell(
         id = 6,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "six"
     ),    EntertainmentCell(
         id = 7,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "seven"
     ),    EntertainmentCell(
         id = 8,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "eight"
     ),    EntertainmentCell(
         id = 9,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "nine"
     ),    EntertainmentCell(
         id = 10,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "ten"
     ),    EntertainmentCell(
         id = 11,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "eleven"
     ),    EntertainmentCell(
         id = 12,
         urlImage = "https://picsum.photos/200",
         title = "test 1",
-        body = "test 2"
+        body = "twelve"
     ),
 )

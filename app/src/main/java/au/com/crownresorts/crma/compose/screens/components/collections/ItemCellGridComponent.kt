@@ -13,10 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import au.com.crownresorts.crma.compose.screens.components.collections.model.EntertainmentCell
+import au.com.crownresorts.crma.compose.screens.components.collections.model.cellList
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun ItemCellGridComponent(list: List<EntertainmentDataCell>) {
+fun ItemCellGridComponent(list: List<EntertainmentCell>) {
 
     val spanCount = 2
     LazyVerticalGrid(
@@ -40,7 +42,7 @@ fun ItemCellGridComponent(list: List<EntertainmentDataCell>) {
 }
 
 @Composable
-fun EntertainmentCell(item: EntertainmentDataCell) {
+fun EntertainmentCell(item: EntertainmentCell) {
     val context = LocalContext.current
 
     Column {
@@ -68,5 +70,5 @@ fun EntertainmentCell(item: EntertainmentDataCell) {
 @Preview
 @Composable
 fun PreviewItemCellGridComponent(list: List<String>) {
-    ItemCellGridComponent(fakeList)
+    ItemCellGridComponent(cellList)
 }
