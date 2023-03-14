@@ -91,9 +91,9 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Preview
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PreviewItemCellGridComponent(list: List<String>) {
+fun PreviewItemEntertainmentGrid() {
     ItemEntertainmentGrid(cellList)
 }
