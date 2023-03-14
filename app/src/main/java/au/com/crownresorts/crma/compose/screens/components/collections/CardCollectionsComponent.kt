@@ -1,7 +1,8 @@
 package au.com.crownresorts.crma.compose.screens.components.collections
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -9,45 +10,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.crownresorts.crma.compose.screens.components.ItemChipsToggleHorizontal
+import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemResultButtons
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) {
 
-    val list = viewModel.state.observeAsState()
+    val state = viewModel.state.observeAsState()
     val spanCount = 2
-    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
+    Column() {
         Spacer(modifier = Modifier.height(24.dp))
-        ItemChipsToggleHorizontal(list.value?.chipsList ?: emptyList(), viewModel::handleSelected)
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "29 Results",
-                color = CrownTheme.colors.textDefault
-            )
-            Text(
-                text = "Reset",
-                color = CrownTheme.colors.goldDefault
-            )
-        }
-        ItemCellGridComponent(list.value?.cellList ?: emptyList())
+        ItemChipsToggleHorizontal(state.value?.chipsList ?: emptyList(), viewModel::handleSelected)
+        Spacer(modifier = Modifier.height(16.dp))
+        ItemResultButtons(state.value?.cellList?.size ?: 0, viewModel::onClickReset)
+        Spacer(modifier = Modifier.height(16.dp))
+        ItemCellGridComponent(state.value?.cellList ?: emptyList())
     }
-//    LazyVerticalGrid(
-//        columns = GridCells.Fixed(spanCount),
-//        state = rememberLazyGridState(),
-//        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
-//        verticalArrangement = Arrangement.spacedBy(16.dp),
-//        horizontalArrangement = Arrangement.spacedBy(16.dp),
-//    ) {
-//        ChipsToggleHorizontal(list)
-//    }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.N)
 @Preview
 @Composable
 fun PreviewCardCollectionsComponent() {

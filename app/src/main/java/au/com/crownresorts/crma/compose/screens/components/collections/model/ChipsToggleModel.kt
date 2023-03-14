@@ -1,6 +1,6 @@
 package au.com.crownresorts.crma.compose.screens.components.collections.model
 
-data class ChipsToggleModel(val name: String, val select: Boolean = false) {
+data class ChipsToggleModel(val name: String, var select: Boolean = false) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -21,7 +21,7 @@ data class ChipsToggleModel(val name: String, val select: Boolean = false) {
 }
 
 
-val chipsList = listOf(
+val fakeChipsList = listOf(
     ChipsToggleModel("one"),
     ChipsToggleModel("two"),
     ChipsToggleModel("three"),

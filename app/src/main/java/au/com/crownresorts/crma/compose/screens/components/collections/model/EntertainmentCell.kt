@@ -80,10 +80,5 @@ val cellList = listOf<EntertainmentCell>(
         title = "test 1",
         body = "twelve"
     ),
-    EntertainmentCell(
-        id = 13,
-        urlImage = "https://picsum.photos/200",
-        title = "test 1",
-        body = "thirteen"
-    ),
+
 )
