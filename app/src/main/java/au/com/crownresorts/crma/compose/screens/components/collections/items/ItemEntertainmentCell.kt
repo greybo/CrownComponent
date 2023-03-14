@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components.collections
+package au.com.crownresorts.crma.compose.screens.components.collections.items
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.components.collections.model.EntertainmentCell
@@ -18,15 +19,21 @@ import au.com.crownresorts.crma.compose.screens.components.collections.model.cel
 import coil.compose.rememberAsyncImagePainter
 
 @Composable
-fun ItemCellGridComponent(list: List<EntertainmentCell>) {
+fun ItemEntertainmentCell(
+    list: List<EntertainmentCell>,
+    edgeDp: Dp = 0.dp
+) {
 
     val spanCount = 2
     LazyVerticalGrid(
         columns = GridCells.Fixed(spanCount),
         state = rememberLazyGridState(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        //Moves away from the right edge
+        contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
+        //Distance between items vertical in Vertical Grid
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        //Distance between items horizontal in Vertical Grid
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(
             count = list.size,
@@ -70,5 +77,5 @@ fun EntertainmentCell(item: EntertainmentCell) {
 @Preview
 @Composable
 fun PreviewItemCellGridComponent(list: List<String>) {
-    ItemCellGridComponent(cellList)
+    ItemEntertainmentCell(cellList)
 }

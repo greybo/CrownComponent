@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components
+package au.com.crownresorts.crma.compose.screens.components.collections.items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.components.collections.model.ChipsToggleModel
 import au.com.crownresorts.crma.compose.screens.components.collections.model.fakeChipsList
@@ -20,7 +21,8 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @Composable
 fun ItemChipsToggleHorizontal(
-    listNames: List<ChipsToggleModel>,
+    listToggle: List<ChipsToggleModel>,
+    edgeDp: Dp = 16.dp,
     callback: (ChipsToggleModel) -> Unit
 ) {
     Row {
@@ -29,16 +31,16 @@ fun ItemChipsToggleHorizontal(
             rows = GridCells.Fixed(1),
             modifier = Modifier
                 .height(48.dp),
-            //Distance between items
+            //Distance between items  in Horizontal Grid
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            //Moves away from the right edge
-            contentPadding = PaddingValues(horizontal = 16.dp),
+            //Moves away from the right edge  in Horizontal Grid
+            contentPadding = PaddingValues(horizontal = edgeDp),
             content = {
                 items(
-                    count = listNames.size,
-                    key = { listNames[it].name }
+                    count = listToggle.size,
+                    key = { listToggle[it].name }
                 ) {
-                    val item = listNames[it]
+                    val item = listToggle[it]
                     val bgColor =
                         if (item.select) CrownTheme.colors.chipsBgSelect else Color.Transparent
                     val textColor =
@@ -64,7 +66,7 @@ fun ItemChipsToggleHorizontal(
 @Preview
 @Composable
 fun PreviewCollectionsButtonsHorizontal() {
-    ItemChipsToggleHorizontal(listNames = fakeChipsList, {})
+    ItemChipsToggleHorizontal(listToggle = fakeChipsList, callback = {})
 }
 
 

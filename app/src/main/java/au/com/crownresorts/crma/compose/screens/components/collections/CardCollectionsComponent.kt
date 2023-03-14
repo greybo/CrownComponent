@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import au.com.crownresorts.crma.compose.screens.components.ItemChipsToggleHorizontal
+import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemChipsToggleHorizontal
+import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemEntertainmentCell
 import au.com.crownresorts.crma.compose.screens.components.collections.items.ItemResultButtons
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
@@ -18,14 +19,22 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) {
 
     val state = viewModel.state.observeAsState()
-    val spanCount = 2
-    Column() {
+    val edgeDp = 16.dp
+    Column {
         Spacer(modifier = Modifier.height(24.dp))
-        ItemChipsToggleHorizontal(state.value?.chipsList ?: emptyList(), viewModel::handleSelected)
+        ItemChipsToggleHorizontal(
+            listToggle = state.value?.chipsList ?: emptyList(),
+            edgeDp = edgeDp,
+            callback = viewModel::handleSelected
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        ItemResultButtons(state.value?.cellList?.size ?: 0, viewModel::onClickReset)
+        ItemResultButtons(
+            countFound = state.value?.cellList?.size ?: 0,
+            edgeDp = edgeDp,
+            onClickReset = viewModel::onClickReset
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        ItemCellGridComponent(state.value?.cellList ?: emptyList())
+        ItemEntertainmentCell(state.value?.cellList ?: emptyList(), edgeDp)
     }
 }
 
