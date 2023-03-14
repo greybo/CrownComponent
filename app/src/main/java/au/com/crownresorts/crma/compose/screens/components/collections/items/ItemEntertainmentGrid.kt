@@ -1,5 +1,8 @@
 package au.com.crownresorts.crma.compose.screens.components.collections.items
 
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -20,6 +23,7 @@ import au.com.crownresorts.crma.compose.screens.components.collections.model.cel
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import coil.compose.rememberAsyncImagePainter
 
+@ExperimentalFoundationApi
 @Composable
 fun ItemEntertainmentGrid(
     list: List<EntertainmentCell>,
@@ -36,25 +40,35 @@ fun ItemEntertainmentGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         //Distance between items horizontal in Vertical Grid
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxSize()
     ) {
         items(
             count = list.size,
+            key = {
+                list[it].id
+            },
             span = {
                 GridItemSpan(1)
             },
         ) { index ->
-            EntertainmentCell(list[index])
+            val modifier = Modifier.animateItemPlacement(
+                animationSpec = TweenSpec(
+                    300,
+                    200,
+                    FastOutLinearInEasing
+                )
+            )
+            EntertainmentCell(list[index], modifier)
         }
     }
 }
 
 @Composable
-private fun EntertainmentCell(item: EntertainmentCell) {
+private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
     val context = LocalContext.current
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomStart
     ) {
         Image(
@@ -77,6 +91,7 @@ private fun EntertainmentCell(item: EntertainmentCell) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun PreviewItemCellGridComponent(list: List<String>) {
