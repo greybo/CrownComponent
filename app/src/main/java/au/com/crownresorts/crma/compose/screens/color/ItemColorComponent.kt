@@ -48,7 +48,7 @@ fun ColorCellComponent(item: ColorData.ColorDataCell) {
 
     Column {
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-            val height = constraints.maxWidth / context.resources.displayMetrics.density
+                val height = constraints.maxWidth / context.resources.displayMetrics.density
             Spacer(
                 modifier = Modifier
                     .height(height.dp)

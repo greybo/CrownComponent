@@ -20,12 +20,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.model.EntertainmentCell
 import au.com.crownresorts.crma.compose.screens.collections.model.cellList
+import au.com.crownresorts.crma.compose.screens.components.GradientBox
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import coil.compose.rememberAsyncImagePainter
 
 @ExperimentalFoundationApi
 @Composable
-fun ItemEntertainmentGrid(
+fun ItemEntertainmentCell(
     list: List<EntertainmentCell>,
     edgeDp: Dp = 0.dp
 ) {
@@ -75,11 +76,14 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomStart
     ) {
+        context.resources.displayMetrics.density
+
         Image(
             painter = rememberAsyncImagePainter(item.urlImage),
             contentDescription = "",
             modifier = Modifier.aspectRatio(1f)
         )
+        GradientBox(maxWidth)
         Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
             Text(
                 text = item.title,
@@ -99,5 +103,5 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PreviewItemEntertainmentGrid() {
-    ItemEntertainmentGrid(cellList)
+    ItemEntertainmentCell(cellList)
 }
