@@ -1,71 +1,37 @@
 package au.com.crownresorts.crma.compose.screens.tooltip
 
-
-// Tooltip implementation for AndroidX Jetpack Compose
-// See usage example in the next file
-
-// Tested with Compose version **1.1.0-alpha06**
-// Based on material DropdownMenu implementation.
-
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.takeOrElse
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
-import androidx.compose.ui.window.PopupProperties
-import androidx.core.graphics.ColorUtils
+import au.com.crownresorts.crma.compose.theme.DarkGrey
 import kotlinx.coroutines.delay
 
+private val TooltipOffset = DpOffset(0.dp, 16.dp)
 
-/**
- * Tooltip implementation for AndroidX Jetpack Compose.
- * Based on material [DropdownMenu] implementation
- *
- * A [Tooltip] behaves similarly to a [Popup], and will use the position of the parent layout
- * to position itself on screen. Commonly a [Tooltip] will be placed in a [Box] with a sibling
- * that will be used as the 'anchor'. Note that a [Tooltip] by itself will not take up any
- * space in a layout, as the tooltip is displayed in a separate window, on top of other content.
- *
- * The [content] of a [Tooltip] will typically be [Text], as well as custom content.
- *
- * [Tooltip] changes its positioning depending on the available space, always trying to be
- * fully visible. It will try to expand horizontally, depending on layout direction, to the end of
- * its parent, then to the start of its parent, and then screen end-aligned. Vertically, it will
- * try to expand to the bottom of its parent, then from the top of its parent, and then screen
- * top-aligned. An [offset] can be provided to adjust the positioning of the menu for cases when
- * the layout bounds of its parent do not coincide with its visual bounds. Note the offset will
- * be applied in the direction in which the menu will decide to expand.
- *
- * @param expanded Whether the tooltip is currently visible to the user
- * @param offset [DpOffset] to be added to the position of the tooltip
- *
- * @see androidx.compose.material.DropdownMenu
- * @see androidx.compose.material.DropdownMenuPositionProvider
- * @see androidx.compose.ui.window.Popup
- *
- * @author Artyom Krivolapov
- */
+// Tooltip open/close animation duration.
+private const val InTransitionDuration = 64
+private const val OutTransitionDuration = 240
+
+// Default timeout before tooltip close
+private const val TooltipTimeout = 2_000L - OutTransitionDuration
+
 @Composable
 fun Tooltip(
     expanded: MutableState<Boolean>,
     modifier: Modifier = Modifier,
     timeoutMillis: Long = TooltipTimeout,
-    backgroundColor: Color = Color.Black,
     offset: DpOffset = TooltipOffset,
-    properties: PopupProperties = TooltipPopupProperties,
+    backgroundColor: Color = DarkGrey,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val expandedStates = remember { MutableTransitionState(false) }
@@ -78,46 +44,14 @@ fun Tooltip(
                 expanded.value = false
             }
         }
-
-        Popup(
-            onDismissRequest = { expanded.value = false },
-            offset = IntOffset(offset.x.value.toInt(), offset.y.value.toInt()), //offset.x.value * LocalDensity.current.density,
-//            popupPositionProvider =  DropdownMenuPositionProvider(offset, LocalDensity.current),
-            properties = properties,
-        ) {
-            Box(
-                // Add space for elevation shadow
-                modifier = Modifier.padding(TooltipElevation),
-            ) {
-                TooltipContent(expandedStates, backgroundColor, modifier, content)
-            }
-        }
+        TooltipContent(expandedStates, offset, backgroundColor, modifier, content)
     }
 }
 
-/**
- * Simple text version of [Tooltip]
- */
-@Composable
-fun Tooltip(
-    expanded: MutableState<Boolean>,
-    text: String,
-    modifier: Modifier = Modifier,
-    timeoutMillis: Long = TooltipTimeout,
-    backgroundColor: Color = Color.Black,
-    offset: DpOffset = TooltipOffset,
-    properties: PopupProperties = TooltipPopupProperties,
-) {
-    Tooltip(expanded, modifier, timeoutMillis, backgroundColor, offset, properties) {
-        Text(text)
-    }
-}
-
-
-/** @see androidx.compose.material.DropdownMenuContent */
 @Composable
 private fun TooltipContent(
     expandedStates: MutableTransitionState<Boolean>,
+    offset: DpOffset,
     backgroundColor: Color,
     modifier: Modifier,
     content: @Composable ColumnScope.() -> Unit,
@@ -136,64 +70,21 @@ private fun TooltipContent(
                 tween(durationMillis = OutTransitionDuration)
             }
         }
-    ) { if (it) 1f else 0f }
-
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = backgroundColor.copy(alpha = 0.75f),
-            contentColor = MaterialTheme.colorScheme.contentColorFor(backgroundColor)
-                .takeOrElse { backgroundColor.onColor() },
-        ),
-        modifier = Modifier.alpha(alpha),
-        elevation = CardDefaults.cardElevation(TooltipElevation),
     ) {
-        val p = TooltipPadding
-        Column(
-            modifier = modifier
-                .padding(start = p, top = p * 0.5f, end = p, bottom = p * 0.7f)
-                .width(IntrinsicSize.Max)
-                .verticalScroll(rememberScrollState()),
-            content = content,
-        )
+        if (it) 1f else 0f
     }
-}
 
-private val TooltipElevation = 16.dp
-private val TooltipPadding = 16.dp
-
-private val TooltipPopupProperties = PopupProperties(focusable = true)
-private val TooltipOffset = DpOffset(0.dp, 0.dp)
-
-// Tooltip open/close animation duration.
-private const val InTransitionDuration = 64
-private const val OutTransitionDuration = 240
-
-// Default timeout before tooltip close
-private const val TooltipTimeout = 2_000L - OutTransitionDuration
-
-
-// Color helpers
-
-/**
- * Calculates an 'on' color for this color.
- *
- * @return [Color.Black] or [Color.White], depending on [isLightColor].
- */
-fun Color.onColor(): Color {
-    return if (isLightColor()) Color.Black else Color.White
-}
-
-/**
- * Calculates if this color is considered light.
- *
- * @return true or false, depending on the higher contrast between [Color.Black] and [Color.White].
- */
-fun Color.isLightColor(): Boolean {
-    val contrastForBlack = calculateContrastFor(foreground = Color.Black)
-    val contrastForWhite = calculateContrastFor(foreground = Color.White)
-    return contrastForBlack > contrastForWhite
-}
-
-fun Color.calculateContrastFor(foreground: Color): Double {
-    return ColorUtils.calculateContrast(foreground.toArgb(), toArgb())
+    DropdownMenu(
+        offset = offset,
+        modifier = modifier
+            .alpha(alpha)
+            .background(
+                color = backgroundColor/*MaterialTheme.colorScheme
+                .contentColorFor(backgroundColor)
+                .takeOrElse { backgroundColor.onColor() }*/
+            ),
+        expanded = true,
+        onDismissRequest = { /*todo*/ },
+        content = content
+    )
 }
