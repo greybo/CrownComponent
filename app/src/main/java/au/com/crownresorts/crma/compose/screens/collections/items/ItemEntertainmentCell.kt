@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,16 +33,19 @@ fun ItemEntertainmentCell(
 ) {
 
     val spanCount = 2
+//    Spacer(modifier = Modifier.padding(top = 24.dp))
     LazyVerticalGrid(
         columns = GridCells.Fixed(spanCount),
         state = rememberLazyGridState(),
         //Moves away from the right edge
-        contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
+        contentPadding = PaddingValues(start = edgeDp, end = edgeDp, bottom = 24.dp, top = 24.dp),
         //Distance between items vertical in Vertical Grid
         verticalArrangement = Arrangement.spacedBy(8.dp),
         //Distance between items horizontal in Vertical Grid
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(top = 24.dp, bottom = 24.dp)
     ) {
         items(
             count = list.size,
@@ -66,6 +70,7 @@ fun ItemEntertainmentCell(
             EntertainmentCell(list[index], modifier)
         }
     }
+//    Spacer(modifier = Modifier.padding(top = 24.dp))
 }
 
 @Composable
@@ -89,11 +94,15 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
                 text = item.title,
                 style = MaterialTheme.typography.titleMedium,
                 color = CrownTheme.colors.entertainmentCellText,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
             Text(
                 text = item.body,
                 style = MaterialTheme.typography.bodySmall,
-                color = CrownTheme.colors.entertainmentCellText
+                color = CrownTheme.colors.entertainmentCellText,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }

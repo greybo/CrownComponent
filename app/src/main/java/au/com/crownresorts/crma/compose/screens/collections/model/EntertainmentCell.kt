@@ -11,48 +11,48 @@ val cellList = listOf(
     EntertainmentCell(
         id = 1,
         urlImage = "https://picsum.photos/200/200?image=0",
-        title = "test 1",
+        title = "test test test 1",
         body = "one"
     ),
     EntertainmentCell(
         id = 2,
-        urlImage = "https://picsum.photos/200/200?image=1",
-        title = "test 1",
-        body = "two"
+        urlImage = "https://picsum.photos/200/200?image=81",
+        title = "test 2",
+        body = "two two two two two "
     ),
     EntertainmentCell(
         id = 3,
-        urlImage = "https://picsum.photos/200/200?image=2",
-        title = "test 1",
-        body = "three"
+        urlImage = "https://picsum.photos/200/200?image=52",
+        title = "test test test test 3 test 3 test 3 test 3 test 3 test 3",
+        body = "three three three three three three three three three three three"
     ),
     EntertainmentCell(
         id = 4,
-        urlImage = "https://picsum.photos/200/200?image=3",
+        urlImage = "https://picsum.photos/200/200?image=33",
         title = "test 1",
         body = "four"
     ),
     EntertainmentCell(
         id = 5,
-        urlImage = "https://picsum.photos/200/200?image=4",
+        urlImage = "https://picsum.photos/200/200?image=44",
         title = "test 1",
         body = "five"
     ),
     EntertainmentCell(
         id = 6,
-        urlImage = "https://picsum.photos/200/200?image=5",
+        urlImage = "https://picsum.photos/200/200?image=15",
         title = "test 1",
         body = "six"
     ),
     EntertainmentCell(
         id = 7,
-        urlImage = "https://picsum.photos/200/200?image=6",
+        urlImage = "https://picsum.photos/200/200?image=25",
         title = "test 1",
         body = "seven"
     ),
     EntertainmentCell(
         id = 8,
-        urlImage = "https://picsum.photos/200/200?image=7",
+        urlImage = "https://picsum.photos/200/200?image=319",
         title = "test 1",
         body = "eight"
     ),
