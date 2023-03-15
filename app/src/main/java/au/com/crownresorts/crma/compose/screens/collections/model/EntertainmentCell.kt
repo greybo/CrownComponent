@@ -7,10 +7,10 @@ data class EntertainmentCell(
     val body: String
 )
 
-val cellList = listOf<EntertainmentCell>(
+val cellList = listOf(
     EntertainmentCell(
         id = 1,
-        urlImage = "https://unsplash.com/photos/5Qwz2KyfIBE",
+        urlImage = "https://picsum.photos/200",
         title = "test 1",
         body = "one"
     ),

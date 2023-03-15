@@ -30,32 +30,36 @@ fun TooltipOnLongClickExample(
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
-    Box(modifier = modifier) {
+//    Box(/*modifier = modifier*/) {
         val showTooltip = showTooltip2 ?: remember { mutableStateOf(false) }
-//        remember {  }
-        if (showTooltip2 == null) {
-            modifier.combinedClickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(),
-                onClickLabel = "Button action description",
-                role = Role.Button,
-                onClick = { showTooltip.value = true /*onClick*/ }
-            )
+        val interactionSource = remember { MutableInteractionSource() }
+        val indication = rememberRipple()
+        val _modifier = remember {
+            if (showTooltip2 == null) {
+                modifier.combinedClickable(
+                    interactionSource = interactionSource,
+                    indication = indication,
+                    onClickLabel = "Button action description",
+                    role = Role.Button,
+                    onClick = { showTooltip.value = true /*onClick*/ }
+                )
+            } else modifier
         }
+
         Box(
-            modifier = modifier
+            modifier = _modifier
         ) {
             content()
         }
         Tooltip(showTooltip) {
 //            // Tooltip content goes here.
             Text(
-                text = "Tooltip",
+                text = "Licensed under the Apache License, Version 2.0 (the \"License\");",
                 color = CrownTheme.colors.chipsTextSelect,
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
             )
         }
-    }
+//    }
 }
 
 @Preview
