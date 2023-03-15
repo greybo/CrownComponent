@@ -4,10 +4,12 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,26 +25,27 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
  */
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun TooltipOnLongClickExample(onClick: () -> Unit = {}) {
-    // Commonly a Tooltip can be placed in a Box with a sibling
-    // that will be used as the 'anchor' for positioning.
-    Box(modifier = Modifier.padding(start = 100.dp, top = 100.dp)) {
-        val showTooltip = remember { mutableStateOf(false) }
-
-        // Buttons and Surfaces don't support onLongClick out of the box,
-        // so use a simple Box with combinedClickable
+fun TooltipOnLongClickExample(
+    showTooltip2: MutableState<Boolean>? = null,
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.() -> Unit = {}
+) {
+    Box(modifier = modifier) {
+        val showTooltip = showTooltip2 ?: remember { mutableStateOf(false) }
+//        remember {  }
+        if (showTooltip2 == null) {
+            modifier.combinedClickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(),
+                onClickLabel = "Button action description",
+                role = Role.Button,
+                onClick = { showTooltip.value = true /*onClick*/ }
+            )
+        }
         Box(
-            modifier = Modifier
-                .combinedClickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(),
-                    onClickLabel = "Button action description",
-                    role = Role.Button,
-                    onClick = { showTooltip.value = true /*onClick*/ },
-//                    onLongClick = { showTooltip.value = true },
-                ),
+            modifier = modifier
         ) {
-            Text("Click Me")
+            content()
         }
         Tooltip(showTooltip) {
 //            // Tooltip content goes here.
@@ -59,6 +62,6 @@ fun TooltipOnLongClickExample(onClick: () -> Unit = {}) {
 @Composable
 fun PreviewTooltipOnLongClickExample() {
     CrownTheme {
-        TooltipOnLongClickExample()
+        TooltipOnLongClickExample(remember { mutableStateOf(false) })
     }
 }
