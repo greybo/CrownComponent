@@ -45,17 +45,18 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
             CardCrown {
                 HorizontalTitle()
             }
-
-//        val dark = crownColors(true).divider
-//        val light = crownColors(false).divider
+            //Divider
             CardCrown {
                 TextBodyCrown("Divider", Modifier.padding(16.dp))
                 RowCrown {
                     DividerComponent(Modifier.background(CrownTheme.colors.divider))
                 }
-//            RowCrown {
-//                DividerComponent(Modifier.background(light))
-//            }
+            }
+            //Info icon for tooltip
+            CardCrown {
+                InfoRow("Info icon with click to show tooltip") {
+
+                }
             }
 
             CardCrown {

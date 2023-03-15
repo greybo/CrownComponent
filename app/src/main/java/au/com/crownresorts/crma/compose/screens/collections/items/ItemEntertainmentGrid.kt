@@ -1,7 +1,7 @@
 package au.com.crownresorts.crma.compose.screens.collections.items
 
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -52,11 +52,15 @@ fun ItemEntertainmentGrid(
             },
         ) { index ->
             val modifier = Modifier.animateItemPlacement(
-                animationSpec = TweenSpec(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+                /*TweenSpec(
                     300,
                     200,
                     FastOutLinearInEasing
-                )
+                )*/
             )
             EntertainmentCell(list[index], modifier)
         }
