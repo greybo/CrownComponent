@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.model.EntertainmentCell
-import au.com.crownresorts.crma.compose.screens.collections.model.cellList
+import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import au.com.crownresorts.crma.compose.screens.components.GradientBox
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import coil.compose.rememberAsyncImagePainter
@@ -108,5 +108,5 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PreviewItemEntertainmentGrid() {
-    ItemEntertainmentCell(cellList)
+    ItemEntertainmentCell(fakeCellList)
 }

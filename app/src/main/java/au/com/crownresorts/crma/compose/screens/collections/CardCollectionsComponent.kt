@@ -16,27 +16,27 @@ import au.com.crownresorts.crma.compose.screens.collections.items.ItemResultButt
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) {
 
-    val state = viewModel.state.observeAsState()
+    val stateCell = viewModel.stateCell.observeAsState()
+    val stateChips = viewModel.stateChips.observeAsState()
     val edgeDp = 16.dp
     Column {
         Spacer(modifier = Modifier.height(24.dp))
         ItemChipsToggleHorizontal(
-            listToggle = state.value?.chipsList ?: emptyList(),
+            listToggle = stateChips.value ?: emptyList(),
             edgeDp = edgeDp,
-            callback = viewModel::handleSelected
+            callback = viewModel::clickChips
         )
         Spacer(modifier = Modifier.height(16.dp))
         ItemResultButtons(
-            countFound = state.value?.cellList?.size ?: 0,
+            countFound = stateChips.value?.size ?: 0,
             edgeDp = edgeDp,
             onClickReset = viewModel::onClickReset
         )
         Spacer(modifier = Modifier.height(24.dp))
-        ItemEntertainmentCell(state.value?.cellList ?: emptyList(), edgeDp)
+        ItemEntertainmentCell(stateCell.value ?: emptyList(), edgeDp)
     }
 }
 

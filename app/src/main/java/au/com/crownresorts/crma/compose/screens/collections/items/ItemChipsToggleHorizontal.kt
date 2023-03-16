@@ -26,7 +26,7 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 fun ItemChipsToggleHorizontal(
     listToggle: List<ChipsToggleModel>,
     edgeDp: Dp = 16.dp,
-    callback: (ChipsToggleModel) -> Unit
+    callback: (String) -> Unit
 ) {
     LazyRow(
         modifier = Modifier.wrapContentHeight(),
@@ -45,7 +45,7 @@ fun ItemChipsToggleHorizontal(
                 val textColor =
                     if (item.select) CrownTheme.colors.chipsTextSelect else CrownTheme.colors.chipsBgSelect
                 OutlinedButton(
-                    onClick = { callback(item) },
+                    onClick = { callback(item.name) },
                     colors = ButtonDefaults.outlinedButtonColors(containerColor = bgColor),
                     border = BorderStroke(1.dp, textColor),
                     modifier = Modifier.wrapContentHeight(Alignment.CenterVertically)

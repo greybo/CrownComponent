@@ -7,7 +7,7 @@ data class EntertainmentCell(
     val body: String
 )
 
-val cellList = listOf(
+val fakeCellList = listOf(
     EntertainmentCell(
         id = 1,
         urlImage = "https://picsum.photos/200/200?image=0",

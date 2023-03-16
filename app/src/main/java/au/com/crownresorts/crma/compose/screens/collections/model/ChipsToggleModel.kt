@@ -31,7 +31,7 @@ data class ChipsToggleModel(val name: String, var select: Boolean = false) {
 }
 
 
-val fakeChipsList = listOf(
+val fakeChipsList get() =  listOf(
     ChipsToggleModel("one"),
     ChipsToggleModel("two"),
     ChipsToggleModel("three"),

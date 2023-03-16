@@ -1,7 +1,5 @@
 package au.com.crownresorts.crma.compose.screens.collections.items
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,7 +13,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun ItemResultButtons(
     countFound: Int,
