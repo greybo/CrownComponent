@@ -15,6 +15,7 @@ class CardCollectionsViewModel : ViewModel() {
     private val _stateChips = MutableLiveData<List<ChipsToggleModel>>()
     val stateChips: LiveData<List<ChipsToggleModel>> = _stateChips
 
+    private val cellCurrent: List<EntertainmentCell> get() = fakeCellList
     private val _stateCell = MutableLiveData<List<EntertainmentCell>>()
     val stateCell: LiveData<List<EntertainmentCell>> = _stateCell
 
@@ -24,7 +25,7 @@ class CardCollectionsViewModel : ViewModel() {
 
     private fun initData() {
         makeChipsItems(fakeChipsList)
-        setCellItems(fakeCellList)
+        setCellItems(cellCurrent)
     }
 
     fun clickChips(
@@ -40,10 +41,9 @@ class CardCollectionsViewModel : ViewModel() {
         makeCellItems(_chips)
     }
 
-
     private fun makeCellItems(
         chipsList: List<ChipsToggleModel>?,
-        cellList: List<EntertainmentCell> = fakeCellList,
+        cellList: List<EntertainmentCell> = cellCurrent,
     ) {
         val selectedList = chipsList?.groupBy { it.select }?.getOrElse(true) { emptyList() }
         val found = cellList.filter { cell ->

@@ -9,11 +9,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,8 +76,13 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
     val context = LocalContext.current
 
     BoxWithConstraints(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomStart
+        modifier = modifier
+            .fillMaxSize()
+            .shadow(
+                elevation = 4.dp,
+                shape = RoundedCornerShape(10.dp)
+            ),
+        contentAlignment = Alignment.BottomStart,
     ) {
         context.resources.displayMetrics.density
 
