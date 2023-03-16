@@ -33,19 +33,16 @@ fun ItemEntertainmentCell(
 ) {
 
     val spanCount = 2
-//    Spacer(modifier = Modifier.padding(top = 24.dp))
     LazyVerticalGrid(
         columns = GridCells.Fixed(spanCount),
         state = rememberLazyGridState(),
         //Moves away from the right edge
-        contentPadding = PaddingValues(start = edgeDp, end = edgeDp, bottom = 24.dp, top = 24.dp),
+        contentPadding = PaddingValues(start = edgeDp, end = edgeDp, bottom = 24.dp/*, top = 24.dp*/),
         //Distance between items vertical in Vertical Grid
         verticalArrangement = Arrangement.spacedBy(8.dp),
         //Distance between items horizontal in Vertical Grid
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier
-            .fillMaxSize()
-//            .padding(top = 24.dp, bottom = 24.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
         items(
             count = list.size,
@@ -70,7 +67,6 @@ fun ItemEntertainmentCell(
             EntertainmentCell(list[index], modifier)
         }
     }
-//    Spacer(modifier = Modifier.padding(top = 24.dp))
 }
 
 @Composable
@@ -89,7 +85,7 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
             modifier = Modifier.aspectRatio(1f)
         )
         GradientBox(maxWidth)
-        Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+        Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp, end = 8.dp)) {
             Text(
                 text = item.title,
                 style = MaterialTheme.typography.titleMedium,

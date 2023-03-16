@@ -35,7 +35,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
             edgeDp = edgeDp,
             onClickReset = viewModel::onClickReset
         )
-//        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         ItemEntertainmentCell(state.value?.cellList ?: emptyList(), edgeDp)
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import au.com.crownresorts.crma.compose.screens.collections.model.*
+import java.util.function.UnaryOperator
 
 
 class CardCollectionsViewModel : ViewModel() {
@@ -19,18 +20,15 @@ class CardCollectionsViewModel : ViewModel() {
     }
 
     private fun makeItems() {
-        val selectedList = chipsCurrent.groupBy { it.select }[true]
-        val foundList = findCell(selectedList)
-        _state.value = _state.value?.copy(chipsList = chipsCurrent, cellList = foundList)
+        val chipsList = chipsCurrent
+        val foundList = findCell(chipsList)
+        val model = _state.value
+        _state.value = model?.copy(chipsList = chipsList, cellList = foundList)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun handleSelected(select: ChipsToggleModel) {
-        val list = state.value?.chipsList?.toMutableList() ?: return
-        val index = list.indexOf(select)
-        val changed = select.copy(select = !select.select)
-        if (index > -1) list[index] = changed
-        chipsCurrent.clear()
-        chipsCurrent.addAll(list)
+        chipsCurrent.replaceAll(ChipsOperator(select))
         makeItems()
     }
 
@@ -43,11 +41,23 @@ class CardCollectionsViewModel : ViewModel() {
         makeItems()
     }
 
-    private fun findCell(selectedList: List<ChipsToggleModel>?): List<EntertainmentCell> {
-        selectedList ?: return cellList
-        return cellList.filter { cell ->
-            selectedList.find { it.name == cell.body } != null
+    private fun findCell(chipsList: List<ChipsToggleModel>?): List<EntertainmentCell> {
+        chipsList ?: return cellList
+        val selectedList = chipsList.groupBy { it.select }[true]
+        val found = cellList.filter { cell ->
+            selectedList?.find { cell.body.contains(it.name) } != null
         }
+        return if (selectedList.isNullOrEmpty()) cellList else found
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+class ChipsOperator(private val onTapped: ChipsToggleModel) : UnaryOperator<ChipsToggleModel> {
+    override fun apply(p0: ChipsToggleModel): ChipsToggleModel {
+        return if (p0.name == onTapped.name) {
+            p0.select = !p0.select
+            p0
+        } else p0
     }
 }
 

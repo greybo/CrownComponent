@@ -11,7 +11,7 @@ val cellList = listOf(
     EntertainmentCell(
         id = 1,
         urlImage = "https://picsum.photos/200/200?image=0",
-        title = "test test test 1",
+        title = "test test test test 1",
         body = "one"
     ),
     EntertainmentCell(
