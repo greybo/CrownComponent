@@ -1,36 +1,60 @@
 package au.com.crownresorts.crma.compose.screens.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Place
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Star
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.theme.Black
+import au.com.crownresorts.crma.compose.theme.Grey
+import au.com.crownresorts.crma.compose.theme.White
 
 @Composable
 fun TabLayoutComponent() {
     var tabIndex by remember { mutableStateOf(0) }
     val tabData = listOf(
-        "MUSIC",
-        "MARKET",
-        "FILMS",
-        "BOOKS",
+        "Melbourne",
+        "Perth",
+        "Sydney",
     )
-    TabRow(selectedTabIndex = tabIndex) {
-        tabData.forEachIndexed { index, text ->
-            Tab(selected = tabIndex == index,
-                onClick = {
-                    tabIndex = index
-                },
-                text = {
-                    Text(text = text)
-                })
-        }
-    }
+    TabRow(
+        selectedTabIndex = tabIndex,
+        modifier = Modifier
+            .padding(top = 24.dp, start = 16.dp, end = 16.dp)
+            .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp)),
+        indicator = {
+            TabRowDefaults.Indicator(
+                height = 50.dp,
+                modifier = Modifier
+                    .tabIndicatorOffset(it[tabIndex]),
+                color = White.copy(alpha = 0.4f)
+            )
+        },
+//        divider = { },
+        tabs = {
+            tabData.forEachIndexed { index, text ->
+                Tab(
+                    selected = tabIndex == index,
+                    modifier = Modifier.background(color = if (tabIndex == index) White else Grey),
+                    onClick = {
+                        tabIndex = index
+                    },
+                    text = {
+                        Text(text = text)
+                    },
+                    selectedContentColor = Black,
+                    unselectedContentColor = Black,
+                )
+            }
+        })
 }
 
 @Preview
@@ -39,24 +63,3 @@ fun PreviewTabLayoutComponent() {
     TabLayoutComponent()
 }
 
-
-data class TabScreen(val text: String)
-data class TabRowItem(val title: String, val screen: () -> TabScreen, val icon: ImageVector)
-
-val tabRowItems = listOf(
-    TabRowItem(
-        title = "Tab 1",
-        screen = { TabScreen(text = "Tab 1") },
-        icon = Icons.Rounded.Place,
-    ),
-    TabRowItem(
-        title = "Tab 2",
-        screen = { TabScreen(text = "Tab 2") },
-        icon = Icons.Rounded.Search,
-    ),
-    TabRowItem(
-        title = "Tab 3",
-        screen = { TabScreen(text = "Tab 3") },
-        icon = Icons.Rounded.Star,
-    )
-)

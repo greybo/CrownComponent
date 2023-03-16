@@ -27,6 +27,7 @@ enum class MainComposeItems(val rawValue: String) {
     Typography("Typography"),
     Components("Components"),
     Collections("Collections"),
+    Whatson("Whatson"),
 //    Templates("Templates"),
 
 }
