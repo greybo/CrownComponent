@@ -18,6 +18,16 @@ data class ChipsToggleModel(val name: String, var select: Boolean = false) {
         result = 31 * result + select.hashCode()
         return result
     }
+
+    fun revertSelect(): ChipsToggleModel {
+        select = !select
+        return this
+    }
+
+    fun default(): ChipsToggleModel {
+        select = false
+        return this
+    }
 }
 
 

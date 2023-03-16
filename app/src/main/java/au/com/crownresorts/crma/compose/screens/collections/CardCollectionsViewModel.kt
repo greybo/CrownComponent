@@ -9,6 +9,7 @@ import au.com.crownresorts.crma.compose.screens.collections.model.*
 import java.util.function.UnaryOperator
 
 
+@RequiresApi(Build.VERSION_CODES.N)
 class CardCollectionsViewModel : ViewModel() {
 
     private val chipsCurrent = fakeChipsList.toMutableList()
@@ -20,30 +21,25 @@ class CardCollectionsViewModel : ViewModel() {
     }
 
     private fun makeItems() {
-        val chipsList = chipsCurrent
+        val chipsList: List<ChipsToggleModel> = chipsCurrent
         val foundList = findCell(chipsList)
-        val model = _state.value
-        _state.value = model?.copy(chipsList = chipsList, cellList = foundList)
+        _state.value = EntertainmentModel(chipsList = chipsList, cellList = foundList)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun handleSelected(select: ChipsToggleModel) {
-        chipsCurrent.replaceAll(ChipsOperator(select))
+        chipsCurrent.replaceAll(ChipsOperator(select.name))
         makeItems()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun onClickReset() {
         chipsCurrent.replaceAll {
-            it.select = false
-            it
+            it.default()
         }
         makeItems()
     }
 
     private fun findCell(chipsList: List<ChipsToggleModel>?): List<EntertainmentCell> {
-        chipsList ?: return cellList
-        val selectedList = chipsList.groupBy { it.select }[true]
+        val selectedList = chipsList?.groupBy { it.select }?.getOrDefault(true, emptyList())
         val found = cellList.filter { cell ->
             selectedList?.find { cell.body.contains(it.name) } != null
         }
@@ -52,11 +48,10 @@ class CardCollectionsViewModel : ViewModel() {
 }
 
 @RequiresApi(Build.VERSION_CODES.N)
-class ChipsOperator(private val onTapped: ChipsToggleModel) : UnaryOperator<ChipsToggleModel> {
+class ChipsOperator(private val name: String) : UnaryOperator<ChipsToggleModel> {
     override fun apply(p0: ChipsToggleModel): ChipsToggleModel {
-        return if (p0.name == onTapped.name) {
-            p0.select = !p0.select
-            p0
+        return if (p0.name == name) {
+            p0.revertSelect()
         } else p0
     }
 }
