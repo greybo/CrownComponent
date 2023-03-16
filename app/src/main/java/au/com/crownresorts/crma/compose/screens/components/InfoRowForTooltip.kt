@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.tooltip.TooltipOnLongClickExample
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 import com.example.crownexample.R
 
 @Composable
@@ -33,7 +34,8 @@ fun InfoRow(
             Icon(
                 painter = painterResource(id = R.drawable.ic_info),
                 contentDescription = "icon info",
-                modifier = Modifier.clickable { showTooltip.value = true }
+                modifier = Modifier.clickable { showTooltip.value = true },
+                tint = CrownTheme.colors.iconTint
             )
             TextCrown(text = text, style = MaterialTheme.typography.bodySmall)
         }
