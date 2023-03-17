@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
+import au.com.crownresorts.crma.compose.screens.whatson.items.ItemSmallCellCollection
 
 @Composable
 fun WhatsonSectionAdapter(properties: MutableState<Properties>, viewModel: WhatsonColumnViewModel = viewModel()) {
@@ -48,7 +49,7 @@ fun WhatsonSectionAdapter(properties: MutableState<Properties>, viewModel: Whats
             when (val item = list?.getOrNull(it)) {
                 is WhatsonSection.Categories -> ItemIconCategory(list = item.list)
                 is WhatsonSection.LargeCell -> ItemLargeCellCollection(item, callback = viewModel::onClickCategory)
-                is WhatsonSection.SmallCell -> TODO()//ItemLargeCellCollection(item, callback = viewModel::onClickCategory)
+                is WhatsonSection.SmallCell -> ItemSmallCellCollection(item, callback = viewModel::onClickCategory)
                 else -> TODO()
             }
         }

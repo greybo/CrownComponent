@@ -38,6 +38,9 @@ class WhatsonColumnViewModel : ViewModel() {
         makeLargeCell()?.let {
             list.add(it)
         }
+        makeSmallCell()?.let {
+            list.addAll(it)
+        }
         _state.value = list
     }
 
@@ -61,7 +64,7 @@ class WhatsonColumnViewModel : ViewModel() {
                 list = it.value,
                 seeAll = it.value.size > 4,
             )
-        }
+        }.filter { it.category.isNotEmpty() }
     }
 
     private fun makeCategories(): List<CategoriesCell>? {
@@ -91,9 +94,14 @@ class WhatsonColumnViewModel : ViewModel() {
 
 sealed class WhatsonSection(val id: Any) {
 
-    data class Categories(val _id: Int = Random.nextInt(), val list: List<CategoriesCell>) : WhatsonSection(_id)
-    data class LargeCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) : WhatsonSection(Random.nextInt())
-    data class SmallCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) : WhatsonSection(Random.nextInt())
+    data class Categories(val _id: Int = Random.nextInt(), val list: List<CategoriesCell>) :
+        WhatsonSection(_id)
+
+    data class LargeCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) :
+        WhatsonSection(Random.nextInt())
+
+    data class SmallCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) :
+        WhatsonSection(Random.nextInt())
 }
 
 class CategoriesCell(val title: String, val iconRes: Int)
