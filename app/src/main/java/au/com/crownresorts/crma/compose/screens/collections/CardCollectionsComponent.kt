@@ -31,7 +31,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
         )
         Spacer(modifier = Modifier.height(16.dp))
         ItemResultButtons(
-            countFound = stateChips.value?.size ?: 0,
+            countFound = stateCell.value?.size ?: 0,
             edgeDp = edgeDp,
             onClickReset = viewModel::onClickReset
         )

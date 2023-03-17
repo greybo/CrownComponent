@@ -48,7 +48,7 @@ fun ItemEntertainmentCell(item: HitModel, modifier: Modifier) {
         GradientBoxFull(maxHeight, maxWidth)
         AsyncImage(
             model = item.urlImage,//"",//
-            contentScale = ContentScale.FillHeight,
+            contentScale = ContentScale.Crop,
             contentDescription = "",
             modifier = Modifier.fillMaxSize()
         )
