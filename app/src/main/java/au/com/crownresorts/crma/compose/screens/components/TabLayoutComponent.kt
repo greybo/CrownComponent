@@ -13,20 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.screens.whatson.Properties
 import au.com.crownresorts.crma.compose.theme.Black
 import au.com.crownresorts.crma.compose.theme.Grey
 import au.com.crownresorts.crma.compose.theme.White
 
 @Composable
-fun TabLayoutComponent() {
+fun TabLayoutComponent(propertyCurrent: MutableState<Properties>) {
 //    val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     var tabIndex by remember { mutableStateOf(0) }
-    val tabData = listOf(
-        "Melbourne",
-        "Perth",
-        "Sydney",
-    )
+    val tabData = Properties.values()
     TabRow(
         selectedTabIndex = tabIndex,
         modifier = Modifier
@@ -42,16 +39,17 @@ fun TabLayoutComponent() {
         },
 //        divider = { },
         tabs = {
-            tabData.forEachIndexed { index, text ->
+            tabData.forEachIndexed { index, type ->
                 Tab(
                     selected = tabIndex == index,
                     modifier = Modifier.background(color = if (tabIndex == index) White else Grey),
                     onClick = {
 //                        coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         tabIndex = index
+                        propertyCurrent.value = type
                     },
                     text = {
-                        Text(text = text)
+                        Text(text = type.name)
                     },
                     selectedContentColor = Black,
                     unselectedContentColor = Black,
@@ -63,6 +61,6 @@ fun TabLayoutComponent() {
 @Preview
 @Composable
 fun PreviewTabLayoutComponent() {
-    TabLayoutComponent()
+    TabLayoutComponent(remember { mutableStateOf(Properties.Sydney) })
 }
 

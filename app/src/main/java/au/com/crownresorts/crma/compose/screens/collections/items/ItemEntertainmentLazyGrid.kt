@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.collections.model.EntertainmentCell
+import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import au.com.crownresorts.crma.compose.screens.components.GradientBox
 import au.com.crownresorts.crma.compose.theme.CrownTheme
@@ -29,8 +29,8 @@ import coil.compose.rememberAsyncImagePainter
 
 @ExperimentalFoundationApi
 @Composable
-fun ItemEntertainmentCell(
-    list: List<EntertainmentCell>,
+fun ItemEntertainmentLazyGrid(
+    list: List<HitModel>,
     edgeDp: Dp = 0.dp
 ) {
 
@@ -66,13 +66,13 @@ fun ItemEntertainmentCell(
                     FastOutLinearInEasing
                 )*/
             )
-            EntertainmentCell(list[index], modifier)
+            ItemEntertainmentCell(list[index], modifier)
         }
     }
 }
 
 @Composable
-private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
+fun ItemEntertainmentCell(item: HitModel, modifier: Modifier) {
     val context = LocalContext.current
 
     BoxWithConstraints(
@@ -85,7 +85,12 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
         contentAlignment = Alignment.BottomStart,
     ) {
         context.resources.displayMetrics.density
-
+//        AsyncImage(
+//            model = rememberAsyncImagePainter(model = item.urlImage),
+//            modifier = Modifier.aspectRatio(1f),
+//            contentDescription = ""
+//            // ...
+//        )
         Image(
             painter = rememberAsyncImagePainter(item.urlImage),
             contentDescription = "",
@@ -115,5 +120,5 @@ private fun EntertainmentCell(item: EntertainmentCell, modifier: Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PreviewItemEntertainmentGrid() {
-    ItemEntertainmentCell(fakeCellList)
+    ItemEntertainmentLazyGrid(fakeCellList)
 }

@@ -1,84 +1,103 @@
 package au.com.crownresorts.crma.compose.screens.collections.model
 
-data class EntertainmentCell(
+data class HitModel(
     val id: Int,
     val urlImage: String,
     val title: String,
-    val body: String
+    val body: String,
+    val category: String
 )
 
 val fakeCellList = listOf(
-    EntertainmentCell(
+    HitModel(
         id = 1,
         urlImage = "https://picsum.photos/200/200?image=0",
-        title = "test test test test 1",
-        body = "one"
+        title = "Restaurant Restaurant ",
+        body = "one",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 2,
         urlImage = "https://picsum.photos/200/200?image=81",
-        title = "test 2",
-        body = "two two two two two "
+        title = "Restaurant ",
+        body = "two two two two two ",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 3,
         urlImage = "https://picsum.photos/200/200?image=52",
-        title = "test test test test 3 test 3 test 3 test 3 test 3 test 3",
-        body = "three three three three three three three three three three three"
+        title = "Restaurant Restaurant Restaurant Restaurant Restaurant",
+        body = "three three three three three three three three three three three",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 4,
         urlImage = "https://picsum.photos/200/200?image=33",
-        title = "test 1",
-        body = "four"
+        title = "Restaurant",
+        body = "four",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 5,
         urlImage = "https://picsum.photos/200/200?image=44",
-        title = "test 1",
-        body = "five"
+        title = "Restaurant",
+        body = "five",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 6,
         urlImage = "https://picsum.photos/200/200?image=15",
-        title = "test 1",
-        body = "six"
+        title = "Restaurant",
+        body = "six",
+        category = "Restaurant"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 7,
         urlImage = "https://picsum.photos/200/200?image=25",
-        title = "test 1",
-        body = "seven"
+        title = "Bars",
+        body = "seven",
+        category = "Bars"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 8,
         urlImage = "https://picsum.photos/200/200?image=319",
-        title = "test 1",
-        body = "eight"
+        title = "Bars",
+        body = "eight",
+        category = "Bars"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 9,
         urlImage = "https://picsum.photos/200/200?image=18",
-        title = "test 1",
-        body = "nine"
+        title = "Bars",
+        body = "nine",
+        category = "Bars"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 10,
         urlImage = "https://picsum.photos/200/200?image=9",
-        title = "test 1",
-        body = "ten"
+        title = "Bars",
+        body = "ten",
+        category = "Bars"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 11,
         urlImage = "https://picsum.photos/200/200?image=110",
-        title = "test 1",
-        body = "eleven"
+        title = "Bars",
+        body = "eleven",
+        category = "Bars"
     ),
-    EntertainmentCell(
+    HitModel(
         id = 12,
         urlImage = "https://picsum.photos/200/200?image=31",
-        title = "test 1",
-        body = "twelve"
+        title = "Bars",
+        body = "twelve",
+        category = "Bars"
     ),
-
+    HitModel(
+        id = 13,
+        urlImage = "https://picsum.photos/200/200?image=34",
+        title = "SportBar",
+        body = "thirteen",
+        category = "SportBar"
+    ),
 )

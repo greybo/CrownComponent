@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import au.com.crownresorts.crma.compose.screens.collections.model.ChipsToggleModel
-import au.com.crownresorts.crma.compose.screens.collections.model.EntertainmentCell
+import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeChipsList
 
@@ -15,9 +15,9 @@ class CardCollectionsViewModel : ViewModel() {
     private val _stateChips = MutableLiveData<List<ChipsToggleModel>>()
     val stateChips: LiveData<List<ChipsToggleModel>> = _stateChips
 
-    private val cellCurrent: List<EntertainmentCell> get() = fakeCellList
-    private val _stateCell = MutableLiveData<List<EntertainmentCell>>()
-    val stateCell: LiveData<List<EntertainmentCell>> = _stateCell
+    private val cellCurrent: List<HitModel> get() = fakeCellList
+    private val _stateCell = MutableLiveData<List<HitModel>>()
+    val stateCell: LiveData<List<HitModel>> = _stateCell
 
     init {
         initData()
@@ -43,7 +43,7 @@ class CardCollectionsViewModel : ViewModel() {
 
     private fun makeCellItems(
         chipsList: List<ChipsToggleModel>?,
-        cellList: List<EntertainmentCell> = cellCurrent,
+        cellList: List<HitModel> = cellCurrent,
     ) {
         val selectedList = chipsList?.groupBy { it.select }?.getOrElse(true) { emptyList() }
         val found = cellList.filter { cell ->
@@ -52,7 +52,7 @@ class CardCollectionsViewModel : ViewModel() {
         setCellItems(if (selectedList.isNullOrEmpty()) cellList else found)
     }
 
-    private fun setCellItems(cells: List<EntertainmentCell>?) {
+    private fun setCellItems(cells: List<HitModel>?) {
         _stateCell.postValue(cells ?: emptyList())
     }
 
