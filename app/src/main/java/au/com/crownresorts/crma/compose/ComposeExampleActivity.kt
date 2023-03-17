@@ -3,6 +3,7 @@ package au.com.crownresorts.crma.compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ class ComposeExampleActivity : ComponentActivity() {
     @Composable
     private fun Greeting() {
         CrownTheme(/*isDark = false*/) {
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier.fillMaxSize().background(color= CrownTheme.colors.background)) {
                 RouterCompose()
             }
         }

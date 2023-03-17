@@ -19,6 +19,8 @@ import au.com.crownresorts.crma.compose.theme.White
 
 @Composable
 fun TabLayoutComponent() {
+//    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
     var tabIndex by remember { mutableStateOf(0) }
     val tabData = listOf(
         "Melbourne",
@@ -45,6 +47,7 @@ fun TabLayoutComponent() {
                     selected = tabIndex == index,
                     modifier = Modifier.background(color = if (tabIndex == index) White else Grey),
                     onClick = {
+//                        coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         tabIndex = index
                     },
                     text = {

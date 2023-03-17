@@ -14,7 +14,7 @@ import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
 import au.com.crownresorts.crma.compose.screens.components.ComposeComponentScreen
 import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
 import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
-import au.com.crownresorts.crma.compose.screens.whatson.WhatsonScreen
+import au.com.crownresorts.crma.compose.screens.whatson.WhatsonMainScreen
 
 @Preview
 @Composable
@@ -41,7 +41,7 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
         composable(RouterScreenType.Typography.name) { ComposeTypographyScreen(navController) }
         composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
         composable(RouterScreenType.Collections.name) { CardCollectionsComponent(/*navController*/) }
-        composable(RouterScreenType.Whatson.name) { WhatsonScreen(/*navController*/) }
+        composable(RouterScreenType.Whatson.name) { WhatsonMainScreen(/*navController*/) }
     }
 
 }
