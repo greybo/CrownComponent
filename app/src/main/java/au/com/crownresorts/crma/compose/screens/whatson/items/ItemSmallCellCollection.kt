@@ -28,27 +28,26 @@ fun ItemSmallCellCollection(model: WhatsonSection.SmallCell, edgeDp: Dp = 16.dp,
     val screenWidth = configuration.screenWidthDp.dp
     val widthCell = screenWidth / 2.3f
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 24.dp,)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = edgeDp, end = edgeDp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Bottom,
         ) {
             TextCrown(text = model.category)
             if (model.seeAll) Text(
                 text = "See All",
                 color = CrownTheme.colors.goldDefault,
                 modifier = Modifier
-                    .padding(top = 8.dp, bottom = 8.dp, start = 4.dp)
+                    .padding(bottom = 8.dp, start = 8.dp)
                     .clickable { callback(model.category) }
             )
         }
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             state = rememberLazyListState(),
-//        contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             //Moves away from the right edge  in Horizontal
             contentPadding = PaddingValues(horizontal = edgeDp),

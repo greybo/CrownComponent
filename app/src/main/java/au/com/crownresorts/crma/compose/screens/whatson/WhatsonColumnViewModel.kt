@@ -3,9 +3,11 @@ package au.com.crownresorts.crma.compose.screens.whatson
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import com.example.crownexample.R
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class WhatsonColumnViewModel : ViewModel() {
@@ -31,17 +33,24 @@ class WhatsonColumnViewModel : ViewModel() {
     }
 
     private fun makeSection() {
-        val list = mutableListOf<WhatsonSection>()
-        makeCategories()?.let {
-            list.add(WhatsonSection.Categories(it.hashCode(), it))
+        viewModelScope.launch {
+            val list = mutableListOf<WhatsonSection>()
+            makeCategories()?.let {
+                list.add(WhatsonSection.Categories(it.hashCode(), it))
+            }
+            makeLargeCell()?.let {
+                list.add(it)
+            }
+            makeSmallCell()?.let {
+                list.add(WhatsonSection.Divider())
+                list.addAll(it)
+            }
+            makeSaveCell()?.let {
+                list.add(WhatsonSection.Divider())
+                list.add(it)
+            }
+            _state.postValue(list)
         }
-        makeLargeCell()?.let {
-            list.add(it)
-        }
-        makeSmallCell()?.let {
-            list.addAll(it)
-        }
-        _state.value = list
     }
 
     private fun makeLargeCell(): WhatsonSection? {
@@ -65,6 +74,16 @@ class WhatsonColumnViewModel : ViewModel() {
                 seeAll = it.value.size > 4,
             )
         }.filter { it.category.isNotEmpty() }
+    }
+
+    private fun makeSaveCell(): WhatsonSection? {
+        val list = fakeCellList
+            .filter { it.id == 1 || it.id == 2 || it.id == 3 || it.id == 4 || it.id == 5 || it.id == 6 }
+        return WhatsonSection.SmallCell(
+            category = "Saved",
+            list = list,
+            seeAll = list.size > 4
+        )
     }
 
     private fun makeCategories(): List<CategoriesCell>? {
@@ -102,6 +121,8 @@ sealed class WhatsonSection(val id: Any) {
 
     data class SmallCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) :
         WhatsonSection(Random.nextInt())
+
+    class Divider : WhatsonSection(Random.nextInt())
 }
 
 class CategoriesCell(val title: String, val iconRes: Int)

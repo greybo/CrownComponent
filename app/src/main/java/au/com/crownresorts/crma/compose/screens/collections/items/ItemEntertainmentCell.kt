@@ -39,15 +39,13 @@ fun ItemEntertainmentCell(item: HitModel, modifier: Modifier) {
                 shape = RoundedCornerShape(10.dp)
             )
             .onGloballyPositioned { coordinates ->
-                // Set column height using the LayoutCoordinates
-//                columnHeightPx = coordinates.size.height.toFloat()
                 columnHeightDp.value = (coordinates.size.height / localDensity).dp
             },
         contentAlignment = Alignment.BottomStart,
     ) {
         GradientBoxFull(maxHeight, maxWidth)
         AsyncImage(
-            model = item.urlImage,//"",//
+            model = item.urlImage,
             contentScale = ContentScale.Crop,
             contentDescription = "",
             modifier = Modifier.fillMaxSize()

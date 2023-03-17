@@ -1,9 +1,6 @@
 package au.com.crownresorts.crma.compose.screens.whatson.items
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
@@ -24,7 +21,9 @@ import com.example.crownexample.R
 fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
 
     LazyRow(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp, bottom = 24.dp),
         state = rememberLazyListState(),
 //        contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -34,7 +33,7 @@ fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
         items(
             count = list.size,
             key = { list.getOrNull(it)?.title ?: "0" },
-        ) {index->
+        ) { index ->
             val item = list[index]
 //            AnimatedVisibility(
 //                visible = true,
@@ -42,20 +41,19 @@ fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
 //                    animationSpec = TweenSpec(600, 200, FastOutLinearInEasing)
 //                )
 //            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxWidth()
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier .fillMaxWidth()
 //                    .animateItemPlacement(
 //                        animationSpec = spring(
 //                            dampingRatio = Spring.DampingRatioMediumBouncy,
 //                            stiffness = Spring.StiffnessLow,
 //                        )
 //                    )
-                ) {
-                    Icon(painter = painterResource(id = item.iconRes), contentDescription = "")
-                    TextCrown(text = item.title, style = crownTypography.bodySmall)
-                }
+            ) {
+                Icon(painter = painterResource(id = item.iconRes), contentDescription = "")
+                TextCrown(text = item.title, style = crownTypography.bodySmall)
+            }
 //            }
         }
     }

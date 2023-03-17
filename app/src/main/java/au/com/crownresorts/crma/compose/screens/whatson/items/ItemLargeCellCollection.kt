@@ -21,20 +21,26 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ItemLargeCellCollection(model: WhatsonSection.LargeCell, edgeDp: Dp = 16.dp, callback: (String) -> Unit) {
+fun ItemLargeCellCollection(
+    model: WhatsonSection.LargeCell,
+    edgeDp: Dp = 16.dp,
+    callback: (String) -> Unit
+) {
 
     val list = model.list
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val widthCell = screenWidth / 1.3f
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 24.dp, bottom = 24.dp)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = edgeDp, end = edgeDp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Bottom,
         ) {
             TextCrown(text = model.category)
             if (model.seeAll) Text(
