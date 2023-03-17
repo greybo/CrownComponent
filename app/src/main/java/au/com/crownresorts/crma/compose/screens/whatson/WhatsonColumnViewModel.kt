@@ -36,14 +36,27 @@ class WhatsonColumnViewModel : ViewModel() {
             list.add(WhatsonSection.Categories(it.hashCode(), it))
         }
         makeLargeCell()?.let {
-            list.addAll(it)
+            list.add(it)
         }
         _state.value = list
     }
 
-    private fun makeLargeCell(): List<WhatsonSection>? {
+    private fun makeLargeCell(): WhatsonSection? {
+        return fakeCellList
+            .groupBy { it.category }
+            .getOrDefault("", null)
+            ?.let {
+                WhatsonSection.LargeCell(
+                    category = "Large cell",
+                    list = it,
+                    seeAll = it.size > 4,
+                )
+            }
+    }
+
+    private fun makeSmallCell(): List<WhatsonSection>? {
         return fakeCellList.groupBy { it.category }.map {
-            WhatsonSection.LargeCell(
+            WhatsonSection.SmallCell(
                 category = it.key,
                 list = it.value,
                 seeAll = it.value.size > 4,
@@ -79,7 +92,8 @@ class WhatsonColumnViewModel : ViewModel() {
 sealed class WhatsonSection(val id: Any) {
 
     data class Categories(val _id: Int = Random.nextInt(), val list: List<CategoriesCell>) : WhatsonSection(_id)
-    data class LargeCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) : WhatsonSection(category)
+    data class LargeCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) : WhatsonSection(Random.nextInt())
+    data class SmallCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) : WhatsonSection(Random.nextInt())
 }
 
 class CategoriesCell(val title: String, val iconRes: Int)

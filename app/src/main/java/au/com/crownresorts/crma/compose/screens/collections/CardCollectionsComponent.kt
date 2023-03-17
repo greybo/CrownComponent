@@ -11,8 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemChipsToggleHorizontal
-import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentLazyGrid
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemResultButtons
+import au.com.crownresorts.crma.compose.screens.collections.items.ItemVerticalGridAdapter
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -36,7 +36,7 @@ fun CardCollectionsComponent(viewModel: CardCollectionsViewModel = viewModel()) 
             onClickReset = viewModel::onClickReset
         )
         Spacer(modifier = Modifier.height(24.dp))
-        ItemEntertainmentLazyGrid(stateCell.value ?: emptyList(), edgeDp)
+        ItemVerticalGridAdapter(stateCell.value ?: emptyList(), edgeDp)
     }
 }
 

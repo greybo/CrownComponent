@@ -9,28 +9,37 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemLargeCellCollection(model: WhatsonSection.LargeCell, edgeDp: Dp = 16.dp, callback: (String) -> Unit) {
 
     val list = model.list
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    val widthCell = screenWidth / 1.3f
+
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = edgeDp, end = edgeDp),
             horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             TextCrown(text = model.category)
             if (model.seeAll) Text(
                 text = "See All",
+                color = CrownTheme.colors.goldDefault,
                 modifier = Modifier
                     .padding(top = 8.dp, bottom = 8.dp, start = 4.dp)
                     .clickable { callback(model.category) }
@@ -49,40 +58,25 @@ fun ItemLargeCellCollection(model: WhatsonSection.LargeCell, edgeDp: Dp = 16.dp,
                 key = { list.getOrNull(it)?.id ?: 0 },
             ) {
                 val item = list[it]
-                val modifier = Modifier.animateItemPlacement(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
-                    )
-                    /*TweenSpec(
-                        300,
-                        200,
-                        FastOutLinearInEasing
-                    )*/
-                )
 
+                val modifier = Modifier
+                    .width(widthCell)
+                    .aspectRatio(0.7f)
+                    .animateItemPlacement(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
+                    )
+
+//                AnimatedVisibility(
+//                    visible = true,
+//                    exit = fadeOut(
+//                        animationSpec = TweenSpec(600, 600, FastOutLinearInEasing)
+//                    )
+//                ) {
                 ItemEntertainmentCell(item, modifier)
-//            AnimatedVisibility(
-//                visible = true,
-//                exit = fadeOut(
-//                    animationSpec = TweenSpec(600, 200, FastOutLinearInEasing)
-//                )
-//            ) {
-//            Column(
-//                horizontalAlignment = Alignment.CenterHorizontally,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-////                    .animateItemPlacement(
-////                        animationSpec = spring(
-////                            dampingRatio = Spring.DampingRatioMediumBouncy,
-////                            stiffness = Spring.StiffnessLow,
-////                        )
-////                    )
-//            ) {
-//                Icon(painter = rememberAsyncImagePainter(item.urlImage), contentDescription = "")
-//                TextCrown(text = item.title, style = crownTypography.bodySmall)
-//            }
-//            }
+//                }
             }
         }
     }

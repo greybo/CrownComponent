@@ -38,9 +38,8 @@ fun WhatsonSectionAdapter(properties: MutableState<Properties>, viewModel: Whats
             span = {
                 GridItemSpan(
                     when (list?.getOrNull(it)) {
-                        is WhatsonSection.Categories -> 2
-                        is WhatsonSection.LargeCell -> 2
-                        else -> 1
+                        null -> 1
+                        else -> 2
                     }
                 )
             },
@@ -49,7 +48,8 @@ fun WhatsonSectionAdapter(properties: MutableState<Properties>, viewModel: Whats
             when (val item = list?.getOrNull(it)) {
                 is WhatsonSection.Categories -> ItemIconCategory(list = item.list)
                 is WhatsonSection.LargeCell -> ItemLargeCellCollection(item, callback = viewModel::onClickCategory)
-                else -> {}
+                is WhatsonSection.SmallCell -> TODO()//ItemLargeCellCollection(item, callback = viewModel::onClickCategory)
+                else -> TODO()
             }
         }
     }
