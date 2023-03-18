@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
@@ -24,7 +25,7 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 fun ItemLargeCellCollection(
     model: WhatsonSection.LargeCell,
     edgeDp: Dp = 16.dp,
-    callback: (String) -> Unit
+    callback: (RouterWhatsonType) -> Unit
 ) {
 
     val list = model.list
@@ -32,9 +33,11 @@ fun ItemLargeCellCollection(
     val screenWidth = configuration.screenWidthDp.dp
     val widthCell = screenWidth / 1.3f
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 24.dp, bottom = 24.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp, bottom = 24.dp)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,7 +51,7 @@ fun ItemLargeCellCollection(
                 color = CrownTheme.colors.goldDefault,
                 modifier = Modifier
                     .padding(top = 8.dp, bottom = 8.dp, start = 4.dp)
-                    .clickable { callback(model.category) }
+                    .clickable { callback(RouterWhatsonType.SeeAll(model.category)) }
             )
         }
         LazyRow(
@@ -61,7 +64,7 @@ fun ItemLargeCellCollection(
         ) {
             items(
                 count = list.size,
-                key = { list.getOrNull(it)?.id ?: 0 },
+                key = { list.getOrNull(it)?.hitId ?: 0 },
             ) {
                 val item = list[it]
 
@@ -74,6 +77,9 @@ fun ItemLargeCellCollection(
                             stiffness = Spring.StiffnessLow
                         )
                     )
+                    .clickable {
+                        callback(RouterWhatsonType.Details(item.hitId))
+                    }
 
 //                AnimatedVisibility(
 //                    visible = true,

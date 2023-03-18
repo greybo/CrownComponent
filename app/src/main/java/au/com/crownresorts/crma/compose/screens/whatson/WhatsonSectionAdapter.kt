@@ -10,6 +10,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemDividerComponent
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
@@ -18,10 +19,11 @@ import au.com.crownresorts.crma.compose.screens.whatson.items.ItemSmallCellColle
 @Composable
 fun WhatsonSectionAdapter(
     properties: MutableState<Properties>,
+    navController: NavHostController,
     viewModel: WhatsonColumnViewModel = viewModel()
 ) {
-
     viewModel.fetchData(properties.value)
+    viewModel.navController = navController
 
     val state = viewModel.state.observeAsState()
     val stateLazy = rememberLazyGridState()
@@ -31,10 +33,6 @@ fun WhatsonSectionAdapter(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         state = stateLazy,
-//        contentPadding = PaddingValues(/*start = edgeDp, end = edgeDp,*/
-//            top = 24.dp,
-//            bottom = 24.dp
-//        ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(
@@ -48,14 +46,17 @@ fun WhatsonSectionAdapter(
 //            contentType = {},
         ) {
             when (val item = list?.getOrNull(it)) {
-                is WhatsonSection.Categories -> ItemIconCategory(list = item.list)
+                is WhatsonSection.Categories -> ItemIconCategory(
+                    list = item.list,
+                    callback = viewModel::onClick
+                )
                 is WhatsonSection.LargeCell -> ItemLargeCellCollection(
                     item,
-                    callback = viewModel::onClickCategory
+                    callback = viewModel::onClick
                 )
                 is WhatsonSection.SmallCell -> ItemSmallCellCollection(
                     item,
-                    callback = viewModel::onClickCategory
+                    callback = viewModel::onClick
                 )
                 is WhatsonSection.Divider -> ItemDividerComponent()
                 else -> TODO()

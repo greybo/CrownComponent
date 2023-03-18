@@ -4,15 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
+import au.com.crownresorts.crma.compose.router.RouterScreenType
 import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import com.example.crownexample.R
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class WhatsonColumnViewModel : ViewModel() {
 
     private var _properties = Properties.Melbourne
+    var navController: NavHostController? = null
 
     private val _state = MutableLiveData<List<WhatsonSection>>()
     val state: LiveData<List<WhatsonSection>> = _state
@@ -28,24 +32,29 @@ class WhatsonColumnViewModel : ViewModel() {
         }
     }
 
-    fun onClickCategory(category: String) {
-
+    fun onClick(type: RouterWhatsonType) {
+        val link = when (type) {
+            is RouterWhatsonType.Details -> RouterScreenType.Details.name + "/${type.id}"
+            is RouterWhatsonType.SeeAll -> RouterScreenType.SeeAll.name + "/${type.category}"
+            is RouterWhatsonType.CategoryGroup -> RouterScreenType.SeeAll.name + "/${type.category}"
+        }
+        navController?.navigate(link)
     }
 
     private fun makeSection() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             val list = mutableListOf<WhatsonSection>()
             makeCategories()?.let {
                 list.add(WhatsonSection.Categories(it.hashCode(), it))
             }
-            makeLargeCell()?.let {
+            makeLargeCell("Large")?.let {
                 list.add(it)
             }
-            makeSmallCell()?.let {
+            makeSmallCell("Bars", "Restaurant", "SportBar")?.let {
                 list.add(WhatsonSection.Divider())
                 list.addAll(it)
             }
-            makeSaveCell()?.let {
+            makeSaveCell(2, 20, 19, 1)?.let {
                 list.add(WhatsonSection.Divider())
                 list.add(it)
             }
@@ -53,10 +62,10 @@ class WhatsonColumnViewModel : ViewModel() {
         }
     }
 
-    private fun makeLargeCell(): WhatsonSection? {
+    private fun makeLargeCell(name: String): WhatsonSection? {
         return fakeCellList
             .groupBy { it.category }
-            .getOrDefault("", null)
+            .getOrDefault(name, null)
             ?.let {
                 WhatsonSection.LargeCell(
                     category = "Large cell",
@@ -66,19 +75,26 @@ class WhatsonColumnViewModel : ViewModel() {
             }
     }
 
-    private fun makeSmallCell(): List<WhatsonSection>? {
-        return fakeCellList.groupBy { it.category }.map {
-            WhatsonSection.SmallCell(
-                category = it.key,
-                list = it.value,
-                seeAll = it.value.size > 4,
-            )
+    private fun makeSmallCell(vararg value: String): List<WhatsonSection>? {
+        return fakeCellList.groupBy { it.category }.mapNotNull {
+            if (value.contains(it.key)) {
+                WhatsonSection.SmallCell(
+                    category = it.key,
+                    list = it.value,
+                    seeAll = it.value.size > 4,
+                )
+            } else null
         }.filter { it.category.isNotEmpty() }
     }
 
-    private fun makeSaveCell(): WhatsonSection? {
-        val list = fakeCellList
-            .filter { it.id == 1 || it.id == 2 || it.id == 3 || it.id == 4 || it.id == 5 || it.id == 6 }
+    private fun makeSaveCell(vararg ids: Int): WhatsonSection? {
+        val list = ids.map { id ->
+            fakeCellList.find { it.hitId == id }
+        }.filterNotNull()
+//        val list = fakeCellList
+//            .filter { hit ->
+//                ids.find { (hit.id == it) } != null
+//            }
         return WhatsonSection.SmallCell(
             category = "Saved",
             list = list,
@@ -109,6 +125,7 @@ class WhatsonColumnViewModel : ViewModel() {
         }
 
     }
+
 }
 
 sealed class WhatsonSection(val id: Any) {

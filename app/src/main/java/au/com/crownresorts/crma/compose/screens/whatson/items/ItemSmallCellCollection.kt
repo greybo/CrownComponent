@@ -16,19 +16,26 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ItemSmallCellCollection(model: WhatsonSection.SmallCell, edgeDp: Dp = 16.dp, callback: (String) -> Unit) {
+fun ItemSmallCellCollection(
+    model: WhatsonSection.SmallCell,
+    edgeDp: Dp = 16.dp,
+    callback: (RouterWhatsonType) -> Unit
+) {
 
     val list = model.list
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val widthCell = screenWidth / 2.3f
 
-    Column(modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 24.dp,)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 24.dp, bottom = 24.dp)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -42,7 +49,7 @@ fun ItemSmallCellCollection(model: WhatsonSection.SmallCell, edgeDp: Dp = 16.dp,
                 color = CrownTheme.colors.goldDefault,
                 modifier = Modifier
                     .padding(bottom = 8.dp, start = 8.dp)
-                    .clickable { callback(model.category) }
+                    .clickable { callback(RouterWhatsonType.SeeAll(model.category)) }
             )
         }
         LazyRow(
@@ -54,7 +61,7 @@ fun ItemSmallCellCollection(model: WhatsonSection.SmallCell, edgeDp: Dp = 16.dp,
         ) {
             items(
                 count = list.size,
-                key = { list.getOrNull(it)?.id ?: 0 },
+                key = { list.getOrNull(it)?.hitId ?: 0 },
             ) {
                 val item = list[it]
 
@@ -67,6 +74,9 @@ fun ItemSmallCellCollection(model: WhatsonSection.SmallCell, edgeDp: Dp = 16.dp,
                             stiffness = Spring.StiffnessLow
                         )
                     )
+                    .clickable {
+                        callback(RouterWhatsonType.Details(item.hitId))
+                    }
 
 //                AnimatedVisibility(
 //                    visible = true,

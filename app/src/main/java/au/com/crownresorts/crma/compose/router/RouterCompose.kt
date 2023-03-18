@@ -5,13 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import au.com.crownresorts.crma.compose.screens.ComposeTypographyScreen
 import au.com.crownresorts.crma.compose.screens.collections.CardCollectionsComponent
 import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
 import au.com.crownresorts.crma.compose.screens.components.ComposeComponentScreen
+import au.com.crownresorts.crma.compose.screens.detail.DetailsScreen
 import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
 import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonMainScreen
@@ -42,6 +45,25 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
         composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
         composable(RouterScreenType.Collections.name) { CardCollectionsComponent(/*navController*/) }
         composable(RouterScreenType.Whatson.name) { WhatsonMainScreen(/*navController*/) }
+        composable(
+            route = RouterScreenType.Details.name + "/{hitId}",
+            arguments = listOf(
+                navArgument("hitId") {
+                    type = NavType.StringType
+                    defaultValue = "user1234"
+                }
+            )
+        ) { DetailsScreen(navController) }
+        composable(
+            route = RouterScreenType.SeeAll.name + "/{category}",
+            arguments = listOf(navArgument("category") {
+                type = NavType.StringType
+                defaultValue = "user1234"
+            }
+            )
+        ) {
+//            CategoriesScreen(navController)
+        }
     }
 
 }

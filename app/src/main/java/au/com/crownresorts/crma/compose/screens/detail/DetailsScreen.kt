@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.whatson
+package au.com.crownresorts.crma.compose.screens.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import au.com.crownresorts.crma.compose.screens.components.TabLayoutComponent
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
@@ -21,11 +18,8 @@ import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WhatsonMainScreen(navController: NavHostController = rememberNavController()) {
+fun DetailsScreen(navController: NavHostController = rememberNavController()) {
 
-    val propertyCurrent = remember {
-        mutableStateOf(Properties.Melbourne)
-    }
     Scaffold(
         topBar = {
             CrownToolbar(toolbarModelDefault() {
@@ -40,20 +34,13 @@ fun WhatsonMainScreen(navController: NavHostController = rememberNavController()
                 .fillMaxSize()
                 .background(color = CrownTheme.colors.background)
         ) {
-            TabLayoutComponent(propertyCurrent)
-            WhatsonSectionAdapter(propertyCurrent, navController)
+            DetailsSectionAdapter(navController)
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewWhatsonScreen() {
-    WhatsonMainScreen ()
-}
-
-sealed class RouterWhatsonType {
-    data class SeeAll(val category: String) : RouterWhatsonType()
-    data class Details(val id: Int) : RouterWhatsonType()
-    data class CategoryGroup(val category: String) : RouterWhatsonType()
+fun PreviewDetailsScreen() {
+    DetailsScreen ()
 }

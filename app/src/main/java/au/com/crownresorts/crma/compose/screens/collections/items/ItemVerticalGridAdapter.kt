@@ -38,7 +38,7 @@ fun ItemVerticalGridAdapter(
         items(
             count = list.size,
             key = {
-                list[it].id
+                list[it].hitId
             },
             span = {
                 GridItemSpan(1)

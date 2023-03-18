@@ -1,5 +1,6 @@
 package au.com.crownresorts.crma.compose.screens.whatson.items
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -13,12 +14,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.CategoriesCell
+import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.theme.crownTypography
 import com.example.crownexample.R
 
 
 @Composable
-fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
+fun ItemIconCategory(
+    list: List<CategoriesCell>, edgeDp: Dp = 16.dp,
+    callback: (RouterWhatsonType) -> Unit
+) {
 
     LazyRow(
         modifier = Modifier
@@ -43,7 +48,11 @@ fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
 //            ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier .fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        callback(RouterWhatsonType.CategoryGroup(item.title))
+                    }
 //                    .animateItemPlacement(
 //                        animationSpec = spring(
 //                            dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -63,10 +72,11 @@ fun ItemIconCategory(list: List<CategoriesCell>, edgeDp: Dp = 16.dp) {
 @Composable
 fun PreviewItemIconCategory() {
     ItemIconCategory(
-        listOf(
+        list = listOf(
             CategoriesCell("Category1", R.drawable.ic_dining_transparent),
             CategoriesCell("Category2", R.drawable.ic_dining_transparent),
             CategoriesCell("Category3", R.drawable.ic_dining_transparent),
-        )
+        ),
+        callback = {}
     )
 }

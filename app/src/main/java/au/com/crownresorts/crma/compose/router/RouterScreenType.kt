@@ -7,4 +7,6 @@ enum class RouterScreenType() {
     Components,
     Collections,
     Whatson,
+    Details,
+    SeeAll,
 }
