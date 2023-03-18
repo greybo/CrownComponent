@@ -49,21 +49,34 @@ val fakeCellList = listOf(
         id = 13, urlImage = "https://picsum.photos/200/200?image=34", title = "SportBar", body = "thirteen", category = "SportBar"
     ),
     HitModel(
-        id = 14, urlImage = "https://picsum.photos/200/200?image=35", title = "Large", body = "fourteen", category = ""
+        id = 14, urlImage = "https://picsum.photos/200/200?image=35", title = "Large", body = "fourteen", category = "Large"
     ),
     HitModel(
-        id = 15, urlImage = "https://picsum.photos/200/200?image=36", title = "Large", body = "fourteen", category = ""
+        id = 15, urlImage = "https://picsum.photos/200/200?image=36", title = "Large", body = "fourteen", category = "Large"
     ),
     HitModel(
-        id = 16, urlImage = "https://picsum.photos/200/200?image=37", title = "Large", body = "fourteen", category = ""
+        id = 16, urlImage = "https://picsum.photos/200/200?image=37", title = "Large", body = "fourteen", category = "Large"
     ),
     HitModel(
-        id = 17, urlImage = "https://picsum.photos/200/200?image=38", title = "Large", body = "fourteen", category = ""
+        id = 17, urlImage = "https://picsum.photos/200/200?image=38", title = "Large", body = "fourteen", category = "Large"
     ),
     HitModel(
-        id = 18, urlImage = "https://picsum.photos/200/200?image=39", title = "Large", body = "fourteen", category = ""
+        id = 18, urlImage = "https://picsum.photos/200/200?image=39", title = "Large", body = "fourteen", category = "Large"
     ),
     HitModel(
-        id = 19, urlImage = "https://picsum.photos/200/200?image=40", title = "Large", body = "fourteen", category = ""
+        id = 19, urlImage = "https://picsum.photos/200/200?image=40", title = "Large", body = "fourteen", category = "Large"
+    ),
+    HitModel(
+        id = 20, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
+    ),HitModel(
+        id = 21, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
+    ),HitModel(
+        id = 22, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
+    ),HitModel(
+        id = 23, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
+    ),HitModel(
+        id = 24, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
+    ),HitModel(
+        id = 25, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
     ),
 )

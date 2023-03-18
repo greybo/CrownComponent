@@ -18,31 +18,21 @@ data class ChipsToggleModel(val name: String, var select: Boolean = false) {
         result = 31 * result + select.hashCode()
         return result
     }
-
-    fun revertSelect(): ChipsToggleModel {
-        select = !select
-        return this
-    }
-
-    fun default(): ChipsToggleModel {
-        select = false
-        return this
-    }
 }
 
-
-val fakeChipsList get() =  listOf(
-    ChipsToggleModel("one"),
-    ChipsToggleModel("two"),
-    ChipsToggleModel("three"),
-    ChipsToggleModel("four"),
-    ChipsToggleModel("five"),
-    ChipsToggleModel("six"),
-    ChipsToggleModel("seven"),
-    ChipsToggleModel("eight"),
-    ChipsToggleModel("nine"),
-    ChipsToggleModel("ten"),
-    ChipsToggleModel("eleven"),
-    ChipsToggleModel("twelve"),
-    ChipsToggleModel("thirteen")
-)
+//
+//val fakeChipsList get() =  listOf(
+//    ChipsToggleModel("one"),
+//    ChipsToggleModel("two"),
+//    ChipsToggleModel("three"),
+//    ChipsToggleModel("four"),
+//    ChipsToggleModel("five"),
+//    ChipsToggleModel("six"),
+//    ChipsToggleModel("seven"),
+//    ChipsToggleModel("eight"),
+//    ChipsToggleModel("nine"),
+//    ChipsToggleModel("ten"),
+//    ChipsToggleModel("eleven"),
+//    ChipsToggleModel("twelve"),
+//    ChipsToggleModel("thirteen")
+//)

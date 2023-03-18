@@ -18,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.screens.collections.model.ChipsToggleModel
-import au.com.crownresorts.crma.compose.screens.collections.model.fakeChipsList
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 
@@ -64,7 +63,7 @@ fun ItemChipsToggleHorizontal(
 @Preview
 @Composable
 fun PreviewCollectionsButtonsHorizontal() {
-    ItemChipsToggleHorizontal(listToggle = fakeChipsList, callback = {})
+    ItemChipsToggleHorizontal(listToggle = listOf(), callback = {})
 }
 
 

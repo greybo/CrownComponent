@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import au.com.crownresorts.crma.compose.screens.collections.model.ChipsToggleModel
 import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
 import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
-import au.com.crownresorts.crma.compose.screens.collections.model.fakeChipsList
 
 
 class CardCollectionsViewModel : ViewModel() {
 
-    private val chipsCurrent get() = stateChips.value?.toMutableList() ?: emptyList()
+    private val chipsSelected = mutableSetOf<String>()
     private val _stateChips = MutableLiveData<List<ChipsToggleModel>>()
     val stateChips: LiveData<List<ChipsToggleModel>> = _stateChips
 
@@ -24,43 +23,52 @@ class CardCollectionsViewModel : ViewModel() {
     }
 
     private fun initData() {
-        makeChipsItems(fakeChipsList)
-        setCellItems(cellCurrent)
+        makeChipsItems()
+        setCellItems(fakeCellList)
     }
 
-    fun clickChips(
-        name: String,
-        chips: List<ChipsToggleModel> = chipsCurrent,
-    ) {
-        val _chips = chips.map { item ->
-            if (item.name == name) {
-                item.revertSelect()
-            } else item
+    private fun getCategories(): List<String> {
+        return fakeCellList.groupBy { it.category }.map { it.key }
+    }
+
+    fun clickChips(category: String) {
+        if (!chipsSelected.add(category)) {
+            chipsSelected.remove(category)
         }
-        makeChipsItems(_chips)
-        makeCellItems(_chips)
+        makeChipsItems()
+        makeCellItems()
+    }
+
+    private fun makeChipsItems(selectList: Set<String>? = chipsSelected) {
+        val items = getCategories().map {
+            ChipsToggleModel(
+                name = it,
+                select = (selectList?.contains(it) == true)
+            )
+        }
+        setChipsItems(items)
     }
 
     private fun makeCellItems(
-        chipsList: List<ChipsToggleModel>?,
+        chipsList: Set<String> = chipsSelected,
         cellList: List<HitModel> = cellCurrent,
     ) {
-        val selectedList = chipsList?.groupBy { it.select }?.getOrElse(true) { emptyList() }
         val found = cellList.filter { cell ->
-            selectedList?.find { cell.body.contains(it.name) } != null
+            chipsList.contains(cell.category)
         }
-        setCellItems(if (selectedList.isNullOrEmpty()) cellList else found)
+        setCellItems(if (chipsList.isEmpty()) cellList else found)
     }
 
     private fun setCellItems(cells: List<HitModel>?) {
         _stateCell.postValue(cells ?: emptyList())
     }
 
-    private fun makeChipsItems(chips: List<ChipsToggleModel>) {
+    private fun setChipsItems(chips: List<ChipsToggleModel>) {
         _stateChips.postValue(chips)
     }
 
     fun onClickReset() {
+        chipsSelected.clear()
         initData()
     }
 }
