@@ -1,13 +1,11 @@
 package au.com.crownresorts.crma.compose.screens.whatson
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.Modifier
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemDividerComponent
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
@@ -19,26 +17,10 @@ fun WhatsonSectionAdapter(
 ) {
 
     val state = viewModel.state.observeAsState()
-    val stateLazy = rememberLazyGridState()
-    val list = state.value
-    val edgeDp = 16.dp
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        state = stateLazy,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(
-            count = list?.size ?: 0,
-            key = {
-                list?.getOrNull(it)?.id ?: 0
-            },
-            span = {
-                GridItemSpan(2)
-            },
-//            contentType = {},
-        ) {
-            when (val item = list?.getOrNull(it)) {
+    Column(modifier = Modifier.verticalScroll(state = rememberScrollState())) {
+        state.value?.forEachIndexed { _, item ->
+            when (item) {
                 is WhatsonSection.Categories -> ItemIconCategory(
                     list = item.list,
                     callback = viewModel::onClick

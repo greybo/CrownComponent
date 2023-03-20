@@ -24,7 +24,7 @@ fun DetailsScreen(navController: NavHostController = rememberNavController()) {
 
     Scaffold(
         topBar = {
-            CrownToolbar(toolbarModelDefault() {
+            CrownToolbar(toolbarModelDefault(titleText = "Details") {
                 if (it == ActionButtonType.ArrowBack) {
                     navController.popBackStack()
                 }
