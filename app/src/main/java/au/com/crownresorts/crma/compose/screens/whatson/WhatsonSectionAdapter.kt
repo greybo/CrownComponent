@@ -6,11 +6,8 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemDividerComponent
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
@@ -18,12 +15,8 @@ import au.com.crownresorts.crma.compose.screens.whatson.items.ItemSmallCellColle
 
 @Composable
 fun WhatsonSectionAdapter(
-    properties: MutableState<Properties>,
-    navController: NavHostController,
-    viewModel: WhatsonColumnViewModel = viewModel()
+    viewModel: WhatsonColumnViewModel
 ) {
-    viewModel.fetchData(properties.value)
-    viewModel.navController = navController
 
     val state = viewModel.state.observeAsState()
     val stateLazy = rememberLazyGridState()

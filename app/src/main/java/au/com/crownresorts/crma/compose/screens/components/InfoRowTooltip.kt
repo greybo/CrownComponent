@@ -19,7 +19,7 @@ import au.com.crownresorts.crma.compose.screens.tooltip.TooltipOnLongClickExampl
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @Composable
-fun InfoRow(
+fun InfoRowTooltip(
     text: String = "info",
     modifier: Modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp),
     callback: () -> Unit = {}
@@ -46,5 +46,5 @@ fun InfoRow(
 @Preview
 @Composable
 fun PreviewInfoRow() {
-    InfoRow()
+    InfoRowTooltip()
 }

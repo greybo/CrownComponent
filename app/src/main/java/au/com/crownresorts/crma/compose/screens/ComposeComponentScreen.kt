@@ -54,7 +54,7 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
             }
             //Info icon for tooltip
             CardCrown {
-                InfoRow("Info icon with click to show tooltip") {
+                InfoRowTooltip("Info icon with click to show tooltip") {
 
                 }
             }

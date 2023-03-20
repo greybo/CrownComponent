@@ -15,7 +15,7 @@ import kotlin.random.Random
 
 class WhatsonColumnViewModel : ViewModel() {
 
-    private var _properties = Properties.Melbourne
+    private var _property =  Properties.Melbourne
     var navController: NavHostController? = null
 
     private val _state = MutableLiveData<List<WhatsonSection>>()
@@ -25,11 +25,15 @@ class WhatsonColumnViewModel : ViewModel() {
         makeSection()
     }
 
-    fun fetchData(properties: Properties = _properties) {
-        if (_properties != properties) {
-            _properties = properties
+    fun changeProperty(property: Properties) {
+        if (_property != property) {
+            _property = property
             makeSection()
         }
+    }
+
+    fun fetchData() {
+        makeSection()
     }
 
     fun onClick(type: RouterWhatsonType) {
@@ -103,7 +107,7 @@ class WhatsonColumnViewModel : ViewModel() {
     }
 
     private fun makeCategories(): List<CategoriesCell>? {
-        return when (_properties) {
+        return when (_property) {
             Properties.Melbourne -> listOf(
                 CategoriesCell("Category1", R.drawable.ic_dining_transparent),
                 CategoriesCell("Category2", R.drawable.ic_dining_transparent),

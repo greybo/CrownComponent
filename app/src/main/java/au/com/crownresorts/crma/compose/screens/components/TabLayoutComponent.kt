@@ -19,9 +19,9 @@ import au.com.crownresorts.crma.compose.theme.Grey
 import au.com.crownresorts.crma.compose.theme.White
 
 @Composable
-fun TabLayoutComponent(propertyCurrent: MutableState<Properties>) {
+fun TabLayoutComponent(callback: (Properties)-> Unit) {//propertyCurrent: MutableState<Properties>
 //    val pagerState = rememberPagerState()
-    val coroutineScope = rememberCoroutineScope()
+//    val coroutineScope = rememberCoroutineScope()
     var tabIndex by remember { mutableStateOf(0) }
     val tabData = Properties.values()
     TabRow(
@@ -46,7 +46,7 @@ fun TabLayoutComponent(propertyCurrent: MutableState<Properties>) {
                     onClick = {
 //                        coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         tabIndex = index
-                        propertyCurrent.value = type
+                        callback.invoke(type)
                     },
                     text = {
                         Text(text = type.name)
@@ -61,6 +61,6 @@ fun TabLayoutComponent(propertyCurrent: MutableState<Properties>) {
 @Preview
 @Composable
 fun PreviewTabLayoutComponent() {
-    TabLayoutComponent(remember { mutableStateOf(Properties.Sydney) })
+    TabLayoutComponent{}
 }
 
