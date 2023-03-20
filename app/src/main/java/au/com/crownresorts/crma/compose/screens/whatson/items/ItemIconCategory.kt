@@ -16,7 +16,6 @@ import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.CategoriesCell
 import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.theme.crownTypography
-import com.example.crownexample.R
 
 
 @Composable
@@ -73,9 +72,9 @@ fun ItemIconCategory(
 fun PreviewItemIconCategory() {
     ItemIconCategory(
         list = listOf(
-            CategoriesCell("Category1", R.drawable.ic_dining_transparent),
-            CategoriesCell("Category2", R.drawable.ic_dining_transparent),
-            CategoriesCell("Category3", R.drawable.ic_dining_transparent),
+            CategoriesCell("Category1", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
+            CategoriesCell("Category2", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
+            CategoriesCell("Category3", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
         ),
         callback = {}
     )

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.crownexample'
+    namespace 'au.com.crownresorts.crma'
     compileSdk 33
 
     defaultConfig {

@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.R
 import au.com.crownresorts.crma.compose.theme.CrownTheme
-import com.example.crownexample.R
 
 
 @Composable
