@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.theme.CrownTheme
@@ -19,6 +20,7 @@ import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(navController: NavHostController = rememberNavController()) {
+    val viewModel: DetailsViewModel = viewModel()
 
     Scaffold(
         topBar = {
@@ -34,7 +36,7 @@ fun DetailsScreen(navController: NavHostController = rememberNavController()) {
                 .fillMaxSize()
                 .background(color = CrownTheme.colors.background)
         ) {
-            DetailsSectionAdapter(navController)
+            DetailsSectionAdapter(viewModel)
         }
     }
 }

@@ -4,13 +4,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 
 @Composable
 fun DetailsSectionAdapter(
-    navController: NavHostController,
-    viewModel: DetailsViewModel = viewModel()
+    viewModel: DetailsViewModel
 ) {
     val state = viewModel.state.observeAsState()
 

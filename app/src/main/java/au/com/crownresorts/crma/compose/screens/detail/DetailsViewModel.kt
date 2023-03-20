@@ -6,9 +6,13 @@ import androidx.lifecycle.ViewModel
 
 class DetailsViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private val hitId: Int get() = savedStateHandle.get<Int>("hitId") ?: -2
+    private val hitId: String get() = savedStateHandle.get<String>("hitId") ?: "-2"
 
-    val state = MutableLiveData<Int>()
+    val state = MutableLiveData<String>()
+
+    init {
+        fetchData()
+    }
 
     fun fetchData() {
         state.value = hitId

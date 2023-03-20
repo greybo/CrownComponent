@@ -44,15 +44,9 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
         composable(RouterScreenType.Typography.name) { ComposeTypographyScreen(navController) }
         composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
         composable(RouterScreenType.Collections.name) { CardCollectionsComponent(/*navController*/) }
-        composable(RouterScreenType.Whatson.name) { WhatsonMainScreen(/*navController*/) }
+        composable(RouterScreenType.Whatson.name) { WhatsonMainScreen(navController) }
         composable(
             route = RouterScreenType.Details.name + "/{hitId}",
-            arguments = listOf(
-                navArgument("hitId") {
-                    type = NavType.StringType
-                    defaultValue = "user1234"
-                }
-            )
         ) { DetailsScreen(navController) }
         composable(
             route = RouterScreenType.SeeAll.name + "/{category}",
