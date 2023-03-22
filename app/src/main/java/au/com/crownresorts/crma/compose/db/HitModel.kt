@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.collections.model
+package au.com.crownresorts.crma.compose.db
 
 data class HitModel(
     val hitId: Int, val urlImage: String, val title: String, val body: String, val category: String
@@ -68,15 +68,20 @@ val fakeCellList = listOf(
     ),
     HitModel(
         hitId = 20, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
-    ),HitModel(
+    ),
+    HitModel(
         hitId = 21, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
-    ),HitModel(
+    ),
+    HitModel(
         hitId = 22, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
-    ),HitModel(
+    ),
+    HitModel(
         hitId = 23, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
-    ),HitModel(
+    ),
+    HitModel(
         hitId = 24, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
-    ),HitModel(
+    ),
+    HitModel(
         hitId = 25, urlImage = "https://picsum.photos/200/200?image=41", title = "Move", body = "fourteen", category = "Move"
     ),
 )

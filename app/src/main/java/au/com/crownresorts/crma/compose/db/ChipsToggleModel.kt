@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.collections.model
+package au.com.crownresorts.crma.compose.db
 
 data class ChipsToggleModel(val name: String, var select: Boolean = false) {
     override fun equals(other: Any?): Boolean {

@@ -3,9 +3,9 @@ package au.com.crownresorts.crma.compose.screens.collections
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import au.com.crownresorts.crma.compose.screens.collections.model.ChipsToggleModel
-import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
-import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
+import au.com.crownresorts.crma.compose.db.ChipsToggleModel
+import au.com.crownresorts.crma.compose.db.HitModel
+import au.com.crownresorts.crma.compose.db.fakeCellList
 
 
 class CardCollectionsViewModel : ViewModel() {

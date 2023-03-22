@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.collections.model.ChipsToggleModel
+import au.com.crownresorts.crma.compose.db.ChipsToggleModel
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 

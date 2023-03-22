@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import au.com.crownresorts.crma.R
+import au.com.crownresorts.crma.compose.db.HitModel
+import au.com.crownresorts.crma.compose.db.fakeCellList
 import au.com.crownresorts.crma.compose.router.RouterScreenType
-import au.com.crownresorts.crma.compose.screens.collections.model.HitModel
-import au.com.crownresorts.crma.compose.screens.collections.model.fakeCellList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.random.Random
