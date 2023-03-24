@@ -115,12 +115,12 @@ private suspend fun snapToolbar(state: CustomToolbarScrollState) {
     // In case the app bar motion was stopped in a state where it's partially visible, snap it to
     // the nearest state.
     if (state.heightOffset < 0 &&
-        state.heightOffset > state.heightOffsetLimit
+        state.heightOffset > state.heightOffsetLimitPx
     ) {
         AnimationState(
             initialValue = state.heightOffset
         ).animateTo(
-            targetValue = if (state.collapsedFraction < 0.5f) 0f else state.heightOffsetLimit,
+            targetValue = if (state.collapsedFraction < 0.5f) 0f else state.heightOffsetLimitPx,
             animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
         ) {
             state.heightOffset = value

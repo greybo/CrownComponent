@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,11 +22,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import au.com.crownresorts.crma.compose.screens.components.GradientHalf
 import coil.compose.AsyncImage
 import kotlin.math.roundToInt
 
@@ -51,7 +56,7 @@ fun CollapseToolbar(
 
     val elevationState = animateDpAsState(if (showElevation) collapsedElevation else 0.dp)
     val iconColorState = if (showElevation) Color.Black else Color.White
-
+    val localDensity = LocalDensity.current
     Surface(
         modifier = modifier,
         shadowElevation = elevationState.value,
@@ -59,15 +64,31 @@ fun CollapseToolbar(
         Layout(
             content = {
                 if (collapsingTitle != null) {
-                    AsyncImage(
-                        model = imageUrlMain,
-                        contentDescription = "",
+                    val columnHeightDp = remember { mutableStateOf(0.dp) }
+                    val columnWidthDp = remember { mutableStateOf(0.dp) }
+                    Box(
                         modifier = Modifier
                             .layoutId(ImageMainId)
                             .fillMaxWidth()
-                            .fillMaxHeight(0.4f),
-                        contentScale = ContentScale.Crop,
-                    )
+                            .fillMaxHeight(0.4f)
+                            .onGloballyPositioned { coordinates ->
+                                // Set column height using the LayoutCoordinates
+                                with(localDensity) {
+                                    columnHeightDp.value = coordinates.size.height.toDp()
+                                    columnWidthDp.value = coordinates.size.width.toDp()
+                                }
+                            },
+                        contentAlignment = Alignment.BottomStart
+                    ) {
+                        AsyncImage(
+                            model = imageUrlMain,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                        GradientHalf(columnHeightDp.value, columnWidthDp.value)
+                    }
+
                     Text(
                         modifier = Modifier
                             .layoutId(ExpandedTitleId)
@@ -79,7 +100,9 @@ fun CollapseToolbar(
                             ),
                         text = collapsingTitle.titleText,
                         style = collapsingTitle.expandedTextStyle,
-                        color = Color.White
+                        maxLines = 2,
+                        color = Color.White,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         modifier = Modifier
@@ -93,7 +116,8 @@ fun CollapseToolbar(
                         text = collapsingTitle.titleText,
                         style = collapsingTitle.expandedTextStyle,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = iconColorState
                     )
                 }
 
@@ -109,7 +133,7 @@ fun CollapseToolbar(
                             modifier = Modifier.clickable {
                                 navigationCallback?.invoke()
                             },
-                            tint = iconColorState
+//                            tint = iconColorState
                         )
                     }
                 }
@@ -123,7 +147,7 @@ fun CollapseToolbar(
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = null,
-                            tint = iconColorState
+//                            tint = iconColorState
                         )
 //                       Text("Button")
                     }
@@ -179,18 +203,18 @@ fun CollapseToolbar(
                         )
                     )
 
-            val collapsedHeightPx = MinCollapsedHeight.toPx()
+            val minCollapsedHeightPx = MinCollapsedHeight.toPx()
 
-            var layoutHeightPx = collapsedHeightPx
+            var layoutHeightPx = minCollapsedHeightPx
             // Current coordinates of navigation icon
             val navigationIconX = horizontalPaddingPx.roundToInt()
             val navigationIconY =
-                ((collapsedHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2).roundToInt()
+                ((minCollapsedHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2).roundToInt()
 
             // Current coordinates of actions
             val actionsX = (constraints.maxWidth - (actionsPlaceable?.width
                 ?: 0) - horizontalPaddingPx).roundToInt()
-            val actionsY = ((collapsedHeightPx - (actionsPlaceable?.height ?: 0)) / 2).roundToInt()
+            val actionsY = ((minCollapsedHeightPx - (actionsPlaceable?.height ?: 0)) / 2).roundToInt()
 
             // Current coordinates of title
             var collapsingTitleY = 0
@@ -199,11 +223,11 @@ fun CollapseToolbar(
             if (expandedTitlePlaceable != null && collapsedTitlePlaceable != null) {
                 // Measuring toolbar collapsing distance
                 val heightOffsetLimitPx =
-                    imageMainPlaceable!!.height - expandedTitlePlaceable.height - expandedTitleBottomPaddingPx
-                scrollBehavior.state.heightOffsetLimit = -heightOffsetLimitPx
+                    imageMainPlaceable!!.height - collapsedTitlePlaceable.height - expandedTitleBottomPaddingPx
+                scrollBehavior.state.heightOffsetLimitPx = -heightOffsetLimitPx
 
                 // Toolbar height at fully expanded state
-                val fullyExpandedHeightPx = MinCollapsedHeight.toPx() + heightOffsetLimitPx
+                val fullyExpandedHeightPx = minCollapsedHeightPx + heightOffsetLimitPx
 
                 // Coordinates of fully expanded title
                 val fullyExpandedTitleX = horizontalPaddingPx
@@ -213,10 +237,10 @@ fun CollapseToolbar(
                 // Coordinates of fully collapsed title
                 val fullyCollapsedTitleX = navigationIconOffset
                 val fullyCollapsedTitleY =
-                    collapsedHeightPx / 2 - CollapsedTitleLineHeight.toPx().roundToInt() / 2
+                    minCollapsedHeightPx / 2 - CollapsedTitleLineHeight.toPx().roundToInt() / 2
 
                 // Current height of toolbar
-                layoutHeightPx = lerp(fullyExpandedHeightPx, collapsedHeightPx, collapsedFraction)
+                layoutHeightPx = lerp(fullyExpandedHeightPx, minCollapsedHeightPx, collapsedFraction)
 
                 // Current coordinates of collapsing title
                 collapsingTitleX =
@@ -224,7 +248,7 @@ fun CollapseToolbar(
                 collapsingTitleY =
                     lerp(fullyExpandedTitleY, fullyCollapsedTitleY, collapsedFraction).roundToInt()
             } else {
-                scrollBehavior.state.heightOffsetLimit = -1f
+                scrollBehavior.state.heightOffsetLimitPx = -1f
             }
 
             layout(constraints.maxWidth, layoutHeightPx.roundToInt()) {

@@ -11,7 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
  *
  * In most cases, this state will be created via [rememberToolbarScrollBehavior].
  *
- * @param initialHeightOffsetLimit the initial value for [CustomToolbarScrollState.heightOffsetLimit]
+ * @param initialHeightOffsetLimit the initial value for [CustomToolbarScrollState.heightOffsetLimitPx]
  * @param initialHeightOffset the initial value for [CustomToolbarScrollState.heightOffset]
  * @param initialContentOffset the initial value for [CustomToolbarScrollState.contentOffset]
  */
@@ -23,7 +23,7 @@ class CustomToolbarScrollState(
 ) {
     companion object {
         val Saver: Saver<CustomToolbarScrollState, *> = listSaver(
-            save = { listOf(it.heightOffsetLimit, it.heightOffset, it.contentOffset) },
+            save = { listOf(it.heightOffsetLimitPx, it.heightOffset, it.contentOffset) },
             restore = {
                 CustomToolbarScrollState(
                     initialHeightOffsetLimit = it[0],
@@ -40,19 +40,19 @@ class CustomToolbarScrollState(
      *
      * Use this limit to coerce the [heightOffset] value when it's updated.
      */
-    var heightOffsetLimit by mutableStateOf(initialHeightOffsetLimit)
+    var heightOffsetLimitPx by mutableStateOf(initialHeightOffsetLimit)
 
     /**
      * The top app bar's current height offset in pixels. This height offset is applied to the fixed
      * height of the app bar to control the displayed height when content is being scrolled.
      *
-     * Updates to the [heightOffset] value are coerced between zero and [heightOffsetLimit].
+     * Updates to the [heightOffset] value are coerced between zero and [heightOffsetLimitPx].
      */
     var heightOffset: Float
         get() = _heightOffset.value
         set(newOffset) {
             _heightOffset.value = newOffset.coerceIn(
-                minimumValue = heightOffsetLimit,
+                minimumValue = heightOffsetLimitPx,
                 maximumValue = 0f
             )
         }
@@ -70,11 +70,11 @@ class CustomToolbarScrollState(
      * A value that represents the collapsed height percentage of the app bar.
      *
      * A `0.0` represents a fully expanded bar, and `1.0` represents a fully collapsed bar (computed
-     * as [heightOffset] / [heightOffsetLimit]).
+     * as [heightOffset] / [heightOffsetLimitPx]).
      */
     val collapsedFraction: Float
-        get() = if (heightOffsetLimit != 0f) {
-            heightOffset / heightOffsetLimit
+        get() = if (heightOffsetLimitPx != 0f) {
+            heightOffset / heightOffsetLimitPx
         } else {
             0f
         }

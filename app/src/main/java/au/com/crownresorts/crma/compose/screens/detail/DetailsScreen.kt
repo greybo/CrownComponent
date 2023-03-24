@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,15 +24,16 @@ import au.com.crownresorts.crma.compose.toolbar.collapse.rememberToolbarScrollBe
 fun DetailsScreen(navController: NavHostController = rememberNavController()) {
     val viewModel: DetailsViewModel = viewModel()
     val scrollBehavior = rememberToolbarScrollBehavior()
+    val hit = viewModel.state.observeAsState()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CollapseToolbar(
-                imageUrlMain = viewModel.getImageUrl() ?: "",
+                imageUrlMain = hit.value?.urlImage ?: "",
                 navigationCallback = { navController.popBackStack() },
                 actions = getActionsSlot(),
-                collapsingTitle = CollapsingTitle.large("Section title with large multiline text"),
+                collapsingTitle = CollapsingTitle.large(hit.value?.title ?: ""),
                 scrollBehavior = scrollBehavior
             )
         },
