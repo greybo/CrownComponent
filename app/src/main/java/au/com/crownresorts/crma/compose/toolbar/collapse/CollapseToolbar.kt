@@ -1,6 +1,7 @@
 package au.com.crownresorts.crma.compose.toolbar.collapse
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -14,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
@@ -39,7 +41,6 @@ fun CollapseToolbar(
     imageUrlMain: String = "https://picsum.photos/200/200?image=41",
     navigationIcon: ImageVector? = Icons.Default.ArrowBack,
     navigationCallback: (() -> Unit)? = null,
-//    actions: (@Composable RowScope.() -> Unit)? = null,
     collapsingData: HitModel? = null,
     collapsingTitle: CollapsingTitle? = null,
     scrollBehavior: CustomToolbarScrollBehavior,/*? = null*/
@@ -53,11 +54,12 @@ fun CollapseToolbar(
 
     val collapsingTitleScale = lerp(1f, fullyCollapsedTitleScale, collapsedFraction)
 
-    val showElevation = (scrollBehavior.state.contentOffset <= 0 && collapsedFraction == 1f)
+    val showElevation = (scrollBehavior.state.contentOffset <= 0 && collapsedFraction > 0.98f)
 
     val elevationState = animateDpAsState(if (showElevation) collapsedElevation else 0.dp)
     val iconColorState = if (showElevation) Color.Black else Color.White
     val localDensity = LocalDensity.current
+
     Surface(
         modifier = modifier,
         shadowElevation = elevationState.value,
@@ -89,7 +91,23 @@ fun CollapseToolbar(
                         )
                         GradientHalf(columnHeightDp.value, columnWidthDp.value)
                     }
+                    //-----------------------------------------------------------
 
+                    Box(
+                        modifier = Modifier
+                            .layoutId(GradientTopId)
+                            .fillMaxWidth()
+                            .height(MinCollapsedHeight)
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Black.copy(alpha = 0.2f),
+                                        Color.Black.copy(alpha = 0.2f)
+                                    ),
+                                )
+                            )
+                    )
+                    //-----------------------------------------------------------
                     Text(
                         modifier = Modifier
                             .layoutId(ExpandedTitleId)
@@ -105,8 +123,6 @@ fun CollapseToolbar(
                         color = Color.White,
                         overflow = TextOverflow.Ellipsis
                     )
-
-
                     Text(
                         modifier = Modifier
                             .layoutId(CollapsedTitleId)
@@ -149,6 +165,10 @@ fun CollapseToolbar(
 
             // Measuring widgets inside toolbar:
             val imageMainPlaceable = measurables.firstOrNull { it.layoutId == ImageMainId }
+                ?.measure(
+                    constraints.copy(minWidth = 0)
+                )
+            val gradientTopPlaceable = measurables.firstOrNull { it.layoutId == GradientTopId }
                 ?.measure(
                     constraints.copy(minWidth = 0)
                 )
@@ -243,6 +263,12 @@ fun CollapseToolbar(
                     y = 0,
                     layerBlock = { alpha = 1 - collapsedFraction }
                 )
+
+                gradientTopPlaceable?.placeRelativeWithLayer(
+                    x = 0,
+                    y = 0,
+                    layerBlock = { alpha = if (showElevation) 0f else 1f }
+                )
                 navigationIconPlaceable?.placeRelative(
                     x = navigationIconX,
                     y = navigationIconY
@@ -288,8 +314,7 @@ private fun BodyTextComponent(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                ,
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -315,8 +340,7 @@ private fun BodyTextComponent(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                ,
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -371,6 +395,7 @@ private val ExpandedTitleBottomPadding = 16.dp
 private val CollapsedTitleLineHeight = 28.sp
 private val DefaultCollapsedElevation = 4.dp
 
+private const val GradientTopId = "GradientTopId"
 private const val ImageMainId = "ImageMainId"
 private const val ExpandedTitleId = "expandedTitle"
 private const val BodyId = "expandedBodyId"

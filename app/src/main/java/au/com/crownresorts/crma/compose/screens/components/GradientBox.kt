@@ -17,8 +17,8 @@ import au.com.crownresorts.crma.compose.theme.LightGrey
 fun GradientBox(
     height: Dp,
     width: Dp,
-    start: Color = Color.Black.copy(alpha = 0f),
-    end: Color = Color.Black.copy(alpha = 0.75f)
+    start: Color,
+    end: Color
 ) {
     Box(
         modifier = Modifier
@@ -57,5 +57,9 @@ fun GradientBoxFull(height: Dp, width: Dp, color: Color = LightGrey) {
 @Preview
 @Composable
 fun PreviewGradientComponent() {
-    GradientBox(150.dp, 300.dp)
+    GradientBox(
+        150.dp, 300.dp,
+        Color.Black.copy(alpha = 0f),
+        Color.Black.copy(alpha = 0.5f)
+    )
 }
