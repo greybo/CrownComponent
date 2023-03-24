@@ -99,7 +99,7 @@ fun CollapseToolbar(
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
                         text = collapsingTitle.titleText,
-                        style = collapsingTitle.expandedTextStyle,
+                        style = MaterialTheme.typography.headlineMedium,
                         maxLines = 2,
                         color = Color.White,
                         overflow = TextOverflow.Ellipsis
@@ -114,7 +114,7 @@ fun CollapseToolbar(
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
                         text = collapsingTitle.titleText,
-                        style = collapsingTitle.expandedTextStyle,
+                        style = MaterialTheme.typography.headlineMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         color = iconColorState
@@ -133,7 +133,7 @@ fun CollapseToolbar(
                             modifier = Modifier.clickable {
                                 navigationCallback?.invoke()
                             },
-//                            tint = iconColorState
+                            tint = iconColorState
                         )
                     }
                 }
