@@ -71,7 +71,6 @@ fun CollapseToolbar(
                         modifier = Modifier
                             .layoutId(ImageMainId)
                             .fillMaxWidth()
-//                            .fillMaxHeight(0.4f)
                             .aspectRatio(1.2f)
                             .onGloballyPositioned { coordinates ->
                                 // Set column height using the LayoutCoordinates
@@ -106,21 +105,8 @@ fun CollapseToolbar(
                         color = Color.White,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Text(
-                        modifier = Modifier
-                            .layoutId(BodyId)
-                            .wrapContentHeight(align = Alignment.Top)
-                            .graphicsLayer(
-                                scaleX = collapsingTitleScale,
-                                scaleY = collapsingTitleScale,
-                                transformOrigin = TransformOrigin(0f, 0f)
-                            ),
-                        text = collapsingData?.body ?: "",
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 2,
-                        color = Color.White,
-                        overflow = TextOverflow.Ellipsis
-                    )
+
+
                     Text(
                         modifier = Modifier
                             .layoutId(CollapsedTitleId)
@@ -137,6 +123,7 @@ fun CollapseToolbar(
                         color = iconColorState
                     )
                 }
+                BodyTextComponent(collapsingTitleScale, collapsingData)
 
                 if (navigationIcon != null) {
                     Box(
@@ -170,9 +157,6 @@ fun CollapseToolbar(
                 measurables.firstOrNull { it.layoutId == NavigationIconId }
                     ?.measure(constraints.copy(minWidth = 0))
 
-//            val actionsPlaceable = measurables.firstOrNull { it.layoutId == ActionsId }
-//                ?.measure(constraints.copy(minWidth = 0))
-
             val expandedTitlePlaceable = measurables.firstOrNull { it.layoutId == ExpandedTitleId }
                 ?.measure(
                     constraints.copy(
@@ -195,11 +179,6 @@ fun CollapseToolbar(
                 else -> navigationIconPlaceable.width + horizontalPaddingPx * 2
             }
 
-//            val actionsOffset = when (actionsPlaceable) {
-//                null -> horizontalPaddingPx
-//                else -> actionsPlaceable.width + horizontalPaddingPx * 2
-//            }
-
             val collapsedTitleMaxWidthPx =
                 (constraints.maxWidth - navigationIconOffset - horizontalPaddingPx) / fullyCollapsedTitleScale
 
@@ -221,21 +200,15 @@ fun CollapseToolbar(
             val navigationIconY =
                 ((minCollapsedHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2).roundToInt()
 
-            // Current coordinates of actions
-//            val actionsX = (constraints.maxWidth - /*(actionsPlaceable?.width
-//                ?: 0)*/ - horizontalPaddingPx).roundToInt()
-//            val actionsY = ((minCollapsedHeightPx/* - (actionsPlaceable?.height ?: 0)*/) / 2).roundToInt()
-
             // Current coordinates of title
             var collapsingTitleY = 0
             var collapsingTitleX = 0
             val bodyTextHeight = bodyPlaceable?.height ?: 0
+            val imageHeight = imageMainPlaceable?.height ?: 0
 
             if (expandedTitlePlaceable != null && collapsedTitlePlaceable != null) {
                 // Measuring toolbar collapsing distance
-                val heightOffsetLimitPx =
-                    //                    imageMainPlaceable!!.height - (minCollapsedHeightPx + collapsedTitlePlaceable.height + bodyTextHeight + bottomPaddingPx)
-                    imageMainPlaceable!!.height - minCollapsedHeightPx //- bottomPaddingPx
+                val heightOffsetLimitPx = imageHeight - minCollapsedHeightPx
                 scrollBehavior.state.heightOffsetLimitPx = -heightOffsetLimitPx
 
                 // Toolbar height at fully expanded state
@@ -252,7 +225,8 @@ fun CollapseToolbar(
                     minCollapsedHeightPx / 2 - CollapsedTitleLineHeight.toPx().roundToInt() / 2
 
                 // Current height of toolbar
-                layoutHeightPx = lerp(fullyExpandedHeightPx, minCollapsedHeightPx, collapsedFraction)
+                layoutHeightPx =
+                    lerp(fullyExpandedHeightPx, minCollapsedHeightPx, collapsedFraction)
 
                 // Current coordinates of collapsing title
                 collapsingTitleX =
@@ -274,11 +248,6 @@ fun CollapseToolbar(
                     y = navigationIconY
                 )
 
-//                actionsPlaceable?.placeRelative(
-//                    x = actionsX,
-//                    y = actionsY
-//                )
-
                 expandedTitlePlaceable?.placeRelativeWithLayer(
                     x = collapsingTitleX,
                     y = collapsingTitleY,
@@ -298,6 +267,79 @@ fun CollapseToolbar(
             }
         }
 
+    }
+}
+
+@Composable
+private fun BodyTextComponent(
+    collapsingTitleScale: Float,
+    collapsingData: HitModel?
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .layoutId(BodyId)
+            .wrapContentHeight(align = Alignment.Top)
+            .graphicsLayer(
+                scaleX = collapsingTitleScale,
+                scaleY = collapsingTitleScale,
+                transformOrigin = TransformOrigin(0f, 0f)
+            ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                ,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                modifier = Modifier
+                    .weight(1f, false)
+                    .padding(end = 8.dp),
+                text = "City name",//collapsingData?.body ?: "",
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                color = Color.White,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                modifier = Modifier
+                    .weight(1f, false)
+                    .padding(start = 8.dp),
+                text = "Main category",//collapsingData?.body ?: "",
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                color = Color.White,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                ,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                modifier = Modifier
+                    .weight(1f, false)
+                    .padding(end = 8.dp),
+                text = "Street number/name",//collapsingData?.body ?: "",
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                color = Color.White,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                modifier = Modifier
+                    .weight(1f, false)
+                    .padding(start = 8.dp),
+                text = "Price Point",//collapsingData?.body ?: "",
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                color = Color.White,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }
 
@@ -325,7 +367,7 @@ data class CollapsingTitle(
 
 private val MinCollapsedHeight = 56.dp
 private val HorizontalPadding = 16.dp
-private val ExpandedTitleBottomPadding = 8.dp
+private val ExpandedTitleBottomPadding = 16.dp
 private val CollapsedTitleLineHeight = 28.sp
 private val DefaultCollapsedElevation = 4.dp
 
