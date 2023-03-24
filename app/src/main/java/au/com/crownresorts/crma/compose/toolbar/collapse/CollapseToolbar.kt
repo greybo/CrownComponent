@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import au.com.crownresorts.crma.compose.db.HitModel
 import au.com.crownresorts.crma.compose.screens.components.GradientHalf
 import coil.compose.AsyncImage
 import kotlin.math.roundToInt
@@ -39,7 +39,8 @@ fun CollapseToolbar(
     imageUrlMain: String = "https://picsum.photos/200/200?image=41",
     navigationIcon: ImageVector? = Icons.Default.ArrowBack,
     navigationCallback: (() -> Unit)? = null,
-    actions: (@Composable RowScope.() -> Unit)? = null,
+//    actions: (@Composable RowScope.() -> Unit)? = null,
+    collapsingData: HitModel? = null,
     collapsingTitle: CollapsingTitle? = null,
     scrollBehavior: CustomToolbarScrollBehavior,/*? = null*/
     collapsedElevation: Dp = DefaultCollapsedElevation,
@@ -70,7 +71,8 @@ fun CollapseToolbar(
                         modifier = Modifier
                             .layoutId(ImageMainId)
                             .fillMaxWidth()
-                            .fillMaxHeight(0.4f)
+//                            .fillMaxHeight(0.4f)
+                            .aspectRatio(1.2f)
                             .onGloballyPositioned { coordinates ->
                                 // Set column height using the LayoutCoordinates
                                 with(localDensity) {
@@ -98,8 +100,23 @@ fun CollapseToolbar(
                                 scaleY = collapsingTitleScale,
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
-                        text = collapsingTitle.titleText,
+                        text = collapsingData?.title ?: "",
                         style = MaterialTheme.typography.headlineMedium,
+                        maxLines = 2,
+                        color = Color.White,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        modifier = Modifier
+                            .layoutId(BodyId)
+                            .wrapContentHeight(align = Alignment.Top)
+                            .graphicsLayer(
+                                scaleX = collapsingTitleScale,
+                                scaleY = collapsingTitleScale,
+                                transformOrigin = TransformOrigin(0f, 0f)
+                            ),
+                        text = collapsingData?.body ?: "",
+                        style = MaterialTheme.typography.bodySmall,
                         maxLines = 2,
                         color = Color.White,
                         overflow = TextOverflow.Ellipsis
@@ -113,7 +130,7 @@ fun CollapseToolbar(
                                 scaleY = collapsingTitleScale,
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
-                        text = collapsingTitle.titleText,
+                        text = collapsingData?.title ?: "",
                         style = MaterialTheme.typography.headlineMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -137,26 +154,11 @@ fun CollapseToolbar(
                         )
                     }
                 }
-
-                if (actions != null) {
-                    Row(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .layoutId(ActionsId)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = null,
-//                            tint = iconColorState
-                        )
-//                       Text("Button")
-                    }
-                }
             },
             modifier = modifier.then(Modifier.heightIn(min = MinCollapsedHeight))
         ) { measurables, constraints ->
             val horizontalPaddingPx = HorizontalPadding.toPx()
-            val expandedTitleBottomPaddingPx = ExpandedTitleBottomPadding.toPx()
+            val bottomPaddingPx = ExpandedTitleBottomPadding.toPx()
 
             // Measuring widgets inside toolbar:
             val imageMainPlaceable = measurables.firstOrNull { it.layoutId == ImageMainId }
@@ -168,10 +170,18 @@ fun CollapseToolbar(
                 measurables.firstOrNull { it.layoutId == NavigationIconId }
                     ?.measure(constraints.copy(minWidth = 0))
 
-            val actionsPlaceable = measurables.firstOrNull { it.layoutId == ActionsId }
-                ?.measure(constraints.copy(minWidth = 0))
+//            val actionsPlaceable = measurables.firstOrNull { it.layoutId == ActionsId }
+//                ?.measure(constraints.copy(minWidth = 0))
 
             val expandedTitlePlaceable = measurables.firstOrNull { it.layoutId == ExpandedTitleId }
+                ?.measure(
+                    constraints.copy(
+                        maxWidth = (constraints.maxWidth - 2 * horizontalPaddingPx).roundToInt(),
+                        minWidth = 0,
+                        minHeight = 0
+                    )
+                )
+            val bodyPlaceable = measurables.firstOrNull { it.layoutId == BodyId }
                 ?.measure(
                     constraints.copy(
                         maxWidth = (constraints.maxWidth - 2 * horizontalPaddingPx).roundToInt(),
@@ -185,13 +195,13 @@ fun CollapseToolbar(
                 else -> navigationIconPlaceable.width + horizontalPaddingPx * 2
             }
 
-            val actionsOffset = when (actionsPlaceable) {
-                null -> horizontalPaddingPx
-                else -> actionsPlaceable.width + horizontalPaddingPx * 2
-            }
+//            val actionsOffset = when (actionsPlaceable) {
+//                null -> horizontalPaddingPx
+//                else -> actionsPlaceable.width + horizontalPaddingPx * 2
+//            }
 
             val collapsedTitleMaxWidthPx =
-                (constraints.maxWidth - navigationIconOffset - actionsOffset) / fullyCollapsedTitleScale
+                (constraints.maxWidth - navigationIconOffset - horizontalPaddingPx) / fullyCollapsedTitleScale
 
             val collapsedTitlePlaceable =
                 measurables.firstOrNull { it.layoutId == CollapsedTitleId }
@@ -212,18 +222,20 @@ fun CollapseToolbar(
                 ((minCollapsedHeightPx - (navigationIconPlaceable?.height ?: 0)) / 2).roundToInt()
 
             // Current coordinates of actions
-            val actionsX = (constraints.maxWidth - (actionsPlaceable?.width
-                ?: 0) - horizontalPaddingPx).roundToInt()
-            val actionsY = ((minCollapsedHeightPx - (actionsPlaceable?.height ?: 0)) / 2).roundToInt()
+//            val actionsX = (constraints.maxWidth - /*(actionsPlaceable?.width
+//                ?: 0)*/ - horizontalPaddingPx).roundToInt()
+//            val actionsY = ((minCollapsedHeightPx/* - (actionsPlaceable?.height ?: 0)*/) / 2).roundToInt()
 
             // Current coordinates of title
             var collapsingTitleY = 0
             var collapsingTitleX = 0
+            val bodyTextHeight = bodyPlaceable?.height ?: 0
 
             if (expandedTitlePlaceable != null && collapsedTitlePlaceable != null) {
                 // Measuring toolbar collapsing distance
                 val heightOffsetLimitPx =
-                    imageMainPlaceable!!.height - collapsedTitlePlaceable.height - expandedTitleBottomPaddingPx
+                    //                    imageMainPlaceable!!.height - (minCollapsedHeightPx + collapsedTitlePlaceable.height + bodyTextHeight + bottomPaddingPx)
+                    imageMainPlaceable!!.height - minCollapsedHeightPx //- bottomPaddingPx
                 scrollBehavior.state.heightOffsetLimitPx = -heightOffsetLimitPx
 
                 // Toolbar height at fully expanded state
@@ -232,7 +244,7 @@ fun CollapseToolbar(
                 // Coordinates of fully expanded title
                 val fullyExpandedTitleX = horizontalPaddingPx
                 val fullyExpandedTitleY =
-                    fullyExpandedHeightPx - expandedTitlePlaceable.height - expandedTitleBottomPaddingPx
+                    fullyExpandedHeightPx - expandedTitlePlaceable.height - bodyTextHeight - bottomPaddingPx
 
                 // Coordinates of fully collapsed title
                 val fullyCollapsedTitleX = navigationIconOffset
@@ -262,14 +274,19 @@ fun CollapseToolbar(
                     y = navigationIconY
                 )
 
-                actionsPlaceable?.placeRelative(
-                    x = actionsX,
-                    y = actionsY
-                )
+//                actionsPlaceable?.placeRelative(
+//                    x = actionsX,
+//                    y = actionsY
+//                )
 
                 expandedTitlePlaceable?.placeRelativeWithLayer(
                     x = collapsingTitleX,
                     y = collapsingTitleY,
+                    layerBlock = { alpha = 1 - collapsedFraction }
+                )
+                bodyPlaceable?.placeRelativeWithLayer(
+                    x = collapsingTitleX,
+                    y = collapsingTitleY + (expandedTitlePlaceable?.height ?: 0),
                     layerBlock = { alpha = 1 - collapsedFraction }
                 )
                 collapsedTitlePlaceable?.placeRelativeWithLayer(
@@ -314,6 +331,7 @@ private val DefaultCollapsedElevation = 4.dp
 
 private const val ImageMainId = "ImageMainId"
 private const val ExpandedTitleId = "expandedTitle"
+private const val BodyId = "expandedBodyId"
 private const val CollapsedTitleId = "collapsedTitle"
 private const val NavigationIconId = "navigationIcon"
 private const val ActionsId = "actions"

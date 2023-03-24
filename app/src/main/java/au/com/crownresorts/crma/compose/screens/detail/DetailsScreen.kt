@@ -32,7 +32,8 @@ fun DetailsScreen(navController: NavHostController = rememberNavController()) {
             CollapseToolbar(
                 imageUrlMain = hit.value?.urlImage ?: "",
                 navigationCallback = { navController.popBackStack() },
-                actions = getActionsSlot(),
+//                actions = getActionsSlot(),
+                collapsingData = hit.value,
                 collapsingTitle = CollapsingTitle.large(hit.value?.title ?: ""),
                 scrollBehavior = scrollBehavior
             )
@@ -44,11 +45,11 @@ fun DetailsScreen(navController: NavHostController = rememberNavController()) {
     }
 }
 
-private fun getActionsSlot(): (@Composable RowScope.() -> Unit) {
-    return {
-
-    }
-}
+//private fun getActionsSlot(): (@Composable RowScope.() -> Unit) {
+//    return {
+//
+//    }
+//}
 
 private fun LazyListScope.scrollableItemsForSample() {
     for (i in 0..100) {
