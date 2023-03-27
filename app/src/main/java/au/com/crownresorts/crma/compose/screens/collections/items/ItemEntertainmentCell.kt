@@ -18,7 +18,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.db.HitModel
+import au.com.crownresorts.crma.compose.model.HitModel
 import au.com.crownresorts.crma.compose.screens.components.GradientBoxFull
 import au.com.crownresorts.crma.compose.screens.components.GradientHalf
 import au.com.crownresorts.crma.compose.theme.CrownTheme

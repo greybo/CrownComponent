@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.db
+package au.com.crownresorts.crma.compose.model
 
 data class HitModel(
     val hitId: Int, val urlImage: String, val title: String, val body: String, val category: String

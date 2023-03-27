@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import au.com.crownresorts.crma.compose.db.HitModel
+import au.com.crownresorts.crma.compose.model.HitModel
 import au.com.crownresorts.crma.compose.screens.components.GradientHalf
 import coil.compose.AsyncImage
 import kotlin.math.roundToInt
