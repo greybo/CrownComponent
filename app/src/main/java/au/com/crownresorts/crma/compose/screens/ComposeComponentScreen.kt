@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components
+package au.com.crownresorts.crma.compose.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -79,7 +79,9 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
                 ButtonSecondary("Secondary Disable", false)
                 Spacer(modifier = Modifier.padding(top = 8.dp))
             }
-
+            CardCrown {
+                TextWithIcon("Multi-Level & P4 \nParking")
+            }
         }
 
     }
