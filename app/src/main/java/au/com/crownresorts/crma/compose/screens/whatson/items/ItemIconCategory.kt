@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.CategoriesCell
 import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.theme.crownTypography

@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.components.TextCrown
+import au.com.crownresorts.crma.compose.components.TextCrown
 
 @Composable
 fun ItemColorComponent(list: List<ColorData>) {

@@ -30,31 +30,29 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import au.com.crownresorts.crma.compose.components.GradientHalf
 import au.com.crownresorts.crma.compose.model.HitModel
-import au.com.crownresorts.crma.compose.screens.components.GradientHalf
 import coil.compose.AsyncImage
 import kotlin.math.roundToInt
 
 @Composable
 fun CollapseToolbar(
     modifier: Modifier = Modifier,
-    imageUrlMain: String = "https://picsum.photos/200/200?image=41",
     navigationIcon: ImageVector? = Icons.Default.ArrowBack,
     navigationCallback: (() -> Unit)? = null,
     collapsingData: HitModel? = null,
-    collapsingTitle: CollapsingTitle? = null,
-    scrollBehavior: CustomToolbarScrollBehavior,/*? = null*/
+    scrollBehavior: CustomToolbarScrollBehavior,
     collapsedElevation: Dp = DefaultCollapsedElevation,
 ) {
     val collapsedFraction = scrollBehavior.state.collapsedFraction
 
-    val fullyCollapsedTitleScale = collapsingTitle?.let {
-        (CollapsedTitleLineHeight.value / it.expandedTextStyle.lineHeight.value)
-    } ?: 1f
+    val collapsingTitle = MaterialTheme.typography.headlineLarge
+
+    val fullyCollapsedTitleScale = CollapsedTitleLineHeight.value / collapsingTitle.lineHeight.value
 
     val collapsingTitleScale = lerp(1f, fullyCollapsedTitleScale, collapsedFraction)
 
-    val showElevation = (scrollBehavior.state.contentOffset <= 0 && collapsedFraction > 0.98f)
+    val showElevation = (scrollBehavior.state.contentOffset <= 0 && collapsedFraction > 0.99f)
 
     val elevationState = animateDpAsState(if (showElevation) collapsedElevation else 0.dp)
     val iconColorState = if (showElevation) Color.Black else Color.White
@@ -66,48 +64,48 @@ fun CollapseToolbar(
     ) {
         Layout(
             content = {
-                if (collapsingTitle != null) {
-                    val columnHeightDp = remember { mutableStateOf(0.dp) }
-                    val columnWidthDp = remember { mutableStateOf(0.dp) }
-                    Box(
-                        modifier = Modifier
-                            .layoutId(ImageMainId)
-                            .fillMaxWidth()
-                            .aspectRatio(1.2f)
-                            .onGloballyPositioned { coordinates ->
-                                // Set column height using the LayoutCoordinates
-                                with(localDensity) {
-                                    columnHeightDp.value = coordinates.size.height.toDp()
-                                    columnWidthDp.value = coordinates.size.width.toDp()
-                                }
-                            },
-                        contentAlignment = Alignment.BottomStart
-                    ) {
-                        AsyncImage(
-                            model = imageUrlMain,
-                            contentDescription = "",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                        GradientHalf(columnHeightDp.value, columnWidthDp.value)
-                    }
-                    //-----------------------------------------------------------
-
-                    Box(
-                        modifier = Modifier
-                            .layoutId(GradientTopId)
-                            .fillMaxWidth()
-                            .height(MinCollapsedHeight)
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        Color.Black.copy(alpha = 0.2f),
-                                        Color.Black.copy(alpha = 0.2f)
-                                    ),
-                                )
-                            )
+                val columnHeightDp = remember { mutableStateOf(0.dp) }
+                val columnWidthDp = remember { mutableStateOf(0.dp) }
+                Box(
+                    modifier = Modifier
+                        .layoutId(ImageMainId)
+                        .fillMaxWidth()
+                        .aspectRatio(1.2f)
+                        .onGloballyPositioned { coordinates ->
+                            with(localDensity) {
+                                columnHeightDp.value = coordinates.size.height.toDp()
+                                columnWidthDp.value = coordinates.size.width.toDp()
+                            }
+                        },
+                    contentAlignment = Alignment.BottomStart
+                ) {
+                    AsyncImage(
+                        model = collapsingData?.urlImage,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
                     )
-                    //-----------------------------------------------------------
+                    GradientHalf(columnHeightDp.value, columnWidthDp.value)
+                }
+                //-----------------------------------------------------------
+                // Toolbar blur component
+                Box(
+                    modifier = Modifier
+                        .layoutId(GradientTopId)
+                        .fillMaxWidth()
+                        .height(MinCollapsedHeight)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Black.copy(alpha = 0.2f),
+                                    Color.Black.copy(alpha = 0.2f)
+                                ),
+                            )
+                        )
+                )
+                //-----------------------------------------------------------
+                // Title text
+                if (collapsingData?.title != null) {
                     Text(
                         modifier = Modifier
                             .layoutId(ExpandedTitleId)
@@ -117,7 +115,7 @@ fun CollapseToolbar(
                                 scaleY = collapsingTitleScale,
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
-                        text = collapsingData?.title ?: "",
+                        text = collapsingData.title ,
                         style = MaterialTheme.typography.headlineMedium,
                         maxLines = 2,
                         color = Color.White,
@@ -132,14 +130,15 @@ fun CollapseToolbar(
                                 scaleY = collapsingTitleScale,
                                 transformOrigin = TransformOrigin(0f, 0f)
                             ),
-                        text = collapsingData?.title ?: "",
+                        text = collapsingData.title,
                         style = MaterialTheme.typography.headlineMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         color = iconColorState
                     )
                 }
-                BodyTextComponent(collapsingTitleScale, collapsingData)
+                //-----------------------------------------------------
+                TextBodyComponent(collapsingTitleScale, collapsingData)
 
                 if (navigationIcon != null) {
                     Box(
@@ -297,7 +296,7 @@ fun CollapseToolbar(
 }
 
 @Composable
-private fun BodyTextComponent(
+private fun TextBodyComponent(
     collapsingTitleScale: Float,
     collapsingData: HitModel?
 ) {

@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components
+package au.com.crownresorts.crma.compose.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.components
+package au.com.crownresorts.crma.compose.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -8,13 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
-
 @Composable
-fun TextHeadlineCrown(text: String? = "Title 1",modifier: Modifier = Modifier) {
+fun TextBodyCrown(text: String? = "Body 1", modifier: Modifier? = null) {
+    val _modifier = modifier ?: Modifier.padding(16.dp)
     Text(
         text = text ?: "",
-        modifier = modifier.padding(8.dp),
-        style = MaterialTheme.typography.headlineMedium,
+        modifier = _modifier,
+        style = MaterialTheme.typography.bodyLarge,
         color = CrownTheme.colors.textDefault
     )
 }

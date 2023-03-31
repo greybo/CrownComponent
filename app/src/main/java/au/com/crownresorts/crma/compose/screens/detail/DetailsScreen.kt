@@ -16,7 +16,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.toolbar.collapse.CollapseToolbar
-import au.com.crownresorts.crma.compose.toolbar.collapse.CollapsingTitle
 import au.com.crownresorts.crma.compose.toolbar.collapse.rememberToolbarScrollBehavior
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,11 +29,8 @@ fun DetailsScreen(navController: NavHostController = rememberNavController()) {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CollapseToolbar(
-                imageUrlMain = hit.value?.urlImage ?: "",
                 navigationCallback = { navController.popBackStack() },
-//                actions = getActionsSlot(),
                 collapsingData = hit.value,
-                collapsingTitle = CollapsingTitle.large(hit.value?.title ?: ""),
                 scrollBehavior = scrollBehavior
             )
         },

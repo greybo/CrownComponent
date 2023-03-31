@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import au.com.crownresorts.crma.compose.screens.components.TabLayoutComponent
+import au.com.crownresorts.crma.compose.components.TabLayoutComponent
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar

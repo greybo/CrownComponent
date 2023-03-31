@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
-import au.com.crownresorts.crma.compose.screens.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
 import au.com.crownresorts.crma.compose.theme.CrownTheme
