@@ -80,7 +80,7 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
                 Spacer(modifier = Modifier.padding(top = 8.dp))
             }
             CardCrown {
-                TextWithIcon("Multi-Level & P4 \nParking")
+                AvailableRewards("Multi-Level & P4 \nParking")
             }
         }
 
