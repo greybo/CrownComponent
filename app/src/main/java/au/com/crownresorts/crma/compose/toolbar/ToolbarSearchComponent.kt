@@ -1,5 +1,12 @@
 package au.com.crownresorts.crma.compose.toolbar
 
+import android.app.Activity
+import android.content.Intent
+import android.speech.RecognizerIntent
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -23,6 +30,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.theme.CrownTheme
+import java.util.*
 
 val heightAppBar = 56.dp
 
@@ -72,16 +80,25 @@ fun ExpandedSearchView(
     onSearchBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     val focusManager = LocalFocusManager.current
-
     val textFieldFocusRequester = remember { FocusRequester() }
-
-    SideEffect {
-        textFieldFocusRequester.requestFocus()
-    }
-
     var textFieldValue by remember {
         mutableStateOf(TextFieldValue(searchDisplay, TextRange(searchDisplay.length)))
+    }
+    val speechRecognizerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val results = result.data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (results?.isNotEmpty() == true) {
+                val spokenText = results[0]
+                textFieldValue = TextFieldValue(spokenText, TextRange(spokenText.length))
+            }
+        }
+    }
+    SideEffect {
+        textFieldFocusRequester.requestFocus()
     }
 
     fun onClear() {
@@ -108,7 +125,7 @@ fun ExpandedSearchView(
             )
         }
         TextField(
-            textStyle = MaterialTheme.typography.bodyLarge ,
+            textStyle = MaterialTheme.typography.bodyLarge,
             value = textFieldValue,
             onValueChange = {
                 textFieldValue = it
@@ -122,7 +139,7 @@ fun ExpandedSearchView(
                         tint = CrownTheme.colors.appBar.tint,
                         modifier = Modifier
                             .clickable {
-
+                               speechRecognition(speechRecognizerLauncher)
                             }
                     )
                     if (textFieldValue.text.isNotEmpty()) {
@@ -163,6 +180,18 @@ fun ExpandedSearchView(
             )
         )
     }
+}
+
+fun speechRecognition(speechRecognizerLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>) {
+    val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+        putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now")
+    }
+    speechRecognizerLauncher.launch(intent)
 }
 
 @Preview
