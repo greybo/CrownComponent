@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import au.com.crownresorts.crma.R
 import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.main.CategoriesCell
@@ -34,7 +35,7 @@ fun ItemCategorySearch(
     edgeDp: Dp = 16.dp,
     callback: (WhatsonRouterType) -> Unit
 ) {
-
+    val style = crownTypography.bodySmall
     val (expanded, onExpand) = remember { mutableStateOf(false) }
     val listHandled = remember { mutableStateOf(list) }
     val scope = rememberCoroutineScope()
@@ -102,7 +103,12 @@ fun ItemCategorySearch(
                         }
                 ) {
                     Icon(painter = painterResource(id = item.iconRes), contentDescription = "")
-                    TextCrown(text = item.title, style = crownTypography.bodySmall)
+                    TextCrown(
+                        text = item.title,
+                        style = style.copy(letterSpacing = (-0.05).em)
+                    ) {
+                        padding(all = 0.dp)
+                    }
                 }
             }
         }

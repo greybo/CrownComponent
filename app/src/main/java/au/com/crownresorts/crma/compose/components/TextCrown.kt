@@ -14,11 +14,11 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 fun TextCrown(
     text: String? = "Title 1",
     style: TextStyle = MaterialTheme.typography.headlineMedium,
-    modifier: Modifier = Modifier,
+    modifier: Modifier.() -> Modifier = { this },
 ) {
     Text(
         text = text ?: "",
-        modifier = modifier.padding(8.dp),
+        modifier = modifier(Modifier.padding(8.dp)),
         style = style,
         color = CrownTheme.colors.textDefault
     )

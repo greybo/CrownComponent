@@ -20,7 +20,7 @@ fun ItemMainComponent(item: MainComposeItems, callback: (MainComposeItems) -> Un
         TextCrown(
             text = item.rawValue,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp/*, bottom = 8.dp*/)
+            modifier = { padding(start = 16.dp, top = 8.dp, end = 16.dp/*, bottom = 8.dp*/) }
         )
 //        Text(
 //            text = item.rawValue,

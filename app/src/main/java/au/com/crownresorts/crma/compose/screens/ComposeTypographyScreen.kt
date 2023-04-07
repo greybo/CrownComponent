@@ -52,17 +52,14 @@ fun ComposeTypographyScreen(navController: NavHostController = rememberNavContro
                 TextCrown(
                     text = "Headline Large - Roboto 32/40 . 0",
                     style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Headline Medium - Roboto 28/36 . 0",
                     style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Headline Small - Roboto 24/32 . 0",
                     style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
             }
 
@@ -73,17 +70,14 @@ fun ComposeTypographyScreen(navController: NavHostController = rememberNavContro
                 TextCrown(
                     text = "Title Large - Roboto Medium 22/28 . 0 ",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Title Medium - Roboto Medium 16/24 . +0.15",
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Title Small - Roboto Medium 14/20 . +0.1",
                     style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
             }
 
@@ -94,17 +88,14 @@ fun ComposeTypographyScreen(navController: NavHostController = rememberNavContro
                 TextCrown(
                     text = "Label Large - Roboto Medium 14/20 . +0.1",
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Label Medium - Roboto Medium 12/16 . +0.5",
                     style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Label Small - Roboto Medium 11/16 . +0.5",
                     style = MaterialTheme.typography.labelSmall,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
             }
 
@@ -115,17 +106,14 @@ fun ComposeTypographyScreen(navController: NavHostController = rememberNavContro
                 TextCrown(
                     text = "Body Large - Roboto 16/24 . +0.5",
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Body Medium - Roboto 14/20 . +0.25",
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
                 TextCrown(
                     text = "Body Small - Roboto 12/16 . +0.4",
                     style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(all = 8.dp),
                 )
             }
         }
