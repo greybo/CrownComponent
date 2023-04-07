@@ -28,8 +28,8 @@ val heightAppBar = 56.dp
 @Composable
 fun ExpandableSearchView(
     searchDisplay: String,
-    onSearchDisplayChanged: (String) -> Unit,
-    onSearchDisplayClosed: () -> Unit,
+    onSearchTextChanged: (String) -> Unit,
+    onSearchBack: () -> Unit,
     modifier: Modifier = Modifier,
     expandedInitially: Boolean = false,
 ) {
@@ -41,8 +41,8 @@ fun ExpandableSearchView(
         when (isSearchFieldVisible) {
             true -> ExpandedSearchView(
                 searchDisplay = searchDisplay,
-                onSearchDisplayChanged = onSearchDisplayChanged,
-                onSearchDisplayClosed = onSearchDisplayClosed,
+                onSearchTextChanged = onSearchTextChanged,
+                onSearchBack = onSearchBack,
                 onExpandedChanged = onExpandedChanged,
                 modifier = modifier,
             )
@@ -87,8 +87,8 @@ fun CollapsedSearchView(
 @Composable
 fun ExpandedSearchView(
     searchDisplay: String,
-    onSearchDisplayChanged: (String) -> Unit,
-    onSearchDisplayClosed: () -> Unit,
+    onSearchTextChanged: (String) -> Unit,
+    onSearchBack: () -> Unit,
     onExpandedChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -113,7 +113,7 @@ fun ExpandedSearchView(
     ) {
         IconButton(onClick = {
             onExpandedChanged(false)
-            onSearchDisplayClosed()
+            onSearchBack()
         }) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
@@ -125,7 +125,7 @@ fun ExpandedSearchView(
             value = textFieldValue,
             onValueChange = {
                 textFieldValue = it
-                onSearchDisplayChanged(it.text)
+                onSearchTextChanged(it.text)
             },
             trailingIcon = {
                 Icon(
@@ -134,7 +134,7 @@ fun ExpandedSearchView(
                     tint = Color.Black,
                     modifier = Modifier.clickable {
                         onExpandedChanged(false)
-                        onSearchDisplayClosed()
+                        onSearchBack()
                     }
                 )
             },
@@ -173,8 +173,8 @@ fun CollapsedSearchViewPreview() {
     ) {
         ExpandableSearchView(
             searchDisplay = "",
-            onSearchDisplayChanged = {},
-            onSearchDisplayClosed = {}
+            onSearchTextChanged = {},
+            onSearchBack = {}
         )
     }
 }
@@ -187,9 +187,9 @@ fun ExpandedSearchViewPreview() {
     ) {
         ExpandableSearchView(
             searchDisplay = "",
-            onSearchDisplayChanged = {},
+            onSearchTextChanged = {},
             expandedInitially = true,
-            onSearchDisplayClosed = {}
+            onSearchBack = {}
         )
     }
 }

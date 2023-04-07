@@ -14,14 +14,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.whatson.CategoriesCell
-import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
 import au.com.crownresorts.crma.compose.theme.crownTypography
 
 
 @Composable
 fun ItemIconCategory(
     list: List<CategoriesCell>, edgeDp: Dp = 16.dp,
-    callback: (RouterWhatsonType) -> Unit
+    callback: (WhatsonRouterType) -> Unit
 ) {
 
     LazyRow(
@@ -50,7 +50,7 @@ fun ItemIconCategory(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        callback(RouterWhatsonType.CategoryGroup(item.title))
+                        callback(WhatsonRouterType.CategoryGroup(item.title))
                     }
 //                    .animateItemPlacement(
 //                        animationSpec = spring(

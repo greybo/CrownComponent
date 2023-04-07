@@ -4,19 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
 import au.com.crownresorts.crma.R
 import au.com.crownresorts.crma.compose.model.HitModel
 import au.com.crownresorts.crma.compose.model.fakeCellList
-import au.com.crownresorts.crma.compose.router.RouterScreenType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class WhatsonColumnViewModel : ViewModel() {
 
-    private var _property =  Properties.Melbourne
-    var navController: NavHostController? = null
+    private var _property = Properties.Melbourne
 
     private val _state = MutableLiveData<List<WhatsonSection>>()
     val state: LiveData<List<WhatsonSection>> = _state
@@ -34,15 +31,6 @@ class WhatsonColumnViewModel : ViewModel() {
 
     fun fetchData() {
         makeSection()
-    }
-
-    fun onClick(type: RouterWhatsonType) {
-        val link = when (type) {
-            is RouterWhatsonType.Details -> RouterScreenType.Details.name + "/${type.id}"
-            is RouterWhatsonType.SeeAll -> RouterScreenType.SeeAll.name + "/${type.category}"
-            is RouterWhatsonType.CategoryGroup -> RouterScreenType.SeeAll.name + "/${type.category}"
-        }
-        navController?.navigate(link)
     }
 
     private fun makeSection() {

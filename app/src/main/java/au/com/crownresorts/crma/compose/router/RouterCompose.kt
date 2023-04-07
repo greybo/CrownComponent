@@ -17,7 +17,8 @@ import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
 import au.com.crownresorts.crma.compose.screens.detail.DetailsScreen
 import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
 import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
-import au.com.crownresorts.crma.compose.screens.whatson.WhatsonMainScreen
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonMainScreen
+import au.com.crownresorts.crma.compose.screens.whatson.search.WhatsonSearchScreen
 
 @Preview
 @Composable
@@ -44,10 +45,13 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
         composable(RouterScreenType.Typography.name) { ComposeTypographyScreen(navController) }
         composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
         composable(RouterScreenType.Collections.name) { CardCollectionsComponent(/*navController*/) }
-        composable(RouterScreenType.Whatson.name) { WhatsonMainScreen(navController) }
+        composable(RouterScreenType.WhatsonSearch.name) { WhatsonSearchScreen(/*navController*/) }
+        composable(route = RouterScreenType.Whatson.name) { WhatsonMainScreen(navController) }
         composable(
             route = RouterScreenType.Details.name + "/{hitId}",
-        ) { DetailsScreen(navController) }
+        ) {
+            DetailsScreen(navController)
+        }
         composable(
             route = RouterScreenType.SeeAll.name + "/{category}",
             arguments = listOf(navArgument("category") {

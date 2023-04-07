@@ -10,10 +10,12 @@ import au.com.crownresorts.crma.compose.screens.whatson.items.ItemDividerCompone
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
 import au.com.crownresorts.crma.compose.screens.whatson.items.ItemSmallCellCollection
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
 
 @Composable
 fun WhatsonSectionAdapter(
-    viewModel: WhatsonColumnViewModel
+    viewModel: WhatsonColumnViewModel,
+    onNavigate: (WhatsonRouterType) -> Unit
 ) {
 
     val state = viewModel.state.observeAsState()
@@ -23,15 +25,15 @@ fun WhatsonSectionAdapter(
             when (item) {
                 is WhatsonSection.Categories -> ItemIconCategory(
                     list = item.list,
-                    callback = viewModel::onClick
+                    callback = onNavigate
                 )
                 is WhatsonSection.LargeCell -> ItemLargeCellCollection(
                     item,
-                    callback = viewModel::onClick
+                    callback = onNavigate
                 )
                 is WhatsonSection.SmallCell -> ItemSmallCellCollection(
                     item,
-                    callback = viewModel::onClick
+                    callback = onNavigate
                 )
                 is WhatsonSection.Divider -> ItemDividerComponent()
                 else -> TODO()

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
-import au.com.crownresorts.crma.compose.screens.whatson.RouterWhatsonType
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -25,7 +25,7 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 fun ItemLargeCellCollection(
     model: WhatsonSection.LargeCell,
     edgeDp: Dp = 16.dp,
-    callback: (RouterWhatsonType) -> Unit
+    callback: (WhatsonRouterType) -> Unit
 ) {
 
     val list = model.list
@@ -51,7 +51,7 @@ fun ItemLargeCellCollection(
                 color = CrownTheme.colors.goldDefault,
                 modifier = Modifier
                     .padding(top = 8.dp, bottom = 8.dp, start = 4.dp)
-                    .clickable { callback(RouterWhatsonType.SeeAll(model.category)) }
+                    .clickable { callback(WhatsonRouterType.SeeAll(model.category)) }
             )
         }
         LazyRow(
@@ -78,7 +78,7 @@ fun ItemLargeCellCollection(
                         )
                     )
                     .clickable {
-                        callback(RouterWhatsonType.Details(item.hitId))
+                        callback(WhatsonRouterType.Details(item.hitId))
                     }
 
 //                AnimatedVisibility(

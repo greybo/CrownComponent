@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.whatson
+package au.com.crownresorts.crma.compose.screens.whatson.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.components.TabLayoutComponent
+import au.com.crownresorts.crma.compose.router.RouterScreenType
+import au.com.crownresorts.crma.compose.screens.whatson.WhatsonColumnViewModel
+import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSectionAdapter
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
@@ -20,16 +23,26 @@ import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WhatsonMainScreen(navController: NavHostController = rememberNavController()) {
+fun WhatsonMainScreen(navController: NavHostController) {
     val viewModel: WhatsonColumnViewModel = viewModel()
 
-    viewModel.navController = navController
+    fun onNavigate(type: WhatsonRouterType) {
+        val link = when (type) {
+            is WhatsonRouterType.Details -> RouterScreenType.Details.name + "/${type.id}"
+            is WhatsonRouterType.SeeAll -> RouterScreenType.SeeAll.name + "/${type.category}"
+            is WhatsonRouterType.CategoryGroup -> RouterScreenType.SeeAll.name + "/${type.category}"
+            is WhatsonRouterType.Search -> RouterScreenType.WhatsonSearch.name
+        }
+        navController.navigate(link)
+    }
 
     Scaffold(
         topBar = {
             CrownToolbar(toolbarModelDefault() {
-                if (it == ActionButtonType.ArrowBack) {
-                    navController.popBackStack()
+                when (it) {
+                    ActionButtonType.ArrowBack -> navController.popBackStack()
+                    ActionButtonType.Search -> onNavigate(WhatsonRouterType.Search)
+                    else -> TODO()
                 }
             })
         }) {
@@ -40,7 +53,7 @@ fun WhatsonMainScreen(navController: NavHostController = rememberNavController()
                 .background(color = CrownTheme.colors.background)
         ) {
             TabLayoutComponent(viewModel::changeProperty)
-            WhatsonSectionAdapter(viewModel)
+            WhatsonSectionAdapter(viewModel, ::onNavigate)
         }
     }
 }
@@ -48,11 +61,12 @@ fun WhatsonMainScreen(navController: NavHostController = rememberNavController()
 @Preview
 @Composable
 fun PreviewWhatsonScreen() {
-    WhatsonMainScreen()
+    WhatsonMainScreen(rememberNavController())
 }
 
-sealed class RouterWhatsonType {
-    data class SeeAll(val category: String) : RouterWhatsonType()
-    data class Details(val id: Int) : RouterWhatsonType()
-    data class CategoryGroup(val category: String) : RouterWhatsonType()
+sealed class WhatsonRouterType {
+    data class SeeAll(val category: String) : WhatsonRouterType()
+    data class Details(val id: Int) : WhatsonRouterType()
+    data class CategoryGroup(val category: String) : WhatsonRouterType()
+    object Search : WhatsonRouterType()
 }
