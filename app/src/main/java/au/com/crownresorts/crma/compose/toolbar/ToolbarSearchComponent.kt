@@ -100,11 +100,13 @@ fun ExpandedSearchView(
     SideEffect {
         textFieldFocusRequester.requestFocus()
     }
-
+    LaunchedEffect(key1 = textFieldValue) {
+        onSearchTextChanged(textFieldValue.text)
+    }
     fun onClear() {
         textFieldValue = TextFieldValue("", TextRange(0))
-        onSearchTextChanged("")
     }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -127,10 +129,7 @@ fun ExpandedSearchView(
         TextField(
             textStyle = MaterialTheme.typography.bodyLarge,
             value = textFieldValue,
-            onValueChange = {
-                textFieldValue = it
-                onSearchTextChanged(it.text)
-            },
+            onValueChange = { textFieldValue = it },
             trailingIcon = {
                 Row {
                     Icon(
@@ -139,7 +138,7 @@ fun ExpandedSearchView(
                         tint = CrownTheme.colors.appBar.tint,
                         modifier = Modifier
                             .clickable {
-                               speechRecognition(speechRecognizerLauncher)
+                                speechRecognition(speechRecognizerLauncher)
                             }
                     )
                     if (textFieldValue.text.isNotEmpty()) {
@@ -149,9 +148,7 @@ fun ExpandedSearchView(
                             tint = CrownTheme.colors.appBar.tint,
                             modifier = Modifier
                                 .padding(start = 8.dp, end = 16.dp)
-                                .clickable {
-                                    onClear()
-                                }
+                                .clickable { onClear() }
                         )
                     }
                 }
