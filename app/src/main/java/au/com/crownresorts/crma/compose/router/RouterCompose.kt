@@ -45,7 +45,7 @@ fun RouterCompose(navController: NavHostController = rememberNavController()) {
         composable(RouterScreenType.Typography.name) { ComposeTypographyScreen(navController) }
         composable(RouterScreenType.Components.name) { ComposeComponentScreen(navController) }
         composable(RouterScreenType.Collections.name) { CardCollectionsComponent(/*navController*/) }
-        composable(RouterScreenType.WhatsonSearch.name) { WhatsonSearchScreen(/*navController*/) }
+        composable(RouterScreenType.WhatsonSearch.name) { WhatsonSearchScreen(navController) }
         composable(route = RouterScreenType.Whatson.name) { WhatsonMainScreen(navController) }
         composable(
             route = RouterScreenType.Details.name + "/{hitId}",

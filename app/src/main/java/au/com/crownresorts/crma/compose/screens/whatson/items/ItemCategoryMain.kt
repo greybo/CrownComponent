@@ -12,14 +12,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.R
 import au.com.crownresorts.crma.compose.components.TextCrown
-import au.com.crownresorts.crma.compose.screens.whatson.CategoriesCell
+import au.com.crownresorts.crma.compose.screens.whatson.main.CategoriesCell
 import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
 import au.com.crownresorts.crma.compose.theme.crownTypography
 
 
 @Composable
-fun ItemIconCategory(
+fun ItemCategoryMain(
     list: List<CategoriesCell>, edgeDp: Dp = 16.dp,
     callback: (WhatsonRouterType) -> Unit
 ) {
@@ -69,12 +70,12 @@ fun ItemIconCategory(
 
 @Preview
 @Composable
-fun PreviewItemIconCategory() {
-    ItemIconCategory(
+fun PreviewItemCategoryMain() {
+    ItemCategoryMain(
         list = listOf(
-            CategoriesCell("Category1", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
-            CategoriesCell("Category2", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
-            CategoriesCell("Category3", au.com.crownresorts.crma.R.drawable.ic_dining_transparent),
+            CategoriesCell("Category1", R.drawable.ic_dining_transparent),
+            CategoriesCell("Category2", R.drawable.ic_dining_transparent),
+            CategoriesCell("Category3", R.drawable.ic_dining_transparent),
         ),
         callback = {}
     )

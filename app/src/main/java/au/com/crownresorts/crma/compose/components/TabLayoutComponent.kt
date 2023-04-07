@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import au.com.crownresorts.crma.compose.screens.whatson.Properties
+import au.com.crownresorts.crma.compose.screens.whatson.main.Properties
 import au.com.crownresorts.crma.compose.theme.Black
 import au.com.crownresorts.crma.compose.theme.Grey
 import au.com.crownresorts.crma.compose.theme.White

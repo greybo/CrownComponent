@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 val heightAppBar = 56.dp
 
 @Composable
-fun ExpandableSearchView(
+fun ToolbarSearchComponent(
     searchDisplay: String,
     onSearchTextChanged: (String) -> Unit,
     onSearchBack: () -> Unit,
@@ -134,7 +134,6 @@ fun ExpandedSearchView(
                     tint = Color.Black,
                     modifier = Modifier.clickable {
                         onExpandedChanged(false)
-                        onSearchBack()
                     }
                 )
             },
@@ -171,7 +170,7 @@ fun CollapsedSearchViewPreview() {
     Surface(
         color = MaterialTheme.colorScheme.primary
     ) {
-        ExpandableSearchView(
+        ToolbarSearchComponent(
             searchDisplay = "",
             onSearchTextChanged = {},
             onSearchBack = {}
@@ -185,7 +184,7 @@ fun ExpandedSearchViewPreview() {
     Surface(
         color = MaterialTheme.colorScheme.primary
     ) {
-        ExpandableSearchView(
+        ToolbarSearchComponent(
             searchDisplay = "",
             onSearchTextChanged = {},
             expandedInitially = true,

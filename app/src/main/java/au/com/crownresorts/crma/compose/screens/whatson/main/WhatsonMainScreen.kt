@@ -4,9 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,7 +17,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.components.TabLayoutComponent
 import au.com.crownresorts.crma.compose.router.RouterScreenType
-import au.com.crownresorts.crma.compose.screens.whatson.WhatsonColumnViewModel
 import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSectionAdapter
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
@@ -24,7 +26,7 @@ import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WhatsonMainScreen(navController: NavHostController) {
-    val viewModel: WhatsonColumnViewModel = viewModel()
+    val viewModel: WhatsonMainViewModel = viewModel()
 
     fun onNavigate(type: WhatsonRouterType) {
         val link = when (type) {
@@ -48,19 +50,20 @@ fun WhatsonMainScreen(navController: NavHostController) {
         }) {
         Column(
             modifier = Modifier
+                .verticalScroll(state = rememberScrollState())
                 .padding(top = it.calculateTopPadding())
                 .fillMaxSize()
                 .background(color = CrownTheme.colors.background)
         ) {
             TabLayoutComponent(viewModel::changeProperty)
-            WhatsonSectionAdapter(viewModel, ::onNavigate)
+            WhatsonSectionAdapter(viewModel.state.observeAsState(), ::onNavigate)
         }
     }
 }
 
 @Preview
 @Composable
-fun PreviewWhatsonScreen() {
+fun PrevieWhatsonScreen() {
     WhatsonMainScreen(rememberNavController())
 }
 

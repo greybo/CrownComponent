@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.whatson
+package au.com.crownresorts.crma.compose.screens.whatson.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class WhatsonColumnViewModel : ViewModel() {
+class WhatsonMainViewModel : ViewModel() {
 
     private var _property = Properties.Melbourne
 
@@ -131,6 +131,9 @@ sealed class WhatsonSection(val id: Any) {
     data class SmallCell(val category: String, val list: List<HitModel>, val seeAll: Boolean) :
         WhatsonSection(Random.nextInt())
 
+    data class SearchCategories(val list: List<CategoriesCell>, val categoryName: String, val seeAll: Boolean) : WhatsonSection(Random.nextInt())
+    data class SearchResult(val category: String, val list: List<HitModel>, val seeAll: Boolean) :
+        WhatsonSection(Random.nextInt())
     class Divider : WhatsonSection(Random.nextInt())
 }
 

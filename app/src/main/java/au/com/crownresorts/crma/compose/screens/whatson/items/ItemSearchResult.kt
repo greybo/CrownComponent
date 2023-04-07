@@ -22,8 +22,8 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ItemSmallCellCollection(
-    model: WhatsonSection.SmallCell,
+fun ItemSearchResult(
+    model: WhatsonSection.SearchResult,
     edgeDp: Dp = 16.dp,
     callback: (WhatsonRouterType) -> Unit
 ) {

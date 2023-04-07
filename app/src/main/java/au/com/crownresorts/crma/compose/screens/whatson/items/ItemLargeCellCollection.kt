@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.components.TextCrown
 import au.com.crownresorts.crma.compose.screens.collections.items.ItemEntertainmentCell
-import au.com.crownresorts.crma.compose.screens.whatson.WhatsonSection
 import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonSection
 import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 @OptIn(ExperimentalFoundationApi::class)

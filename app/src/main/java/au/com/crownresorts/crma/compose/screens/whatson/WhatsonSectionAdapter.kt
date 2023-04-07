@@ -1,43 +1,49 @@
 package au.com.crownresorts.crma.compose.screens.whatson
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
-import au.com.crownresorts.crma.compose.screens.whatson.items.ItemDividerComponent
-import au.com.crownresorts.crma.compose.screens.whatson.items.ItemIconCategory
-import au.com.crownresorts.crma.compose.screens.whatson.items.ItemLargeCellCollection
-import au.com.crownresorts.crma.compose.screens.whatson.items.ItemSmallCellCollection
+import androidx.compose.runtime.State
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.screens.whatson.items.*
 import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonRouterType
+import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonSection
 
 @Composable
 fun WhatsonSectionAdapter(
-    viewModel: WhatsonColumnViewModel,
+    state: State<List<WhatsonSection>?>,
     onNavigate: (WhatsonRouterType) -> Unit
 ) {
+    val edgeDp: Dp = 16.dp
 
-    val state = viewModel.state.observeAsState()
-
-    Column(modifier = Modifier.verticalScroll(state = rememberScrollState())) {
-        state.value?.forEachIndexed { _, item ->
-            when (item) {
-                is WhatsonSection.Categories -> ItemIconCategory(
-                    list = item.list,
-                    callback = onNavigate
-                )
-                is WhatsonSection.LargeCell -> ItemLargeCellCollection(
-                    item,
-                    callback = onNavigate
-                )
-                is WhatsonSection.SmallCell -> ItemSmallCellCollection(
-                    item,
-                    callback = onNavigate
-                )
-                is WhatsonSection.Divider -> ItemDividerComponent()
-                else -> TODO()
-            }
+    state.value?.forEachIndexed { _, item ->
+        when (item) {
+            is WhatsonSection.Categories -> ItemCategoryMain(
+                list = item.list,
+                edgeDp = edgeDp,
+                callback = onNavigate
+            )
+            is WhatsonSection.LargeCell -> ItemLargeCellCollection(
+                item,
+                edgeDp = edgeDp,
+                callback = onNavigate
+            )
+            is WhatsonSection.SmallCell -> ItemSmallCellCollection(
+                item,
+                edgeDp = edgeDp,
+                callback = onNavigate
+            )
+            is WhatsonSection.Divider -> ItemDividerComponent()
+            is WhatsonSection.SearchCategories -> ItemCategorySearch(
+                list = item.list,
+                edgeDp = edgeDp,
+                callback = onNavigate
+            )
+            is WhatsonSection.SearchResult -> ItemSearchResult(
+                item,
+                edgeDp = edgeDp,
+                callback = onNavigate
+            )
+            else -> TODO()
         }
     }
 }
