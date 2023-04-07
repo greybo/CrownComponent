@@ -1,6 +1,5 @@
 package au.com.crownresorts.crma.compose.toolbar
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -8,7 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import au.com.crownresorts.crma.compose.theme.CrownTheme
 
 val heightAppBar = 56.dp
 
@@ -31,55 +32,35 @@ fun ToolbarSearchComponent(
     onSearchTextChanged: (String) -> Unit,
     onSearchBack: () -> Unit,
     modifier: Modifier = Modifier,
-    expandedInitially: Boolean = false,
-) {
-    val (expanded, onExpandedChanged) = remember {
-        mutableStateOf(expandedInitially)
-    }
-
-    Crossfade(targetState = expanded) { isSearchFieldVisible ->
-        when (isSearchFieldVisible) {
-            true -> ExpandedSearchView(
-                searchDisplay = searchDisplay,
-                onSearchTextChanged = onSearchTextChanged,
-                onSearchBack = onSearchBack,
-                onExpandedChanged = onExpandedChanged,
-                modifier = modifier,
-            )
-
-            false -> CollapsedSearchView(
-                onExpandedChanged = onExpandedChanged,
-                modifier = modifier,
-            )
-        }
-    }
-}
-
-@Composable
-fun CollapsedSearchView(
-    onExpandedChanged: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(heightAppBar),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    Surface(
+        shape = RectangleShape,
+        shadowElevation = 2.dp,
+        color = CrownTheme.colors.appBar.background
     ) {
-        Text(
-            text = "Tasks",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(start = 16.dp)
+        ExpandedSearchView(
+            searchDisplay = searchDisplay,
+            onSearchTextChanged = onSearchTextChanged,
+            onSearchBack = onSearchBack,
+            modifier = modifier,
         )
-        IconButton(onClick = { onExpandedChanged(true) }) {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = "search icon",
-                tint = Color.White
-            )
-        }
+//        Crossfade(targetState = expanded) { isSearchFieldVisible ->
+//            when (isSearchFieldVisible) {
+//                true -> ExpandedSearchView(
+//                    searchDisplay = searchDisplay,
+//                    onSearchTextChanged = onSearchTextChanged,
+//                    onSearchBack = onSearchBack,
+//                    onExpandedChanged = onExpandedChanged,
+//                    modifier = modifier,
+//                )
+//
+//                false -> CollapsedSearchView(
+//                    onExpandedChanged = onExpandedChanged,
+//                    modifier = modifier,
+//                )
+//            }
+//        }
     }
 }
 
@@ -89,7 +70,6 @@ fun ExpandedSearchView(
     searchDisplay: String,
     onSearchTextChanged: (String) -> Unit,
     onSearchBack: () -> Unit,
-    onExpandedChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusManager = LocalFocusManager.current
@@ -104,6 +84,10 @@ fun ExpandedSearchView(
         mutableStateOf(TextFieldValue(searchDisplay, TextRange(searchDisplay.length)))
     }
 
+    fun onClear() {
+        textFieldValue = TextFieldValue("", TextRange(0))
+        onSearchTextChanged("")
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -112,31 +96,57 @@ fun ExpandedSearchView(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = {
-            onExpandedChanged(false)
-            onSearchBack()
+            if (textFieldValue.text.isNotEmpty()) {
+                onClear()
+            } else
+                onSearchBack()
         }) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "back icon",
-                tint = Color.Black
+                tint = CrownTheme.colors.appBar.tint
             )
         }
         TextField(
+            textStyle = MaterialTheme.typography.bodyLarge ,
             value = textFieldValue,
             onValueChange = {
                 textFieldValue = it
                 onSearchTextChanged(it.text)
             },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = "search icon",
-                    tint = Color.Black,
-                    modifier = Modifier.clickable {
-                        onExpandedChanged(false)
+                Row {
+                    Icon(
+                        imageVector = Icons.Filled.Mic,
+                        contentDescription = "search icon",
+                        tint = CrownTheme.colors.appBar.tint,
+                        modifier = Modifier
+                            .clickable {
+
+                            }
+                    )
+                    if (textFieldValue.text.isNotEmpty()) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = "search icon",
+                            tint = CrownTheme.colors.appBar.tint,
+                            modifier = Modifier
+                                .padding(start = 8.dp, end = 16.dp)
+                                .clickable {
+                                    onClear()
+                                }
+                        )
                     }
-                )
+                }
             },
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = CrownTheme.colors.textDefault,
+                disabledTextColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                containerColor = Color.Transparent//CrownTheme.colors.background
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(textFieldFocusRequester),
@@ -155,40 +165,14 @@ fun ExpandedSearchView(
     }
 }
 
-//@Composable
-//fun SearchIcon(iconTint: Color) {
-//    Icon(
-//        imageVector = Icons.Filled.Search,
-//        contentDescription = "search icon",
-//        tint = iconTint
-//    )
-//}
-
-@Preview
-@Composable
-fun CollapsedSearchViewPreview() {
-    Surface(
-        color = MaterialTheme.colorScheme.primary
-    ) {
-        ToolbarSearchComponent(
-            searchDisplay = "",
-            onSearchTextChanged = {},
-            onSearchBack = {}
-        )
-    }
-}
-
 @Preview
 @Composable
 fun ExpandedSearchViewPreview() {
-    Surface(
-        color = MaterialTheme.colorScheme.primary
-    ) {
-        ToolbarSearchComponent(
-            searchDisplay = "",
-            onSearchTextChanged = {},
-            expandedInitially = true,
-            onSearchBack = {}
-        )
-    }
+
+    ToolbarSearchComponent(
+        searchDisplay = "test",
+        onSearchTextChanged = {},
+        onSearchBack = {}
+    )
+
 }

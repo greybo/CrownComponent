@@ -25,7 +25,6 @@ fun WhatsonSearchScreen(navController: NavHostController) {
             searchDisplay = "",
             onSearchTextChanged = {},
             onSearchBack = { navController.popBackStack() },
-            expandedInitially = false
         )
         WhatsonSectionAdapter(viewModel.state().observeAsState(), ::onNavigate)
 
