@@ -1,5 +1,8 @@
 package au.com.crownresorts.crma.compose.screens.whatson.items
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -24,7 +27,6 @@ import au.com.crownresorts.crma.compose.theme.CrownTheme
 import au.com.crownresorts.crma.compose.theme.crownTypography
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun ItemCategorySearch(
     list: List<CategoriesCell>,
@@ -37,6 +39,7 @@ fun ItemCategorySearch(
     val listHandled = remember { mutableStateOf(list) }
     val scope = rememberCoroutineScope()
     val spanCount = 4
+
     SideEffect {
         scope.launch {
             listHandled.value = if (expanded) {
@@ -48,53 +51,59 @@ fun ItemCategorySearch(
             }
         }
     }
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(spanCount),
-        state = rememberLazyGridState(),
-        contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+
+    AnimatedVisibility(
+        visible = listHandled.value.isNotEmpty(),
+        enter = slideInVertically(initialOffsetY = { -it }),
+        exit = slideOutVertically(targetOffsetY = { -it })
     ) {
-        item(
-            key = searchCategory,
-            span = { GridItemSpan(spanCount) }) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = searchCategory,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = CrownTheme.colors.textDefault,
-                )
-                Text(
-                    text = "See all",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = CrownTheme.colors.goldDefault,
-                    modifier = Modifier.clickable {
-                        onExpand(!expanded)
-                    }
-                )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(spanCount),
+            state = rememberLazyGridState(),
+            contentPadding = PaddingValues(start = edgeDp, end = edgeDp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            item(
+                key = searchCategory,
+                span = { GridItemSpan(spanCount) }) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = searchCategory,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = CrownTheme.colors.textDefault,
+                    )
+                    Text(
+                        text = if (expanded) "Collapse" else "See all",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = CrownTheme.colors.goldDefault,
+                        modifier = Modifier.clickable {
+                            onExpand(!expanded)
+                        }
+                    )
+                }
             }
-        }
-        items(
-            count = listHandled.value.size,
-            key = { listHandled.value.getOrNull(it)?.title ?: "0" },
-            span = { GridItemSpan(1) }
-        ) { index ->
-            val item = listHandled.value[index]
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-//                    .fillMaxWidth()
-                    .clickable {
-                        callback(WhatsonRouterType.CategoryGroup(item.title))
-                    }
-            ) {
-                Icon(painter = painterResource(id = item.iconRes), contentDescription = "")
-                TextCrown(text = item.title, style = crownTypography.bodySmall)
+            items(
+                count = listHandled.value.size,
+                key = { listHandled.value.getOrNull(it)?.title ?: "0" },
+                span = { GridItemSpan(1) }
+            ) { index ->
+                val item = listHandled.value[index]
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .clickable {
+                            callback(WhatsonRouterType.CategoryGroup(item.title))
+                        }
+                ) {
+                    Icon(painter = painterResource(id = item.iconRes), contentDescription = "")
+                    TextCrown(text = item.title, style = crownTypography.bodySmall)
+                }
             }
         }
     }

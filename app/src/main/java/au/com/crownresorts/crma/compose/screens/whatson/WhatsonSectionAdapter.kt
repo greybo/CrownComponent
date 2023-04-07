@@ -35,6 +35,7 @@ fun WhatsonSectionAdapter(
             is WhatsonSection.Divider -> ItemDividerComponent()
             is WhatsonSection.SearchCategories -> ItemCategorySearch(
                 list = item.list,
+                searchCategory = item.categoryName,
                 edgeDp = edgeDp,
                 callback = onNavigate
             )
