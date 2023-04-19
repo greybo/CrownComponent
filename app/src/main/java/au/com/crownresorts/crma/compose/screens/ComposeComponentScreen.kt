@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.crownresorts.crma.compose.components.*
 import au.com.crownresorts.crma.compose.theme.CrownTheme
+import au.com.crownresorts.crma.compose.timer.TimerComponent
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
 import au.com.crownresorts.crma.compose.toolbar.toolbarModelDefault
@@ -81,6 +82,11 @@ fun ComposeComponentScreen(navController: NavHostController = rememberNavControl
             }
             CardCrown {
                 AvailableRewards("Multi-Level & P4 \nParking")
+            }
+            CardCrown {
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                TimerComponent()
+                Spacer(modifier = Modifier.padding(top = 8.dp))
             }
         }
 

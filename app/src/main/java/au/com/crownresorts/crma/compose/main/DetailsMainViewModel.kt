@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.main
+package au.com.crownresorts.crma.compose.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

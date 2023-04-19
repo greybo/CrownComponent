@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.main.item
+package au.com.crownresorts.crma.compose.main.item
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.crownresorts.crma.compose.components.TextCrown
-import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
+import au.com.crownresorts.crma.compose.main.MainComposeItems
 
 @Composable
 fun ItemMainComponent(item: MainComposeItems, callback: (MainComposeItems) -> Unit) {

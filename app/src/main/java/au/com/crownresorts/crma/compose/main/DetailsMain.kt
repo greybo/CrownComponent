@@ -1,4 +1,4 @@
-package au.com.crownresorts.crma.compose.screens.main
+package au.com.crownresorts.crma.compose.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.crownresorts.crma.compose.ComposeExampleActivity
-import au.com.crownresorts.crma.compose.screens.main.item.ItemMainComponent
+import au.com.crownresorts.crma.compose.main.item.ItemMainComponent
 import au.com.crownresorts.crma.compose.toolbar.ActionButtonType
 import au.com.crownresorts.crma.compose.toolbar.CrownToolbar
 import au.com.crownresorts.crma.compose.toolbar.homeActionDefault

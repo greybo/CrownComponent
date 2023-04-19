@@ -10,13 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import au.com.crownresorts.crma.compose.main.ComposeDetailsMain
+import au.com.crownresorts.crma.compose.main.MainComposeItems
 import au.com.crownresorts.crma.compose.screens.ComposeComponentScreen
 import au.com.crownresorts.crma.compose.screens.ComposeTypographyScreen
 import au.com.crownresorts.crma.compose.screens.collections.CardCollectionsComponent
 import au.com.crownresorts.crma.compose.screens.color.ComposeColorScreen
 import au.com.crownresorts.crma.compose.screens.detail.DetailsScreen
-import au.com.crownresorts.crma.compose.screens.main.ComposeDetailsMain
-import au.com.crownresorts.crma.compose.screens.main.MainComposeItems
 import au.com.crownresorts.crma.compose.screens.whatson.main.WhatsonMainScreen
 import au.com.crownresorts.crma.compose.screens.whatson.search.WhatsonSearchScreen
 
